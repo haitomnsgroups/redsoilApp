@@ -20,12 +20,12 @@
          </font>
       </Label>
       <Label layoutX="29.0" layoutY="140.0" text="Version 1.0" textFill="#e4e4e4" />
-      <Label layoutX="29.0" layoutY="219.0" text="Connecting to database..." textFill="#e4e4e4" />
+      <Label fx:id="splashProgressLabel" layoutX="29.0" layoutY="219.0" text="Connecting to database..." textFill="#e4e4e4" />
       <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="23.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../com.haitomns.images/haitomnsLogoRed.png" />
          </image>
       </ImageView>
-      <ProgressBar fx:id="splashProgressBar" layoutX="29.0" layoutY="191.0" prefWidth="200.0" progress="0.5" />
+      <ProgressBar fx:id="splashProgressBar" layoutX="29.0" layoutY="191.0" prefWidth="200.0" />
    </children>
 </AnchorPane>
