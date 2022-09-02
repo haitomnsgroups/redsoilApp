@@ -1,14 +1,19 @@
 package com.haitomns.redsoil;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
+import javafx.fxml.Initializable;
+import javafx.scene.control.ProgressBar;
 
-public class redsoilMainController {
-    @FXML
-    private Label welcomeText;
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class redsoilMainController implements Initializable {
 
     @FXML
-    protected void onHelloButtonClick() {
-        welcomeText.setText("Welcome to JavaFX Application!");
+    private ProgressBar splashProgressBar;
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        splashProgressBar.setStyle("-fx-accent:  #C93F3E;");
     }
 }

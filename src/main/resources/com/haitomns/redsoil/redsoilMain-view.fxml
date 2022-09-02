@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="440.0" style="-fx-background-color: #C93F3E;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="440.0" style="-fx-background-color: #C93F3E;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.haitomns.redsoil.redsoilMainController">
    <children>
       <Label layoutX="29.0" layoutY="74.0" text="RedSoil" textFill="#e4e4e4">
          <font>
@@ -25,5 +26,6 @@
             <Image url="@../../../com.haitomns.images/haitomnsLogoRed.png" />
          </image>
       </ImageView>
+      <ProgressBar fx:id="splashProgressBar" layoutX="29.0" layoutY="191.0" prefWidth="200.0" progress="0.5" />
    </children>
 </AnchorPane>
