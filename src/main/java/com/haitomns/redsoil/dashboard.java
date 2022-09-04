@@ -16,7 +16,7 @@ public class dashboard extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(redsoilMain.class.getResource("dashboard-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 1366, 768);
+        Scene scene = new Scene(fxmlLoader.load(), 1266, 668);
         primaryStage.setTitle("Hello!");
         primaryStage.setScene(scene);
         primaryStage.show();
