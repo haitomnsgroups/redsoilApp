@@ -4,12 +4,14 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
 
 public class loginAndSignupController {
     @FXML
     private TextField usernameField;
     @FXML
     private PasswordField passwordField;
+
     public void loginButtonClicked(){
         String username = usernameField.getText();
         String password = passwordField.getText();
@@ -58,5 +60,4 @@ public class loginAndSignupController {
         alert.setContentText(content);
         alert.showAndWait();
     }
-
 }

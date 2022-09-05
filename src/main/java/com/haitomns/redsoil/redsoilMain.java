@@ -12,6 +12,10 @@ import javafx.util.Duration;
 import java.io.IOException;
 
 public class redsoilMain extends Application {
+    static boolean database_connection;
+    public static void main(String[] args) throws IOException {
+        launch();
+    }
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(redsoilMain.class.getResource("redsoilMain-view.fxml"));
@@ -26,29 +30,34 @@ public class redsoilMain extends Application {
         stage.setY((Screen.getPrimary().getVisualBounds().getHeight() - stage.getHeight()) / 2);
 
         //start the connection thread
-        connectionThread mainConneciton = new connectionThread();
-        mainConneciton.start();
+        connectionThread mainConnection = new connectionThread();
+        mainConnection.start();
 
         try {
-            mainConneciton.join();
-            //waiting for 5 secons before closing splash screen
+            mainConnection.join();
+
+            if(!database_connection){
+                redsoilMainController controller = fxmlLoader.getController();
+                controller.showDatabaseConnectivityAlert();
+                stage.close();
+            }
+
+            //waiting for 5 seconds before closing splash screen
             PauseTransition delay = new PauseTransition(Duration.seconds(5));
             delay.setOnFinished( event -> stage.close() );
             delay.play();
+
+            //TODO: Start the Login Screen
+
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-    }
-
-    public static void main(String[] args) throws IOException {
-        launch();
     }
 }
 
 class connectionThread extends Thread{
     @Override
     public void run() {
-        //connects to database
-        boolean database_connection = mysqlFunction.mysqlDatabaseConnection();
+        redsoilMain.database_connection = mysqlFunction.mysqlDatabaseConnection();
     }
 }

@@ -2,10 +2,9 @@ package com.haitomns.redsoil;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.SplitPane;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+
+import java.util.List;
 
 public class dashboardController {
     @FXML
@@ -13,7 +12,7 @@ public class dashboardController {
     @FXML
     private SplitPane userAccountSplitPane, bloodDonationSplitPane;
     @FXML
-    private Button userAccountButton, bloodDonationButton, dashboardButton, companyUpdateButton;
+    private Button userAccountButton, bloodDonationButton, dashboardButton;
     @FXML
     private TextField companyNameField, companyAddressField, companyPhoneField, companyUsernameField, companyPasswordField;
 
@@ -23,6 +22,7 @@ public class dashboardController {
             userAccountSplitPane.toFront();
             bloodDonationSplitPane.toBack();
             dashboardScrollPane.toBack();
+            showCompanyDetails();
         } else if (event.getSource() == bloodDonationButton) {
             userAccountSplitPane.toBack();
             bloodDonationSplitPane.toFront();
@@ -45,9 +45,34 @@ public class dashboardController {
         mysqlFunction.mysqlDatabaseConnection();
 
         if(mysqlFunction.companyUpdate(companyName, companyAddress, companyPhone, companyUsername, companyPassword)){
-            System.out.println("Company information updated successfully!");
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("RedSoil Dashboard");
+            alert.setContentText("Company Details Updated :)");
+            alert.showAndWait();
         }else{
-            System.out.println("Company information update failed!");
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("RedSoil Dashboard");
+            alert.setContentText("Company Details Update Failed :(");
+            alert.showAndWait();
+        }
+    }
+
+    private void showCompanyDetails(){
+        mysqlFunction.mysqlDatabaseConnection();
+        List<Object> companyDetails  = mysqlFunction.companyDetails();
+
+        if(companyDetails!=null) {
+            companyNameField.setText(companyDetails.get(0).toString());
+            companyAddressField.setText(companyDetails.get(1).toString());
+            companyPhoneField.setText(companyDetails.get(2).toString());
+            companyUsernameField.setText(companyDetails.get(3).toString());
+            companyPasswordField.setText(companyDetails.get(4).toString());
+        }
+        else{
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("RedSoil Dashboard");
+            alert.setContentText("Company Details Fetch Failed :(");
+            alert.showAndWait();
         }
     }
 }

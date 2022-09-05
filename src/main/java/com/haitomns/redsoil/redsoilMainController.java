@@ -24,8 +24,9 @@ public class redsoilMainController implements Initializable {
 
     public void showDatabaseConnectivityAlert(){
         Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Database Connection Error");
-        alert.setContentText("Could not connect to database.");
+        alert.setTitle("RedSoil");
+        alert.setHeaderText("RedSoil Error");
+        alert.setContentText("Database Connectivity Error :(");
         alert.showAndWait();
     }
 }

@@ -19,6 +19,8 @@ public class loginAndSignup extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(redsoilMain.class.getResource("loginAndSignup-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 640, 400);
         primaryStage.setScene(scene);
+        primaryStage.setTitle("RedSoil Login");
+        primaryStage.setResizable(false);
         primaryStage.show();
 
         //sets splash screen to center of screen
