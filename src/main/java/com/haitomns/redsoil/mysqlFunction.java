@@ -14,7 +14,7 @@ public class mysqlFunction {
 
             String db_url = "jdbc:mysql://localhost:3307/redsoilDB";
             String db_username = "root";
-            String db_password = "redSoil@122";
+            String db_password = "redSoil@1220";
 
             connect = DriverManager.getConnection(db_url, db_username, db_password);
             return true;
@@ -74,6 +74,23 @@ public class mysqlFunction {
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return null;
+        }
+    }
+
+    public static boolean bloodAddDonorAndBlood(String donorId, String  donorName, String  donorGender, String  donorAge, String  donorPhone, String donorDob, String donorOccupation, String donorAddress, String donorEmail, String diseaseList, String lastDonatedDate, String weight, String bp, String hb, String respSys,String cvs, String giSystem, String  other, String fit, String unit, String abo, String rh, String hiv, String  hcb, String hbsag, String  vdrl){
+        try {
+            stmt = connect.createStatement();
+            stmt.executeUpdate("INSERT INTO `redsoildb`.`blooddonationuserdata` (`ID`, `Doner_ID`, `Doner_Name`, `Date_Of_Birth`, `Age`, `Gender`, `Occupation`, `Address`, `Phone`, `Email`,`Date_Of_Creation`)VALUES(NULL, '" + donorId + "', '" + donorName + "', '" + donorDob + "', '" + donorAge + "', '" + donorGender + "', '" + donorOccupation + "', '" + donorAddress + "', '" + donorPhone + "', '" + donorEmail + "', CURRENT_TIMESTAMP);");
+            result = stmt.executeQuery("SELECT ID FROM blooddonationuserdata ORDER BY ID DESC LIMIT 1");
+            int donerID = 0;
+            while (result.next()) {
+                donerID = result.getInt("ID");
+            }
+            stmt.executeUpdate("INSERT INTO `redsoildb`.`blooddonationtestingdetails` (`ID`, `Doner_ID`, `Previously_Donated`, `Diseases`, `Weight`, `BP`, `HB`, `Resp_Sys`, `Cvs`, `Gi_System`, `Other`,`Fit`, `Unit`, `ABO`, `RH`, `HIV`, `HBsAg`, `HCV`, `VDRL`) VALUES(NULL, '" + donerID + "', '"+ lastDonatedDate +"', '" + diseaseList + "', '" + weight + "', '" + bp + "', '" + hb + "', '" + respSys + "', '" + cvs + "', '" + giSystem + "', '" + other + "', '" + fit + "', '" + unit + "', '" + abo + "', '" + rh + "', '" + hiv + "', '" + hbsag + "', '" + hcb + "', '" + vdrl + "');");
+            return true;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return false;
         }
     }
 }

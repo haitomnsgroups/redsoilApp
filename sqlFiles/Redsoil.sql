@@ -34,4 +34,67 @@ UPDATE login SET username = '" + companyUsername + "', password = '" + companyPa
 
 select Company_Name, Company from company;
 
-select username, password from login 
+select username, password from login; 
+
+create table bloodDonationUserData(
+	ID int unsigned NOT NULL auto_increment,
+    Doner_ID int unsigned NOT NULL,
+    Doner_Name varchar(50) NULL,
+    Date_Of_Birth date,
+    Age TINYINT unsigned,
+    Gender varchar(8),
+    Occupation varchar(100),
+    State varchar(20),
+    City varchar(80),
+    Phone varchar(10),
+    Email varchar(320),
+    Date_Of_Creation datetime default current_timestamp,
+    primary key(ID)
+    );
+    
+create table bloodDonationTestingDetails(
+	ID int unsigned NOT NULL auto_increment,
+    Doner_ID int unsigned NOT NULL,
+    Previously_Donated bool,
+    Diseases varchar(512),
+    Weight varchar(128),
+    BP varchar(128),
+    HB varchar(128),
+    Resp_Sys varchar(128),
+    Cvs varchar(128),
+    Gi_System varchar(128),
+    Other varchar(128),
+    Fit varchar(128),
+    Unit varchar(128),
+    ABO varchar(128),
+    RH varchar(128),
+    HIV varchar(128),
+    HBsAg varchar(128),
+    HCV varchar(128),
+    VDRL varchar(128),
+    primary key(ID),
+    FOREIGN KEY(Doner_ID) REFERENCES bloodDonationUserData(ID)
+);create table bloodDonationTestingDetails(
+	ID int unsigned NOT NULL auto_increment,
+    Doner_ID int unsigned NOT NULL,
+    Previously_Donated bool,
+    Diseases varchar(512),
+    Weight varchar(128),
+    BP varchar(128),
+    HB varchar(128),
+    Resp_Sys varchar(128),
+    Cvs varchar(128),
+    Gi_System varchar(128),
+    Other varchar(128),
+    Fit varchar(128),
+    Unit varchar(128),
+    ABO varchar(128),
+    RH varchar(128),
+    HIV varchar(128),
+    HBsAg varchar(128),
+    HCV varchar(128),
+    VDRL varchar(128),
+    primary key(ID),
+    FOREIGN KEY(Doner_ID) REFERENCES bloodDonationUserData(ID)
+);
+	
