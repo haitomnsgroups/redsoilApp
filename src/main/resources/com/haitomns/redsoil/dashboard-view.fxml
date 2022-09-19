@@ -722,7 +722,7 @@
                               <TableColumn fx:id="donorPhoneColumn" prefWidth="90.0" text="Phone" />
                               <TableColumn fx:id="aboColumn" prefWidth="42.0" text="ABO" />
                               <TableColumn fx:id="rhColumn" prefWidth="41.0" text="RH" />
-                              <TableColumn fx:id="creationDateColumn" prefWidth="100.0" text="Creation Date " />
+                              <TableColumn fx:id="creationDateColumn" prefWidth="120.0" text="Creation Date " />
                               <TableColumn fx:id="expiryDateColumn" prefWidth="100.0" text="Expiry Date" />
                               <TableColumn prefWidth="50.0" text="View" />
                               <TableColumn prefWidth="50.0" text="Edit" />

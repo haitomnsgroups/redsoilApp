@@ -348,6 +348,7 @@ public class dashboardController implements Initializable {
     public void initializeBloodFindTable(){
         mysqlFunction.mysqlDatabaseConnection();
         bloodDonorList = mysqlFunction.bloodDonationView();
+
         if(bloodDonorList!=null){
             donorIdColumn.setCellValueFactory(new PropertyValueFactory<>("donorId"));
             donorNameColumn.setCellValueFactory(new PropertyValueFactory<>("donorName"));
@@ -355,7 +356,7 @@ public class dashboardController implements Initializable {
             aboColumn.setCellValueFactory(new PropertyValueFactory<>("abo"));
             rhColumn.setCellValueFactory(new PropertyValueFactory<>("rh"));
             creationDateColumn.setCellValueFactory(new PropertyValueFactory<>("dateOfCreation"));
-            expiryDateColumn.setCellValueFactory(new PropertyValueFactory<>("dateOfExpiry"));
+            expiryDateColumn.setCellValueFactory(new PropertyValueFactory<>("bloodExpiryDate"));
 
             findBloodTable.setItems(bloodDonorList);
         }
