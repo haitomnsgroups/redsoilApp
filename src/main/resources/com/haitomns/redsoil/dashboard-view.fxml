@@ -53,7 +53,7 @@
                                 </ImageView>
                             </graphic>
                         </Button>
-                        <Button layoutX="1.0" layoutY="224.0" mnemonicParsing="false" onAction="#dashboardNavigation" prefHeight="45.0" prefWidth="200.0" style="-fx-background-color: #C93F3E; -fx-alignment: center-left;" text="Find Blood" textFill="WHITE">
+                        <Button fx:id="findBloodButton" layoutX="1.0" layoutY="224.0" mnemonicParsing="false" onAction="#dashboardNavigation" prefHeight="45.0" prefWidth="200.0" style="-fx-background-color: #C93F3E; -fx-alignment: center-left;" text="Find Blood" textFill="WHITE">
                             <font>
                                 <Font name="System Bold" size="18.0" />
                             </font>
@@ -97,255 +97,6 @@
     <center>
         <Pane>
             <children>
-                <ScrollPane fx:id="dashboardScrollPane" prefHeight="718.0" prefWidth="1166.0">
-                    <content>
-                        <AnchorPane prefHeight="718.0" prefWidth="1166.0">
-                            <children>
-                                <Pane prefHeight="718.0" prefWidth="1166.0" style="-fx-background-color: #bebebe;">
-                                    <Label layoutX="51.0" layoutY="35.0" text="Dashboard" textFill="#c93f3e">
-                                        <font>
-                                            <Font name="System Bold" size="24.0" />
-                                        </font>
-                                    </Label>
-                                    <Label layoutX="51.0" layoutY="77.0" text="Blood Details" textFill="#c93f3e">
-                                        <font>
-                                            <Font name="System Bold" size="18.0" />
-                                        </font>
-                                    </Label>
-                                    <Line endX="850.0" layoutX="152.0" layoutY="104.0" startX="-100.0" stroke="#c93f3e" />
-                                    <Pane layoutX="51.0" layoutY="122.0" prefHeight="105.0" prefWidth="185.0" style="-fx-background-color: #C93F3E; -fx-background-radius: 10;">
-                                        <Label layoutX="14.0" layoutY="6.0" text="A+" textFill="WHITE">
-                                            <font>
-                                                <Font name="System Bold" size="36.0" />
-                                            </font>
-                                        </Label>
-                                        <Label layoutX="93.0" layoutY="70.0" text="0 Pouches" textAlignment="RIGHT" textFill="WHITE">
-                                            <font>
-                                                <Font name="System Bold" size="18.0" />
-                                            </font>
-                                        </Label>
-                                    </Pane>
-                                    <Pane layoutX="258.0" layoutY="122.0" prefHeight="105.0" prefWidth="185.0" style="-fx-background-color: #C93F3E; -fx-background-radius: 10;">
-                                        <Label layoutX="14.0" layoutY="6.0" text="B+" textFill="WHITE">
-                                            <font>
-                                                <Font name="System Bold" size="36.0" />
-                                            </font>
-                                        </Label>
-                                        <Label layoutX="93.0" layoutY="70.0" text="0 Pouches" textAlignment="RIGHT" textFill="WHITE">
-                                            <font>
-                                                <Font name="System Bold" size="18.0" />
-                                            </font>
-                                        </Label>
-                                    </Pane>
-                                    <Pane layoutX="465.0" layoutY="122.0" prefHeight="105.0" prefWidth="185.0" style="-fx-background-color: #C93F3E; -fx-background-radius: 10;">
-                                        <children>
-                                            <Label layoutX="14.0" layoutY="6.0" text="AB+" textFill="WHITE">
-                                                <font>
-                                                    <Font name="System Bold" size="36.0" />
-                                                </font>
-                                            </Label>
-                                            <Label layoutX="93.0" layoutY="70.0" text="0 Pouches" textAlignment="RIGHT" textFill="WHITE">
-                                                <font>
-                                                    <Font name="System Bold" size="18.0" />
-                                                </font>
-                                            </Label>
-                                        </children>
-                                    </Pane>
-                                    <Pane layoutX="671.0" layoutY="122.0" prefHeight="105.0" prefWidth="185.0" style="-fx-background-color: #C93F3E; -fx-background-radius: 10;">
-                                        <children>
-                                            <Label layoutX="14.0" layoutY="6.0" text="O+" textFill="WHITE">
-                                                <font>
-                                                    <Font name="System Bold" size="36.0" />
-                                                </font>
-                                            </Label>
-                                            <Label layoutX="93.0" layoutY="70.0" text="0 Pouches" textAlignment="RIGHT" textFill="WHITE">
-                                                <font>
-                                                    <Font name="System Bold" size="18.0" />
-                                                </font>
-                                            </Label>
-                                        </children>
-                                    </Pane>
-                                    <Pane layoutX="51.0" layoutY="246.0" prefHeight="105.0" prefWidth="185.0" style="-fx-background-color: #C93F3E; -fx-background-radius: 10;">
-                                        <children>
-                                            <Label layoutX="14.0" layoutY="6.0" text="A-" textFill="WHITE">
-                                                <font>
-                                                    <Font name="System Bold" size="36.0" />
-                                                </font>
-                                            </Label>
-                                            <Label layoutX="93.0" layoutY="70.0" text="0 Pouches" textAlignment="RIGHT" textFill="WHITE">
-                                                <font>
-                                                    <Font name="System Bold" size="18.0" />
-                                                </font>
-                                            </Label>
-                                        </children>
-                                    </Pane>
-                                    <Pane layoutX="258.0" layoutY="246.0" prefHeight="105.0" prefWidth="185.0" style="-fx-background-color: #C93F3E; -fx-background-radius: 10;">
-                                        <children>
-                                            <Label layoutX="14.0" layoutY="6.0" text="B-" textFill="WHITE">
-                                                <font>
-                                                    <Font name="System Bold" size="36.0" />
-                                                </font>
-                                            </Label>
-                                            <Label layoutX="93.0" layoutY="70.0" text="0 Pouches" textAlignment="RIGHT" textFill="WHITE">
-                                                <font>
-                                                    <Font name="System Bold" size="18.0" />
-                                                </font>
-                                            </Label>
-                                        </children>
-                                    </Pane>
-                                    <Pane layoutX="465.0" layoutY="246.0" prefHeight="105.0" prefWidth="185.0" style="-fx-background-color: #C93F3E; -fx-background-radius: 10;">
-                                        <children>
-                                            <Label layoutX="14.0" layoutY="6.0" text="AB-" textFill="WHITE">
-                                                <font>
-                                                    <Font name="System Bold" size="36.0" />
-                                                </font>
-                                            </Label>
-                                            <Label layoutX="93.0" layoutY="70.0" text="0 Pouches" textAlignment="RIGHT" textFill="WHITE">
-                                                <font>
-                                                    <Font name="System Bold" size="18.0" />
-                                                </font>
-                                            </Label>
-                                        </children>
-                                    </Pane>
-                                    <Pane layoutX="671.0" layoutY="246.0" prefHeight="105.0" prefWidth="185.0" style="-fx-background-color: #C93F3E; -fx-background-radius: 10;">
-                                        <children>
-                                            <Label layoutX="14.0" layoutY="6.0" text="O-" textFill="WHITE">
-                                                <font>
-                                                    <Font name="System Bold" size="36.0" />
-                                                </font>
-                                            </Label>
-                                            <Label layoutX="93.0" layoutY="70.0" text="0 Pouches" textAlignment="RIGHT" textFill="WHITE">
-                                                <font>
-                                                    <Font name="System Bold" size="18.0" />
-                                                </font>
-                                            </Label>
-                                        </children>
-                                    </Pane>
-                                    <Label layoutX="51.0" layoutY="368.0" text="Donor Details" textFill="#1982c4">
-                                        <font>
-                                            <Font name="System Bold" size="18.0" />
-                                        </font>
-                                    </Label>
-                                    <Line endX="850.0" layoutX="152.0" layoutY="395.0" startX="-100.0" stroke="#1982c4" />
-                                    <Pane layoutX="51.0" layoutY="420.0" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #1982C4; -fx-background-radius: 10;">
-                                        <children>
-                                            <Label layoutX="14.0" layoutY="6.0" text="Total Donors" textFill="WHITE">
-                                                <font>
-                                                    <Font name="System Bold" size="24.0" />
-                                                </font>
-                                            </Label>
-                                            <Label layoutX="175.0" layoutY="59.0" text="0" textAlignment="RIGHT" textFill="WHITE">
-                                                <font>
-                                                    <Font name="System Bold" size="18.0" />
-                                                </font>
-                                            </Label>
-                                        </children>
-                                    </Pane>
-                                    <Pane layoutX="265.0" layoutY="420.0" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #1982C4; -fx-background-radius: 10;">
-                                        <children>
-                                            <Label layoutX="14.0" layoutY="6.0" text="Today's Donor" textFill="WHITE">
-                                                <font>
-                                                    <Font name="System Bold" size="24.0" />
-                                                </font>
-                                            </Label>
-                                            <Label layoutX="175.0" layoutY="59.0" text="0" textAlignment="RIGHT" textFill="WHITE">
-                                                <font>
-                                                    <Font name="System Bold" size="18.0" />
-                                                </font>
-                                            </Label>
-                                        </children>
-                                    </Pane>
-                                    <Pane layoutX="483.0" layoutY="420.0" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #1982C4; -fx-background-radius: 10;">
-                                        <children>
-                                            <Label layoutX="14.0" layoutY="6.0" text="Today's Donor" textFill="WHITE">
-                                                <font>
-                                                    <Font name="System Bold" size="24.0" />
-                                                </font>
-                                            </Label>
-                                            <Label layoutX="175.0" layoutY="59.0" text="0" textAlignment="RIGHT" textFill="WHITE">
-                                                <font>
-                                                    <Font name="System Bold" size="18.0" />
-                                                </font>
-                                            </Label>
-                                        </children>
-                                    </Pane>
-                                    <Pane layoutX="700.0" layoutY="420.0" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #1982C4; -fx-background-radius: 10;">
-                                        <children>
-                                            <Label layoutX="14.0" layoutY="6.0" text="Today's Donor" textFill="WHITE">
-                                                <font>
-                                                    <Font name="System Bold" size="24.0" />
-                                                </font>
-                                            </Label>
-                                            <Label layoutX="175.0" layoutY="59.0" text="0" textAlignment="RIGHT" textFill="WHITE">
-                                                <font>
-                                                    <Font name="System Bold" size="18.0" />
-                                                </font>
-                                            </Label>
-                                        </children>
-                                    </Pane>
-                                </Pane>
-                            </children>
-                        </AnchorPane>
-                    </content>
-                </ScrollPane>
-                <SplitPane fx:id="userAccountSplitPane" dividerPositions="0.5" prefHeight="718.0" prefWidth="1166.0">
-                    <items>
-                        <ScrollPane prefHeight="200.0" prefWidth="200.0">
-                            <content>
-                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="707.0" prefWidth="581.0">
-                                    <children>
-                                        <Label layoutX="14.0" layoutY="14.0" text="Company Details" textFill="#c93f3e">
-                                            <font>
-                                                <Font name="System Bold Italic" size="18.0" />
-                                            </font>
-                                        </Label>
-                                        <Line endX="300.0" layoutX="115.0" layoutY="41.0" startX="-100.0" stroke="#c93f3e" />
-                                        <Label layoutX="25.0" layoutY="85.0" text="Company Name" textFill="#c93f3e">
-                                            <font>
-                                                <Font size="13.0" />
-                                            </font>
-                                        </Label>
-                                        <TextField fx:id="companyNameField" layoutX="130.0" layoutY="70.0" prefHeight="35.0" prefWidth="280.0" style="-fx-border-color: #C93F3E; -fx-border-radius: 10;" />
-                                        <Label layoutX="19.0" layoutY="128.0" text="Company Address" textFill="#c93f3e">
-                                            <font>
-                                                <Font size="13.0" />
-                                            </font>
-                                        </Label>
-                                        <TextField fx:id="companyAddressField" layoutX="130.0" layoutY="120.0" prefHeight="35.0" prefWidth="280.0" style="-fx-border-color: #C93F3E; -fx-border-radius: 10;" />
-                                        <Label layoutX="59.0" layoutY="228.0" text="Username" textFill="#c93f3e">
-                                            <font>
-                                                <Font size="13.0" />
-                                            </font>
-                                        </Label>
-                                        <TextField fx:id="companyUsernameField" layoutX="130.0" layoutY="220.0" prefHeight="35.0" prefWidth="280.0" style="-fx-border-color: #C93F3E; -fx-border-radius: 10;" />
-                                        <Label layoutX="61.0" layoutY="278.0" text="Password" textFill="#c93f3e">
-                                            <font>
-                                                <Font size="13.0" />
-                                            </font>
-                                        </Label>
-                                        <PasswordField fx:id="companyPasswordField" layoutX="130.0" layoutY="270.0" prefHeight="35.0" prefWidth="280.0" style="-fx-border-color: #C93F3E; -fx-border-radius: 10;" />
-                                        <Button layoutX="343.0" layoutY="324.0" mnemonicParsing="false" onAction="#companyUpdateButtonAction" style="-fx-background-color: #C93F3E; -fx-background-radius: 10;" text="Update" textFill="WHITE">
-                                            <font>
-                                                <Font name="System Bold" size="14.0" />
-                                            </font>
-                                        </Button>
-                                        <Label layoutX="19.0" layoutY="178.0" text="Company Phone" textFill="#c93f3e">
-                                            <font>
-                                                <Font size="13.0" />
-                                            </font>
-                                        </Label>
-                                        <TextField fx:id="companyPhoneField" layoutX="130.0" layoutY="170.0" prefHeight="35.0" prefWidth="280.0" style="-fx-border-color: #C93F3E; -fx-border-radius: 10;" />
-                                    </children>
-                                </AnchorPane>
-                            </content>
-                        </ScrollPane>
-                        <ScrollPane prefHeight="200.0" prefWidth="200.0">
-                            <content>
-                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
-                            </content>
-                        </ScrollPane>
-                    </items>
-                </SplitPane>
                 <SplitPane fx:id="bloodDonationSplitPane" dividerPositions="0.5" prefHeight="718.0" prefWidth="1166.0">
                     <items>
                         <TabPane prefHeight="718.0" prefWidth="450.0" tabClosingPolicy="UNAVAILABLE">
@@ -769,6 +520,296 @@
                         </TabPane>
                     </items>
                 </SplitPane>
+                <SplitPane fx:id="userAccountSplitPane" dividerPositions="0.5" prefHeight="718.0" prefWidth="1166.0">
+                    <items>
+                        <ScrollPane prefHeight="200.0" prefWidth="200.0">
+                            <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="707.0" prefWidth="581.0">
+                                    <children>
+                                        <Label layoutX="14.0" layoutY="14.0" text="Company Details" textFill="#c93f3e">
+                                            <font>
+                                                <Font name="System Bold Italic" size="18.0" />
+                                            </font>
+                                        </Label>
+                                        <Line endX="300.0" layoutX="115.0" layoutY="41.0" startX="-100.0" stroke="#c93f3e" />
+                                        <Label layoutX="20.0" layoutY="78.0" text="Company Name" textFill="#c93f3e">
+                                            <font>
+                                                <Font size="13.0" />
+                                            </font>
+                                        </Label>
+                                        <TextField fx:id="companyNameField" layoutX="130.0" layoutY="70.0" prefHeight="35.0" prefWidth="280.0" style="-fx-border-color: #C93F3E; -fx-border-radius: 10;" />
+                                        <Label layoutX="19.0" layoutY="128.0" text="Company Address" textFill="#c93f3e">
+                                            <font>
+                                                <Font size="13.0" />
+                                            </font>
+                                        </Label>
+                                        <TextField fx:id="companyAddressField" layoutX="130.0" layoutY="120.0" prefHeight="35.0" prefWidth="280.0" style="-fx-border-color: #C93F3E; -fx-border-radius: 10;" />
+                                        <Label layoutX="59.0" layoutY="228.0" text="Username" textFill="#c93f3e">
+                                            <font>
+                                                <Font size="13.0" />
+                                            </font>
+                                        </Label>
+                                        <TextField fx:id="companyUsernameField" layoutX="130.0" layoutY="220.0" prefHeight="35.0" prefWidth="280.0" style="-fx-border-color: #C93F3E; -fx-border-radius: 10;" />
+                                        <Label layoutX="61.0" layoutY="278.0" text="Password" textFill="#c93f3e">
+                                            <font>
+                                                <Font size="13.0" />
+                                            </font>
+                                        </Label>
+                                        <PasswordField fx:id="companyPasswordField" layoutX="130.0" layoutY="270.0" prefHeight="35.0" prefWidth="280.0" style="-fx-border-color: #C93F3E; -fx-border-radius: 10;" />
+                                        <Button layoutX="343.0" layoutY="324.0" mnemonicParsing="false" onAction="#companyUpdateButtonAction" style="-fx-background-color: #C93F3E; -fx-background-radius: 10;" text="Update" textFill="WHITE">
+                                            <font>
+                                                <Font name="System Bold" size="14.0" />
+                                            </font>
+                                        </Button>
+                                        <Label layoutX="19.0" layoutY="178.0" text="Company Phone" textFill="#c93f3e">
+                                            <font>
+                                                <Font size="13.0" />
+                                            </font>
+                                        </Label>
+                                        <TextField fx:id="companyPhoneField" layoutX="130.0" layoutY="170.0" prefHeight="35.0" prefWidth="280.0" style="-fx-border-color: #C93F3E; -fx-border-radius: 10;" />
+                                    </children>
+                                </AnchorPane>
+                            </content>
+                        </ScrollPane>
+                        <ScrollPane prefHeight="200.0" prefWidth="200.0">
+                            <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
+                            </content>
+                        </ScrollPane>
+                    </items>
+                </SplitPane>
+                <ScrollPane fx:id="dashboardScrollPane" prefHeight="718.0" prefWidth="1166.0">
+                    <content>
+                        <AnchorPane prefHeight="718.0" prefWidth="1166.0">
+                            <children>
+                                <Pane prefHeight="718.0" prefWidth="1166.0" style="-fx-background-color: #bebebe;">
+                                    <Label layoutX="51.0" layoutY="35.0" text="Dashboard" textFill="#c93f3e">
+                                        <font>
+                                            <Font name="System Bold" size="24.0" />
+                                        </font>
+                                    </Label>
+                                    <Label layoutX="51.0" layoutY="77.0" text="Blood Details" textFill="#c93f3e">
+                                        <font>
+                                            <Font name="System Bold" size="18.0" />
+                                        </font>
+                                    </Label>
+                                    <Line endX="850.0" layoutX="152.0" layoutY="104.0" startX="-100.0" stroke="#c93f3e" />
+                                    <Pane layoutX="51.0" layoutY="122.0" prefHeight="105.0" prefWidth="185.0" style="-fx-background-color: #C93F3E; -fx-background-radius: 10;">
+                                        <Label layoutX="14.0" layoutY="6.0" text="A+" textFill="WHITE">
+                                            <font>
+                                                <Font name="System Bold" size="36.0" />
+                                            </font>
+                                        </Label>
+                                        <Label layoutX="93.0" layoutY="70.0" text="0 Pouches" textAlignment="RIGHT" textFill="WHITE">
+                                            <font>
+                                                <Font name="System Bold" size="18.0" />
+                                            </font>
+                                        </Label>
+                                    </Pane>
+                                    <Pane layoutX="258.0" layoutY="122.0" prefHeight="105.0" prefWidth="185.0" style="-fx-background-color: #C93F3E; -fx-background-radius: 10;">
+                                        <Label layoutX="14.0" layoutY="6.0" text="B+" textFill="WHITE">
+                                            <font>
+                                                <Font name="System Bold" size="36.0" />
+                                            </font>
+                                        </Label>
+                                        <Label layoutX="93.0" layoutY="70.0" text="0 Pouches" textAlignment="RIGHT" textFill="WHITE">
+                                            <font>
+                                                <Font name="System Bold" size="18.0" />
+                                            </font>
+                                        </Label>
+                                    </Pane>
+                                    <Pane layoutX="465.0" layoutY="122.0" prefHeight="105.0" prefWidth="185.0" style="-fx-background-color: #C93F3E; -fx-background-radius: 10;">
+                                        <children>
+                                            <Label layoutX="14.0" layoutY="6.0" text="AB+" textFill="WHITE">
+                                                <font>
+                                                    <Font name="System Bold" size="36.0" />
+                                                </font>
+                                            </Label>
+                                            <Label layoutX="93.0" layoutY="70.0" text="0 Pouches" textAlignment="RIGHT" textFill="WHITE">
+                                                <font>
+                                                    <Font name="System Bold" size="18.0" />
+                                                </font>
+                                            </Label>
+                                        </children>
+                                    </Pane>
+                                    <Pane layoutX="671.0" layoutY="122.0" prefHeight="105.0" prefWidth="185.0" style="-fx-background-color: #C93F3E; -fx-background-radius: 10;">
+                                        <children>
+                                            <Label layoutX="14.0" layoutY="6.0" text="O+" textFill="WHITE">
+                                                <font>
+                                                    <Font name="System Bold" size="36.0" />
+                                                </font>
+                                            </Label>
+                                            <Label layoutX="93.0" layoutY="70.0" text="0 Pouches" textAlignment="RIGHT" textFill="WHITE">
+                                                <font>
+                                                    <Font name="System Bold" size="18.0" />
+                                                </font>
+                                            </Label>
+                                        </children>
+                                    </Pane>
+                                    <Pane layoutX="51.0" layoutY="246.0" prefHeight="105.0" prefWidth="185.0" style="-fx-background-color: #C93F3E; -fx-background-radius: 10;">
+                                        <children>
+                                            <Label layoutX="14.0" layoutY="6.0" text="A-" textFill="WHITE">
+                                                <font>
+                                                    <Font name="System Bold" size="36.0" />
+                                                </font>
+                                            </Label>
+                                            <Label layoutX="93.0" layoutY="70.0" text="0 Pouches" textAlignment="RIGHT" textFill="WHITE">
+                                                <font>
+                                                    <Font name="System Bold" size="18.0" />
+                                                </font>
+                                            </Label>
+                                        </children>
+                                    </Pane>
+                                    <Pane layoutX="258.0" layoutY="246.0" prefHeight="105.0" prefWidth="185.0" style="-fx-background-color: #C93F3E; -fx-background-radius: 10;">
+                                        <children>
+                                            <Label layoutX="14.0" layoutY="6.0" text="B-" textFill="WHITE">
+                                                <font>
+                                                    <Font name="System Bold" size="36.0" />
+                                                </font>
+                                            </Label>
+                                            <Label layoutX="93.0" layoutY="70.0" text="0 Pouches" textAlignment="RIGHT" textFill="WHITE">
+                                                <font>
+                                                    <Font name="System Bold" size="18.0" />
+                                                </font>
+                                            </Label>
+                                        </children>
+                                    </Pane>
+                                    <Pane layoutX="465.0" layoutY="246.0" prefHeight="105.0" prefWidth="185.0" style="-fx-background-color: #C93F3E; -fx-background-radius: 10;">
+                                        <children>
+                                            <Label layoutX="14.0" layoutY="6.0" text="AB-" textFill="WHITE">
+                                                <font>
+                                                    <Font name="System Bold" size="36.0" />
+                                                </font>
+                                            </Label>
+                                            <Label layoutX="93.0" layoutY="70.0" text="0 Pouches" textAlignment="RIGHT" textFill="WHITE">
+                                                <font>
+                                                    <Font name="System Bold" size="18.0" />
+                                                </font>
+                                            </Label>
+                                        </children>
+                                    </Pane>
+                                    <Pane layoutX="671.0" layoutY="246.0" prefHeight="105.0" prefWidth="185.0" style="-fx-background-color: #C93F3E; -fx-background-radius: 10;">
+                                        <children>
+                                            <Label layoutX="14.0" layoutY="6.0" text="O-" textFill="WHITE">
+                                                <font>
+                                                    <Font name="System Bold" size="36.0" />
+                                                </font>
+                                            </Label>
+                                            <Label layoutX="93.0" layoutY="70.0" text="0 Pouches" textAlignment="RIGHT" textFill="WHITE">
+                                                <font>
+                                                    <Font name="System Bold" size="18.0" />
+                                                </font>
+                                            </Label>
+                                        </children>
+                                    </Pane>
+                                    <Label layoutX="51.0" layoutY="368.0" text="Donor Details" textFill="#1982c4">
+                                        <font>
+                                            <Font name="System Bold" size="18.0" />
+                                        </font>
+                                    </Label>
+                                    <Line endX="850.0" layoutX="152.0" layoutY="395.0" startX="-100.0" stroke="#1982c4" />
+                                    <Pane layoutX="51.0" layoutY="420.0" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #1982C4; -fx-background-radius: 10;">
+                                        <children>
+                                            <Label layoutX="14.0" layoutY="6.0" text="Total Donors" textFill="WHITE">
+                                                <font>
+                                                    <Font name="System Bold" size="24.0" />
+                                                </font>
+                                            </Label>
+                                            <Label layoutX="175.0" layoutY="59.0" text="0" textAlignment="RIGHT" textFill="WHITE">
+                                                <font>
+                                                    <Font name="System Bold" size="18.0" />
+                                                </font>
+                                            </Label>
+                                        </children>
+                                    </Pane>
+                                    <Pane layoutX="265.0" layoutY="420.0" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #1982C4; -fx-background-radius: 10;">
+                                        <children>
+                                            <Label layoutX="14.0" layoutY="6.0" text="Today's Donor" textFill="WHITE">
+                                                <font>
+                                                    <Font name="System Bold" size="24.0" />
+                                                </font>
+                                            </Label>
+                                            <Label layoutX="175.0" layoutY="59.0" text="0" textAlignment="RIGHT" textFill="WHITE">
+                                                <font>
+                                                    <Font name="System Bold" size="18.0" />
+                                                </font>
+                                            </Label>
+                                        </children>
+                                    </Pane>
+                                    <Pane layoutX="483.0" layoutY="420.0" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #1982C4; -fx-background-radius: 10;">
+                                        <children>
+                                            <Label layoutX="14.0" layoutY="6.0" text="Today's Donor" textFill="WHITE">
+                                                <font>
+                                                    <Font name="System Bold" size="24.0" />
+                                                </font>
+                                            </Label>
+                                            <Label layoutX="175.0" layoutY="59.0" text="0" textAlignment="RIGHT" textFill="WHITE">
+                                                <font>
+                                                    <Font name="System Bold" size="18.0" />
+                                                </font>
+                                            </Label>
+                                        </children>
+                                    </Pane>
+                                    <Pane layoutX="700.0" layoutY="420.0" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #1982C4; -fx-background-radius: 10;">
+                                        <children>
+                                            <Label layoutX="14.0" layoutY="6.0" text="Today's Donor" textFill="WHITE">
+                                                <font>
+                                                    <Font name="System Bold" size="24.0" />
+                                                </font>
+                                            </Label>
+                                            <Label layoutX="175.0" layoutY="59.0" text="0" textAlignment="RIGHT" textFill="WHITE">
+                                                <font>
+                                                    <Font name="System Bold" size="18.0" />
+                                                </font>
+                                            </Label>
+                                        </children>
+                                    </Pane>
+                                </Pane>
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </ScrollPane>
+            <ScrollPane fx:id="findBloodScrollPane" prefHeight="718.0" prefWidth="1166.0">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="718.0" prefWidth="1166.0">
+                     <children>
+                        <TableView fx:id="findBloodTable" layoutX="67.0" layoutY="187.0" prefHeight="200.0" prefWidth="1000.0">
+                          <columns>
+                            <TableColumn fx:id="donorIdColumn" prefWidth="63.0" text="Doner ID" />
+                            <TableColumn fx:id="donorNameColumn" prefWidth="157.0" text="Doner Name" />
+                              <TableColumn fx:id="donorGenderColumn" prefWidth="67.0" text="Gender" />
+                              <TableColumn fx:id="donorPhoneColumn" prefWidth="69.0" text="Phone" />
+                              <TableColumn fx:id="diseaseListColumn" prefWidth="214.0" text="Disease" />
+                              <TableColumn fx:id="aboColumn" prefWidth="42.0" text="ABO" />
+                              <TableColumn fx:id="rhColumn" prefWidth="41.0" text="RH" />
+                              <TableColumn fx:id="hivColumn" prefWidth="50.0" text="HIV" />
+                              <TableColumn fx:id="hbsagColumn" prefWidth="61.0" text="HBsAg" />
+                              <TableColumn fx:id="hcvColumn" prefWidth="60.0" text="HCV" />
+                              <TableColumn fx:id="vdrlColumn" prefWidth="54.0" text="VDRL" />
+                              <TableColumn fx:id="dateColumn" prefWidth="121.0" text="Date " />
+                          </columns>
+                        </TableView>
+                        <Line endX="900.0" layoutX="167.0" layoutY="101.0" startX="-100.0" stroke="#c93f3e" />
+                        <Label layoutX="66.0" layoutY="65.0" text="Find Blood" textFill="#c93f3e">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="67.0" layoutY="125.0" text="Donor ID" textFill="#c93f3e">
+                           <font>
+                              <Font size="13.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="donorIdField1" layoutX="137.0" layoutY="117.0" prefHeight="35.0" prefWidth="320.0" style="-fx-border-color: #C93F3E; -fx-border-radius: 10;" />
+                        <Button layoutX="474.0" layoutY="119.0" mnemonicParsing="false" style="-fx-background-color: #C93F3E; -fx-background-radius: 10;" text="Find" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </AnchorPane>
+              </content>
+            </ScrollPane>
             </children>
         </Pane>
     </center>

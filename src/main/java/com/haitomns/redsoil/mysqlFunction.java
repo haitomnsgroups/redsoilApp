@@ -1,5 +1,9 @@
 package com.haitomns.redsoil;
 
+import com.mysql.cj.protocol.x.SyncFlushDeflaterOutputStream;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import java.sql.*;
 import java.util.List;
 
@@ -91,6 +95,35 @@ public class mysqlFunction {
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return false;
+        }
+    }
+
+    public static ObservableList<bloodFindTableModel> bloodDonationView(){
+        ObservableList<bloodFindTableModel> bloodDonationList = FXCollections.observableArrayList();
+        try{
+            stmt = connect.createStatement();
+            result = stmt.executeQuery("SELECT blooddonationuserdata.Doner_ID, Doner_Name, Gender, Phone, Diseases, ABO, RH, HIV, HBsAg, HCV, VDRL, Date_Of_Creation FROM blooddonationuserdata inner JOIN blooddonationtestingdetails  ON blooddonationuserdata.ID = blooddonationtestingdetails.Doner_ID;");
+            while (result.next()) {
+                String donorId = result.getString("Doner_ID");
+                String donorName = result.getString("Doner_Name");
+                String donorGender = result.getString("Gender");
+                String donorPhone = result.getString("Phone");
+                String diseaseList = result.getString("Diseases");
+                String abo = result.getString("ABO");
+                String rh = result.getString("RH");
+                String hiv = result.getString("HIV");
+                String hbsag = result.getString("HBsAg");
+                String hcv = result.getString("HCV");
+                String vdrl = result.getString("VDRL");
+                String dateOfCreation = result.getString("Date_Of_Creation");
+
+                bloodDonationList.add(new bloodFindTableModel(donorId, donorName, donorGender, donorPhone, diseaseList, abo, rh, hiv, hbsag, hcv, vdrl, dateOfCreation));
+            }
+            return bloodDonationList;
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+            return null;
         }
     }
 }

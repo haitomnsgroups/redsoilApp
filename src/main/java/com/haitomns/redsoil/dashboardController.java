@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.net.URL;
 import java.time.LocalDate;
@@ -14,14 +15,13 @@ import java.util.ResourceBundle;
 
 public class dashboardController implements Initializable {
     boolean previousBloodDonatedStatus = false;
-
     String diseaseList = "";
     @FXML
-    private ScrollPane dashboardScrollPane;
+    private ScrollPane dashboardScrollPane, findBloodScrollPane;
     @FXML
     private SplitPane userAccountSplitPane, bloodDonationSplitPane;
     @FXML
-    private Button userAccountButton, bloodDonationButton, dashboardButton;
+    private Button userAccountButton, bloodDonationButton, dashboardButton, findBloodButton;
     @FXML
     private TextField companyNameField, companyAddressField, companyPhoneField, companyUsernameField, companyPasswordField;
     @FXML
@@ -39,20 +39,57 @@ public class dashboardController implements Initializable {
     @FXML
     private CheckBox bloodTestingEnableButton, malaria, leprosy, highBloodPressure, lotusPitta, diabetes, preSurgery, tuberculosis, pregnancy, drugAbuse, heartDisease, pneumonia, jaundice, kidneyDisease, aids, faintingSpells, cutaneousDisease, std, menstruation, foreignVisit, others;
     @FXML
+    private TableView<bloodFindTableModel> findBloodTable;
+    @FXML
+    private TableColumn<bloodFindTableModel, String> donorIdColumn;
+    @FXML
+    private TableColumn<bloodFindTableModel, String> donorNameColumn;
+    @FXML
+    private TableColumn<bloodFindTableModel, String> donorGenderColumn;
+    @FXML
+    private TableColumn<bloodFindTableModel, String> donorPhoneColumn;
+    @FXML
+    private TableColumn<bloodFindTableModel, String> diseaseListColumn;
+    @FXML
+    private TableColumn<bloodFindTableModel, String> aboColumn;
+    @FXML
+    private TableColumn<bloodFindTableModel, String> rhColumn;
+    @FXML
+    private TableColumn<bloodFindTableModel, String> hivColumn;
+    @FXML
+    private TableColumn<bloodFindTableModel, String> hcvColumn;
+    @FXML
+    private TableColumn<bloodFindTableModel, String> hbsagColumn;
+    @FXML
+    private TableColumn<bloodFindTableModel, String> vdrlColumn;
+    @FXML
+    private TableColumn<bloodFindTableModel, String> dateColumn;
+
+    ObservableList<bloodFindTableModel> bloodDonorList = FXCollections.observableArrayList();
+    @FXML
     private void dashboardNavigation(ActionEvent event) {
         if (event.getSource() == userAccountButton) {
             userAccountSplitPane.toFront();
             bloodDonationSplitPane.toBack();
             dashboardScrollPane.toBack();
+            findBloodScrollPane.toBack();
             showCompanyDetails();
         } else if (event.getSource() == bloodDonationButton) {
             userAccountSplitPane.toBack();
             bloodDonationSplitPane.toFront();
             dashboardScrollPane.toBack();
+            findBloodScrollPane.toBack();
         } else if (event.getSource() == dashboardButton) {
             userAccountSplitPane.toBack();
             bloodDonationSplitPane.toBack();
             dashboardScrollPane.toFront();
+            findBloodScrollPane.toBack();
+        } else if (event.getSource() == findBloodButton) {
+            userAccountSplitPane.toBack();
+            bloodDonationSplitPane.toBack();
+            dashboardScrollPane.toBack();
+            findBloodScrollPane.toFront();
+            initializeBloodFindTable();
         }
     }
 
@@ -313,6 +350,27 @@ public class dashboardController implements Initializable {
         }
         if(others.isSelected()){
             diseaseList = diseaseList + "Other, ";
+        }
+    }
+
+    public void initializeBloodFindTable(){
+        mysqlFunction.mysqlDatabaseConnection();
+        bloodDonorList = mysqlFunction.bloodDonationView();
+        if(bloodDonorList!=null){
+            donorIdColumn.setCellValueFactory(new PropertyValueFactory<>("donorId"));
+            donorNameColumn.setCellValueFactory(new PropertyValueFactory<>("donorName"));
+            donorGenderColumn.setCellValueFactory(new PropertyValueFactory<>("donorGender"));
+            donorPhoneColumn.setCellValueFactory(new PropertyValueFactory<>("donorPhone"));
+            diseaseListColumn.setCellValueFactory(new PropertyValueFactory<>("diseaseList"));
+            aboColumn.setCellValueFactory(new PropertyValueFactory<>("abo"));
+            rhColumn.setCellValueFactory(new PropertyValueFactory<>("rh"));
+            hivColumn.setCellValueFactory(new PropertyValueFactory<>("hiv"));
+            hbsagColumn.setCellValueFactory(new PropertyValueFactory<>("hbsag"));
+            hcvColumn.setCellValueFactory(new PropertyValueFactory<>("hcv"));
+            vdrlColumn.setCellValueFactory(new PropertyValueFactory<>("vdrl"));
+            dateColumn.setCellValueFactory(new PropertyValueFactory<>("dateOfCreation"));
+
+            findBloodTable.setItems(bloodDonorList);
         }
     }
 

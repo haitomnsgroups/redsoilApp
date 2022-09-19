@@ -38,45 +38,28 @@ select username, password from login;
 
 create table bloodDonationUserData(
 	ID int unsigned NOT NULL auto_increment,
-    Doner_ID int unsigned NOT NULL,
-    Doner_Name varchar(50) NULL,
+    Doner_ID varchar(100) NOT NULL,
+    Doner_Name varchar(50) NOT NULL,
     Date_Of_Birth date,
     Age TINYINT unsigned,
     Gender varchar(8),
     Occupation varchar(100),
-    State varchar(20),
-    City varchar(80),
+    Address varchar(128),
     Phone varchar(10),
     Email varchar(320),
     Date_Of_Creation datetime default current_timestamp,
     primary key(ID)
     );
-    
+
+insert into blooddonationuserdata (Doner_ID, Doner_Name, Date_Of_Birth, Age, Gender, Occupation, Address, Phone, Email)
+value (1, "Alok Gupta", "2022-4-6", 42, "male", "Nothing", "Knowhere", "9845011214", "email.com");
+
+drop table blooddonationtestingdetails;
+drop table blooddonationuserdata;
+
 create table bloodDonationTestingDetails(
 	ID int unsigned NOT NULL auto_increment,
-    Doner_ID int unsigned NOT NULL,
-    Previously_Donated bool,
-    Diseases varchar(512),
-    Weight varchar(128),
-    BP varchar(128),
-    HB varchar(128),
-    Resp_Sys varchar(128),
-    Cvs varchar(128),
-    Gi_System varchar(128),
-    Other varchar(128),
-    Fit varchar(128),
-    Unit varchar(128),
-    ABO varchar(128),
-    RH varchar(128),
-    HIV varchar(128),
-    HBsAg varchar(128),
-    HCV varchar(128),
-    VDRL varchar(128),
-    primary key(ID),
-    FOREIGN KEY(Doner_ID) REFERENCES bloodDonationUserData(ID)
-);create table bloodDonationTestingDetails(
-	ID int unsigned NOT NULL auto_increment,
-    Doner_ID int unsigned NOT NULL,
+    Donor_ID int unsigned NOT NULL,
     Previously_Donated bool,
     Diseases varchar(512),
     Weight varchar(128),
@@ -97,4 +80,10 @@ create table bloodDonationTestingDetails(
     primary key(ID),
     FOREIGN KEY(Doner_ID) REFERENCES bloodDonationUserData(ID)
 );
-	
+
+INSERT INTO `redsoildb`.`blooddonationtestingdetails`(`ID`, `Doner_ID`, `Previously_Donated`, `Diseases`, `Weight`, `BP`, `HB`, `Resp_Sys`, `Cvs`, `Gi_System`, `Other`, `Fit`, `Unit`, `ABO`, `RH`, `HIV`, `HBsAg`, `HCV`, `VDRL`)VALUES();
+
+
+SELECT blooddonationuserdata.Doner_ID, Doner_Name, Gender, Phone, Diseases, Weight, ABO, RH, HIV, HBsAg, HCV, VDRL, Date_Of_Creation 
+FROM blooddonationuserdata inner JOIN blooddonationtestingdetails  
+ON blooddonationuserdata.ID = blooddonationtestingdetails.Doner_ID;
