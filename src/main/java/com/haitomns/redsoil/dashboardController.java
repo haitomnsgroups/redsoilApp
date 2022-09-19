@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class dashboardController implements Initializable {
-    boolean previousBloodDonatedStatus = false;
+    String previousBloodDonatedStatus = "1";
     String diseaseList = "";
     @FXML
     private ScrollPane dashboardScrollPane, findBloodScrollPane;
@@ -25,19 +25,25 @@ public class dashboardController implements Initializable {
     @FXML
     private TextField companyNameField, companyAddressField, companyPhoneField, companyUsernameField, companyPasswordField;
     @FXML
-    private TextField donorIdField, donorNameField, donorAgeField, donorPhoneField, donorOccupationField, donorAddressField, donorEmailField;
+    private TextField donationOrganizationField, donorNameField, donorAgeField, donorPhoneField, donorOccupationField, donorAddressField, donorEmailField;
     @FXML
     private  ChoiceBox<String> donorGenderField = new ChoiceBox<>();
     @FXML
-    private DatePicker donorDobField, previouslyDonatedDate;
+    private DatePicker previouslyDonatedDate;
     @FXML
     private RadioButton donatedNoRadio, donatedYesRadio;
     @FXML
+    private TextField patientNameField, donorIdField;
+    @FXML
     private TextField weight, bp, hb, respSys, cvs, giSystem, other, fit, unit;
     @FXML
-    private TextField abo, rh, hiv, hbsag, hcv, vdrl;
+    private ChoiceBox<String> aboField, rhField = new ChoiceBox<>();
     @FXML
-    private CheckBox bloodTestingEnableButton, malaria, leprosy, highBloodPressure, lotusPitta, diabetes, preSurgery, tuberculosis, pregnancy, drugAbuse, heartDisease, pneumonia, jaundice, kidneyDisease, aids, faintingSpells, cutaneousDisease, std, menstruation, foreignVisit, others;
+    private TextField  hiv, hbsag, hcv, vdrl;
+    @FXML
+    private CheckBox  malaria, leprosy, highBloodPressure, lotusPitta, diabetes, preSurgery, tuberculosis, pregnancy, drugAbuse, heartDisease, pneumonia, jaundice, kidneyDisease, aids, faintingSpells, cutaneousDisease, std, menstruation, foreignVisit, others;
+    @FXML
+    private DatePicker bloodExpiryDateField;
     @FXML
     private TableView<bloodFindTableModel> findBloodTable;
     @FXML
@@ -45,25 +51,15 @@ public class dashboardController implements Initializable {
     @FXML
     private TableColumn<bloodFindTableModel, String> donorNameColumn;
     @FXML
-    private TableColumn<bloodFindTableModel, String> donorGenderColumn;
-    @FXML
     private TableColumn<bloodFindTableModel, String> donorPhoneColumn;
-    @FXML
-    private TableColumn<bloodFindTableModel, String> diseaseListColumn;
     @FXML
     private TableColumn<bloodFindTableModel, String> aboColumn;
     @FXML
     private TableColumn<bloodFindTableModel, String> rhColumn;
     @FXML
-    private TableColumn<bloodFindTableModel, String> hivColumn;
+    private TableColumn<bloodFindTableModel, String> creationDateColumn;
     @FXML
-    private TableColumn<bloodFindTableModel, String> hcvColumn;
-    @FXML
-    private TableColumn<bloodFindTableModel, String> hbsagColumn;
-    @FXML
-    private TableColumn<bloodFindTableModel, String> vdrlColumn;
-    @FXML
-    private TableColumn<bloodFindTableModel, String> dateColumn;
+    private TableColumn<bloodFindTableModel, String> expiryDateColumn;
 
     ObservableList<bloodFindTableModel> bloodDonorList = FXCollections.observableArrayList();
     @FXML
@@ -117,18 +113,29 @@ public class dashboardController implements Initializable {
 
     @FXML
     private void bloodDonationSubmitButtonAction(){
-        String donorId = donorIdField.getText();
+        String donationOrganization = donationOrganizationField.getText();
         String donorName = donorNameField.getText();
         String donorGender = donorGenderField.getValue();
         String donorAge = donorAgeField.getText();
         String donorPhone = donorPhoneField.getText();
-        String donorDob = getDOBValue();
         String donorOccupation = donorOccupationField.getText();
         String donorAddress = donorAddressField.getText();
         String donorEmail = donorEmailField.getText();
 
+        String patientName = patientNameField.getText();
+        String donorId = donorIdField.getText();
+
         getSelectedDisease();
-        String lastDonatedDate = getDateOfLastDonation();
+        if(diseaseList.isEmpty()){
+            diseaseList = "None";
+        }
+
+        String lastDonatedDate;
+        if(previousBloodDonatedStatus.equals("0")){
+            lastDonatedDate = getDateOfLastDonation();
+        }else {
+            lastDonatedDate = "None";
+        }
 
         String weight = this.weight.getText();
         String bp = this.bp.getText();
@@ -139,17 +146,19 @@ public class dashboardController implements Initializable {
         String other = this.other.getText();
         String fit = this.fit.getText();
         String unit = this.unit.getText();
-        String abo = this.abo.getText();
-        String rh = this.rh.getText();
+        String abo = this.aboField.getValue();
+        String rh = this.rhField.getValue();
         String hiv = this.hiv.getText();
         String hcb = this.hcv.getText();
         String hbsag = this.hbsag.getText();
         String vdrl = this.vdrl.getText();
 
+        String bloodExpiryDate = getDateOfBloodExpiry();
+
         mysqlFunction.mysqlDatabaseConnection();
 
-        if(validateDonorAndTesting(donorId, donorName, donorGender, donorAge, donorPhone, donorDob, donorEmail)) {
-            if (mysqlFunction.bloodAddDonorAndBlood(donorId, donorName, donorGender, donorAge, donorPhone, donorDob, donorOccupation, donorAddress, donorEmail, diseaseList, lastDonatedDate, weight, bp, hb, respSys, cvs, giSystem, other, fit, unit, abo, rh, hiv, hcb, hbsag, vdrl)) {
+        if(validateDonorAndTesting(donorId, donorName, donorGender, donorAge, donorPhone, donorEmail, patientName, abo, rh)) {
+            if (mysqlFunction.bloodAddDonorAndBlood(donationOrganization, donorName, donorGender, donorAge, donorPhone, donorOccupation, donorAddress, donorEmail, patientName, donorId, diseaseList, previousBloodDonatedStatus, lastDonatedDate, weight, bp, hb, respSys, cvs, giSystem, other, fit, unit, abo, rh, hiv, hcb, hbsag, vdrl, bloodExpiryDate)) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("RedSoil Dashboard");
                 alert.setContentText("Donor Details Inserted :)");
@@ -158,9 +167,7 @@ public class dashboardController implements Initializable {
                 showError("Error", "RedSoil Dashboard", "Donor Details Insertion Failed :(");
             }
         }
-
     }
-
 
     @FXML
     private void ageNumberInput(){
@@ -176,30 +183,10 @@ public class dashboardController implements Initializable {
     private void donatedPreviouslySelection(){
         if(donatedYesRadio.isSelected()){
             previouslyDonatedDate.setDisable(false);
-            previousBloodDonatedStatus = true;
+            previousBloodDonatedStatus = "0";
         } else if(donatedNoRadio.isSelected()){
             previouslyDonatedDate.setDisable(true);
-            previousBloodDonatedStatus = false;
-        }
-    }
-
-    @FXML
-    private void bloodTestingAction(){
-        if(bloodTestingEnableButton.isSelected()) {
-            abo.setDisable(false);
-            rh.setDisable(false);
-            hiv.setDisable(false);
-            hbsag.setDisable(false);
-            hcv.setDisable(false);
-            vdrl.setDisable(false);
-        }
-        else {
-            abo.setDisable(true);
-            rh.setDisable(true);
-            hiv.setDisable(true);
-            hbsag.setDisable(true);
-            hcv.setDisable(true);
-            vdrl.setDisable(true);
+            previousBloodDonatedStatus = "1";
         }
     }
 
@@ -237,8 +224,8 @@ public class dashboardController implements Initializable {
         }
     }
 
-    public static boolean validateDonorAndTesting(String donorId, String  donorName, String  donorGender, String  donorAge, String  donorPhone, String donorDob, String donorEmail){
-        if(donorId.isEmpty() || donorName.isEmpty() ||  donorPhone.isEmpty() || donorEmail.isEmpty() ){
+    public static boolean validateDonorAndTesting(String donorId, String  donorName, String  donorGender, String  donorAge, String  donorPhone, String donorEmail, String patientName, String abo, String rh){
+        if(donorId.isEmpty() || donorName.isEmpty() || patientName.isEmpty()){
             showError("Error", "RedSoil Dashboard", "All fields are required");
             return false;
         } else if (donorGender.equals("Select")) {
@@ -250,13 +237,13 @@ public class dashboardController implements Initializable {
         } else if(!donorEmail.contains("@") || !donorEmail.contains(".")){
             showError("Error", "RedSoil Dashboard", "Invalid Email Address");
             return false;
-        } else if (donorAge.isEmpty()) {
-            if(donorDob.isEmpty()){
-                showError("Error", "RedSoil Dashboard", "Donor Age or Date of Birth is required");
-                return false;
-            }
-            return true;
-        } else{
+        } else if (donorAge.isEmpty() || Integer.parseInt(donorAge) < 18 || Integer.parseInt(donorAge) > 55) {
+            showError("Error", "RedSoil Dashboard", "Donor Age is Not Valid");
+            return false;
+        } else if(abo.equals("Select") || rh.equals("Select")){
+            showError("Error", "RedSoil Dashboard", "Select ABO and RH");
+            return false;
+        } else {
             return true;
         }
     }
@@ -280,14 +267,19 @@ public class dashboardController implements Initializable {
         }
     }
 
-    public String getDOBValue(){
-        LocalDate date = donorDobField.getValue();
-        return date.toString();
+    public String getDateOfLastDonation(){
+        LocalDate lastDonationDate = previouslyDonatedDate.getValue();
+        if(lastDonationDate != null) {
+            return lastDonationDate.toString();
+        }
+        else{
+            return null;
+        }
     }
 
-    public String getDateOfLastDonation(){
-        LocalDate date = previouslyDonatedDate.getValue();
-        return date.toString();
+    public String getDateOfBloodExpiry(){
+        LocalDate bloodExpiry = bloodExpiryDateField.getValue();
+        return bloodExpiry.toString();
     }
 
     public void getSelectedDisease(){
@@ -359,16 +351,11 @@ public class dashboardController implements Initializable {
         if(bloodDonorList!=null){
             donorIdColumn.setCellValueFactory(new PropertyValueFactory<>("donorId"));
             donorNameColumn.setCellValueFactory(new PropertyValueFactory<>("donorName"));
-            donorGenderColumn.setCellValueFactory(new PropertyValueFactory<>("donorGender"));
             donorPhoneColumn.setCellValueFactory(new PropertyValueFactory<>("donorPhone"));
-            diseaseListColumn.setCellValueFactory(new PropertyValueFactory<>("diseaseList"));
             aboColumn.setCellValueFactory(new PropertyValueFactory<>("abo"));
             rhColumn.setCellValueFactory(new PropertyValueFactory<>("rh"));
-            hivColumn.setCellValueFactory(new PropertyValueFactory<>("hiv"));
-            hbsagColumn.setCellValueFactory(new PropertyValueFactory<>("hbsag"));
-            hcvColumn.setCellValueFactory(new PropertyValueFactory<>("hcv"));
-            vdrlColumn.setCellValueFactory(new PropertyValueFactory<>("vdrl"));
-            dateColumn.setCellValueFactory(new PropertyValueFactory<>("dateOfCreation"));
+            creationDateColumn.setCellValueFactory(new PropertyValueFactory<>("dateOfCreation"));
+            expiryDateColumn.setCellValueFactory(new PropertyValueFactory<>("dateOfExpiry"));
 
             findBloodTable.setItems(bloodDonorList);
         }
@@ -384,8 +371,16 @@ public class dashboardController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        ObservableList<String> genderChoiceBoxValues= FXCollections.observableArrayList("Select","Male","Female", "Other");
+        ObservableList<String> genderChoiceBoxValues = FXCollections.observableArrayList("Select","Male","Female", "Other");
         donorGenderField.setItems(genderChoiceBoxValues);
         donorGenderField.setValue("Select");
+
+        ObservableList<String> aboChoiceBoxValues = FXCollections.observableArrayList("Select","A","B","AB","O");
+        aboField.setItems(aboChoiceBoxValues);
+        aboField.setValue("Select");
+
+        ObservableList<String> rhChoiceBoxValues = FXCollections.observableArrayList("Select","+","-");
+        rhField.setItems(rhChoiceBoxValues);
+        rhField.setValue("Select");
     }
 }

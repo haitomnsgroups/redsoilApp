@@ -1,10 +1,12 @@
 package com.haitomns.redsoil;
 
-import com.mysql.cj.protocol.x.SyncFlushDeflaterOutputStream;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.List;
 
 public class mysqlFunction {
@@ -81,16 +83,16 @@ public class mysqlFunction {
         }
     }
 
-    public static boolean bloodAddDonorAndBlood(String donorId, String  donorName, String  donorGender, String  donorAge, String  donorPhone, String donorDob, String donorOccupation, String donorAddress, String donorEmail, String diseaseList, String lastDonatedDate, String weight, String bp, String hb, String respSys,String cvs, String giSystem, String  other, String fit, String unit, String abo, String rh, String hiv, String  hcb, String hbsag, String  vdrl){
+    public static boolean bloodAddDonorAndBlood(String donationOrganization,String donorName,String donorGender,String donorAge,String donorPhone,String donorOccupation,String donorAddress,String donorEmail,String patientName,String donorId,String diseaseList,String previousBloodDonatedStatus,String previouslyDonatedDate, String weight,String bp,String hb,String respSys,String cvs,String giSystem,String other,String fit,String unit,String abo,String rh,String hiv,String hcb,String hbsag,String vdrl,String bloodExpiryDate){
         try {
             stmt = connect.createStatement();
-            stmt.executeUpdate("INSERT INTO `redsoildb`.`blooddonationuserdata` (`ID`, `Doner_ID`, `Doner_Name`, `Date_Of_Birth`, `Age`, `Gender`, `Occupation`, `Address`, `Phone`, `Email`,`Date_Of_Creation`)VALUES(NULL, '" + donorId + "', '" + donorName + "', '" + donorDob + "', '" + donorAge + "', '" + donorGender + "', '" + donorOccupation + "', '" + donorAddress + "', '" + donorPhone + "', '" + donorEmail + "', CURRENT_TIMESTAMP);");
+            stmt.executeUpdate("INSERT INTO `redsoildb`.`blooddonationuserdata`(`ID`,`Blood_Donation_Orgnization`,`Donor_Name`,`Gender`,`Age`,`Occupation`,`Address`,`Phone`,`Email`,`Patient_Name`,`Donor_ID`,`Date_Of_Creation`)VALUES(Null,'" + donationOrganization + "','" + donorName + "','" + donorGender + "','" + donorAge + "','" + donorOccupation + "','" + donorAddress + "','" + donorPhone + "','" + donorEmail + "','" + patientName + "','" + donorId + "',CURRENT_TIMESTAMP);");
             result = stmt.executeQuery("SELECT ID FROM blooddonationuserdata ORDER BY ID DESC LIMIT 1");
-            int donerID = 0;
+            int donorID = 0;
             while (result.next()) {
-                donerID = result.getInt("ID");
+                donorID = result.getInt("ID");
             }
-            stmt.executeUpdate("INSERT INTO `redsoildb`.`blooddonationtestingdetails` (`ID`, `Doner_ID`, `Previously_Donated`, `Diseases`, `Weight`, `BP`, `HB`, `Resp_Sys`, `Cvs`, `Gi_System`, `Other`,`Fit`, `Unit`, `ABO`, `RH`, `HIV`, `HBsAg`, `HCV`, `VDRL`) VALUES(NULL, '" + donerID + "', '"+ lastDonatedDate +"', '" + diseaseList + "', '" + weight + "', '" + bp + "', '" + hb + "', '" + respSys + "', '" + cvs + "', '" + giSystem + "', '" + other + "', '" + fit + "', '" + unit + "', '" + abo + "', '" + rh + "', '" + hiv + "', '" + hbsag + "', '" + hcb + "', '" + vdrl + "');");
+            stmt.executeUpdate("INSERT INTO `redsoildb`.`blooddonationtestingdetails`(`ID`,`Donor_ID`,`Previously_Donated`,`Previously_Donated_Date`,`Diseases`,`Weight`,`BP`,`HB`,`Resp_Sys`,`Cvs`,`Gi_System`,`Other`,`Fit`,`Unit`,`ABO`,`RH`,`HIV`,`HBsAg`,`HCV`,`VDRL`,`Expiry_date`)VALUES(Null,'" + donorID + "','" + previousBloodDonatedStatus + "','" + previouslyDonatedDate + "','" + diseaseList + "','" + weight + "','" + bp + "','" + hb + "','" + respSys + "','" + cvs + "','" + giSystem + "','" + other + "','" + fit + "','" + unit + "','" + abo + "','" + rh + "','" + hiv + "','" + hbsag + "','" + hcb + "','" + vdrl + "','" + bloodExpiryDate + "');");
             return true;
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -102,22 +104,17 @@ public class mysqlFunction {
         ObservableList<bloodFindTableModel> bloodDonationList = FXCollections.observableArrayList();
         try{
             stmt = connect.createStatement();
-            result = stmt.executeQuery("SELECT blooddonationuserdata.Doner_ID, Doner_Name, Gender, Phone, Diseases, ABO, RH, HIV, HBsAg, HCV, VDRL, Date_Of_Creation FROM blooddonationuserdata inner JOIN blooddonationtestingdetails  ON blooddonationuserdata.ID = blooddonationtestingdetails.Doner_ID;");
+            result = stmt.executeQuery("SELECT blooddonationuserdata.Donor_ID, Donor_Name, Phone, ABO, RH, Unit, Date_Of_Creation, Expiry_date FROM blooddonationuserdata inner JOIN blooddonationtestingdetails  ON blooddonationuserdata.ID = blooddonationtestingdetails.Donor_ID;");
             while (result.next()) {
-                String donorId = result.getString("Doner_ID");
-                String donorName = result.getString("Doner_Name");
-                String donorGender = result.getString("Gender");
+                String donorId = result.getString("Donor_ID");
+                String donorName = result.getString("Donor_Name");
                 String donorPhone = result.getString("Phone");
-                String diseaseList = result.getString("Diseases");
                 String abo = result.getString("ABO");
                 String rh = result.getString("RH");
-                String hiv = result.getString("HIV");
-                String hbsag = result.getString("HBsAg");
-                String hcv = result.getString("HCV");
-                String vdrl = result.getString("VDRL");
                 String dateOfCreation = result.getString("Date_Of_Creation");
+                String bloodExpiryDate = result.getString("Expiry_date");
 
-                bloodDonationList.add(new bloodFindTableModel(donorId, donorName, donorGender, donorPhone, diseaseList, abo, rh, hiv, hbsag, hcv, vdrl, dateOfCreation));
+                bloodDonationList.add(new bloodFindTableModel(donorId, donorName, donorPhone, abo, rh, dateOfCreation, bloodExpiryDate));
             }
             return bloodDonationList;
         }

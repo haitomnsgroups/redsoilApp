@@ -9,11 +9,7 @@ create table login (
     FOREIGN KEY(company_id) REFERENCES company(id)
     );
     
-INSERT INTO login (id, company_id, username, password) VALUES(null, 1,'haitomns', '123');
-
-SELECT username, password from login where username like 'haitomns' and password like '123';
-
-update login set password = "12345" where id = 1;
+INSERT INTO login (id, company_id, username, password) VALUES(null, 1,'haitomns', '12345');
 
 create table company(
 	ID int NOT NULL auto_increment,
@@ -23,44 +19,32 @@ create table company(
     primary key(id)
     );
     
-SELECT * FROM company;
-
 insert into company(id, Company_Name, Company_Address, Company_Phone) 
 values(null, "Haitomns Blood Bank", "Knowhere", "9800000000");
 
-UPDATE company SET Company_Name = '"+ companyName + "', Company_Address = '" + companyAddress + "', Company_Phone = '" + companyPhone + "' WHERE ID = 1;
- 
-UPDATE login SET username = '" + companyUsername + "', password = '" + companyPassword + "' WHERE ID = 1;
-
-select Company_Name, Company from company;
-
-select username, password from login; 
-
 create table bloodDonationUserData(
 	ID int unsigned NOT NULL auto_increment,
-    Doner_ID varchar(100) NOT NULL,
-    Doner_Name varchar(50) NOT NULL,
-    Date_Of_Birth date,
-    Age TINYINT unsigned,
+    Blood_Donation_Orgnization varchar(200),
+    Donor_Name varchar(50) NOT NULL,
     Gender varchar(8),
+    Age TINYINT unsigned,
     Occupation varchar(100),
     Address varchar(128),
     Phone varchar(10),
     Email varchar(320),
+    Patient_Name varchar(50) NOT NULL,
+    Donor_ID varchar(100) NOT NULL,
     Date_Of_Creation datetime default current_timestamp,
     primary key(ID)
     );
 
-insert into blooddonationuserdata (Doner_ID, Doner_Name, Date_Of_Birth, Age, Gender, Occupation, Address, Phone, Email)
-value (1, "Alok Gupta", "2022-4-6", 42, "male", "Nothing", "Knowhere", "9845011214", "email.com");
-
-drop table blooddonationtestingdetails;
-drop table blooddonationuserdata;
+INSERT INTO `redsoildb`.`blooddonationuserdata`(`ID`,`Blood_Donation_Orgnization`,`Donor_Name`,`Gender`,`Age`,`Occupation`,`Address`,`Phone`,`Email`,`Patient_Name`,`Donor_ID`,`Date_Of_Creation`)VALUES();
 
 create table bloodDonationTestingDetails(
 	ID int unsigned NOT NULL auto_increment,
     Donor_ID int unsigned NOT NULL,
     Previously_Donated bool,
+    Previously_Donated_Date date,
     Diseases varchar(512),
     Weight varchar(128),
     BP varchar(128),
@@ -77,13 +61,22 @@ create table bloodDonationTestingDetails(
     HBsAg varchar(128),
     HCV varchar(128),
     VDRL varchar(128),
+    Expiry_date date,
     primary key(ID),
-    FOREIGN KEY(Doner_ID) REFERENCES bloodDonationUserData(ID)
+    FOREIGN KEY(Donor_ID) REFERENCES bloodDonationUserData(ID)
 );
 
-INSERT INTO `redsoildb`.`blooddonationtestingdetails`(`ID`, `Doner_ID`, `Previously_Donated`, `Diseases`, `Weight`, `BP`, `HB`, `Resp_Sys`, `Cvs`, `Gi_System`, `Other`, `Fit`, `Unit`, `ABO`, `RH`, `HIV`, `HBsAg`, `HCV`, `VDRL`)VALUES();
-
-
-SELECT blooddonationuserdata.Doner_ID, Doner_Name, Gender, Phone, Diseases, Weight, ABO, RH, HIV, HBsAg, HCV, VDRL, Date_Of_Creation 
+SELECT blooddonationuserdata.Donor_ID, Donor_Name, Phone, ABO, RH, Unit, Date_Of_Creation, Expiry_date 
 FROM blooddonationuserdata inner JOIN blooddonationtestingdetails  
-ON blooddonationuserdata.ID = blooddonationtestingdetails.Doner_ID;
+ON blooddonationuserdata.ID = blooddonationtestingdetails.Donor_ID;
+
+drop table blooddonationtestingdetails;
+drop table blooddonationuserdata;
+
+
+
+
+
+
+
+
