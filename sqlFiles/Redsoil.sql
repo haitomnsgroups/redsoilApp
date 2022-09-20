@@ -91,8 +91,9 @@ union all
 select count(ABO) from blooddonationtestingdetails where abo = "O" AND rh = "-";
 
 select * from bloodtypestotal;
+select * from bloodtypestotal;
 
-//make proxedure 
+CREATE VIEW bloodStautsTotal AS
 SELECT count(Donor_ID) FROM redsoildb.blooddonationuserdata;
 Select count(Donor_ID) FROM redsoildb.blooddonationtestingdetails where Expiry_date > current_date();
 Select count(Donor_ID) FROM redsoildb.blooddonationtestingdetails where Expiry_date < current_date();

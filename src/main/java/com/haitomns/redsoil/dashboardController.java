@@ -57,15 +57,53 @@ public class dashboardController implements Initializable {
     @FXML
     private TableColumn<bloodFindTableModel, String> rhColumn;
     @FXML
+    private TableColumn<bloodFindTableModel, String> unitColumn;
+    @FXML
     private TableColumn<bloodFindTableModel, String> creationDateColumn;
     @FXML
     private TableColumn<bloodFindTableModel, String> expiryDateColumn;
+    @FXML
+    private TableView<bloodFindTableModel> dashboardBloodTable;
+    @FXML
+    private TableColumn<bloodFindTableModel, String> donorIdColumnDB;
+    @FXML
+    private TableColumn<bloodFindTableModel, String> donorNameColumnDB;
+    @FXML
+    private TableColumn<bloodFindTableModel, String> donorPhoneColumnDB;
+    @FXML
+    private TableColumn<bloodFindTableModel, String> aboColumnDB;
+    @FXML
+    private TableColumn<bloodFindTableModel, String> rhColumnDB;
+    @FXML
+    private TableColumn<bloodFindTableModel, String> unitColumnDB;
+    @FXML
+    private TableColumn<bloodFindTableModel, String> creationDateColumnDB;
+    @FXML
+    private TableColumn<bloodFindTableModel, String> expiryDateColumnDB;
+    @FXML
+    private TableView<bloodDonationTableModel> donorDataTable;
+    @FXML
+    private TableColumn<bloodDonationTableModel, String> donorIdColumnAdd;
+    @FXML
+    private TableColumn<bloodDonationTableModel, String> donorNameColumnAdd;
+    @FXML
+    private TableColumn<bloodDonationTableModel, String> donorGenderColumnAdd;
+    @FXML
+    private TableColumn<bloodDonationTableModel, String> donorPhoneColumnAdd;
+    @FXML
+    private TableColumn<bloodDonationTableModel, String> aboColumnAdd;
+    @FXML
+    private TableColumn<bloodDonationTableModel, String> rhColumnAdd;
+    @FXML
+    private TableColumn<bloodDonationTableModel, String> unitColumnAdd;
     @FXML
     private Label a_plus_number, a_minus_number, b_plus_number, b_minus_number, ab_plus_number, ab_minus_number, o_plus_number, o_minus_number;
     @FXML
     private Label total_donor_number, active_blood_number, expired_blood_number, total_unit_number;
 
     ObservableList<bloodFindTableModel> bloodDonorList = FXCollections.observableArrayList();
+    ObservableList<bloodFindTableModel> dashboardTableData = FXCollections.observableArrayList();
+    ObservableList<bloodDonationTableModel> bloodDonationAddData = FXCollections.observableArrayList();
 
     @FXML
     private void dashboardNavigation(ActionEvent event) {
@@ -80,6 +118,7 @@ public class dashboardController implements Initializable {
             bloodDonationSplitPane.toFront();
             dashboardScrollPane.toBack();
             findBloodScrollPane.toBack();
+            addDataToDonationTable();
         } else if (event.getSource() == dashboardButton) {
             userAccountSplitPane.toBack();
             bloodDonationSplitPane.toBack();
@@ -352,7 +391,7 @@ public class dashboardController implements Initializable {
 
     public void initializeBloodFindTable(){
         mysqlFunction.mysqlDatabaseConnection();
-        bloodDonorList = mysqlFunction.bloodDonationView();
+        bloodDonorList = mysqlFunction.bloodDonationView("SELECT blooddonationuserdata.Donor_ID, Donor_Name, Phone, ABO, RH, Unit, Date_Of_Creation, Expiry_date FROM blooddonationuserdata inner JOIN blooddonationtestingdetails  ON blooddonationuserdata.ID = blooddonationtestingdetails.Donor_ID;");
 
         if(bloodDonorList!=null){
             donorIdColumn.setCellValueFactory(new PropertyValueFactory<>("donorId"));
@@ -360,10 +399,112 @@ public class dashboardController implements Initializable {
             donorPhoneColumn.setCellValueFactory(new PropertyValueFactory<>("donorPhone"));
             aboColumn.setCellValueFactory(new PropertyValueFactory<>("abo"));
             rhColumn.setCellValueFactory(new PropertyValueFactory<>("rh"));
+            unitColumn.setCellValueFactory(new PropertyValueFactory<>("unit"));
             creationDateColumn.setCellValueFactory(new PropertyValueFactory<>("dateOfCreation"));
             expiryDateColumn.setCellValueFactory(new PropertyValueFactory<>("bloodExpiryDate"));
 
             findBloodTable.setItems(bloodDonorList);
+        }
+    }
+    
+    public void initializeDashboardTable(){
+        mysqlFunction.mysqlDatabaseConnection();
+        dashboardTableData = mysqlFunction.bloodDonationView("SELECT blooddonationuserdata.Donor_ID, Donor_Name, Phone, ABO, RH, Unit, Date_Of_Creation, Expiry_date FROM blooddonationuserdata inner JOIN blooddonationtestingdetails  ON blooddonationuserdata.ID = blooddonationtestingdetails.Donor_ID;");
+
+        if(dashboardTableData!=null){
+            addDataToTable(dashboardTableData);
+        }
+    }
+
+    public void a_plus_panel_clicked(){
+        bloodDonorList = mysqlFunction.bloodDonationView("SELECT blooddonationuserdata.Donor_ID, Donor_Name, Phone, ABO, RH, Unit, Date_Of_Creation, Expiry_date FROM blooddonationuserdata inner JOIN blooddonationtestingdetails  ON blooddonationuserdata.ID = blooddonationtestingdetails.Donor_ID where abo = \"A\" AND rh = \"+\";");
+
+        if(bloodDonorList!=null){
+            addDataToTable(bloodDonorList);
+        }
+    }
+
+    public void a_minus_panel_clicked(){
+        bloodDonorList = mysqlFunction.bloodDonationView("SELECT blooddonationuserdata.Donor_ID, Donor_Name, Phone, ABO, RH, Unit, Date_Of_Creation, Expiry_date FROM blooddonationuserdata inner JOIN blooddonationtestingdetails  ON blooddonationuserdata.ID = blooddonationtestingdetails.Donor_ID where abo = \"A\" AND rh = \"-\";");
+
+        if(bloodDonorList!=null){
+            addDataToTable(bloodDonorList);
+        }
+    }
+
+    public void b_plus_panel_clicked(){
+        bloodDonorList = mysqlFunction.bloodDonationView("SELECT blooddonationuserdata.Donor_ID, Donor_Name, Phone, ABO, RH, Unit, Date_Of_Creation, Expiry_date FROM blooddonationuserdata inner JOIN blooddonationtestingdetails  ON blooddonationuserdata.ID = blooddonationtestingdetails.Donor_ID where abo = \"B\" AND rh = \"+\";");
+
+        if(bloodDonorList!=null){
+            addDataToTable(bloodDonorList);
+        }
+    }
+
+    public void b_minus_panel_clicked(){
+        bloodDonorList = mysqlFunction.bloodDonationView("SELECT blooddonationuserdata.Donor_ID, Donor_Name, Phone, ABO, RH, Unit, Date_Of_Creation, Expiry_date FROM blooddonationuserdata inner JOIN blooddonationtestingdetails  ON blooddonationuserdata.ID = blooddonationtestingdetails.Donor_ID where abo = \"B\" AND rh = \"-\";");
+
+        if(bloodDonorList!=null){
+            addDataToTable(bloodDonorList);
+        }
+    }
+
+    public void ab_plus_panel_clicked(){
+        bloodDonorList = mysqlFunction.bloodDonationView("SELECT blooddonationuserdata.Donor_ID, Donor_Name, Phone, ABO, RH, Unit, Date_Of_Creation, Expiry_date FROM blooddonationuserdata inner JOIN blooddonationtestingdetails  ON blooddonationuserdata.ID = blooddonationtestingdetails.Donor_ID where abo = \"AB\" AND rh = \"+\";");
+
+        if(bloodDonorList!=null){
+            addDataToTable(bloodDonorList);
+        }
+    }
+
+    public void ab_minus_panel_clicked(){
+        bloodDonorList = mysqlFunction.bloodDonationView("SELECT blooddonationuserdata.Donor_ID, Donor_Name, Phone, ABO, RH, Unit, Date_Of_Creation, Expiry_date FROM blooddonationuserdata inner JOIN blooddonationtestingdetails  ON blooddonationuserdata.ID = blooddonationtestingdetails.Donor_ID where abo = \"AB\" AND rh = \"-\";");
+
+        if(bloodDonorList!=null){
+            addDataToTable(bloodDonorList);
+        }
+    }
+
+    public void o_plus_panel_clicked(){
+        bloodDonorList = mysqlFunction.bloodDonationView("SELECT blooddonationuserdata.Donor_ID, Donor_Name, Phone, ABO, RH, Unit, Date_Of_Creation, Expiry_date FROM blooddonationuserdata inner JOIN blooddonationtestingdetails  ON blooddonationuserdata.ID = blooddonationtestingdetails.Donor_ID where abo = \"O\" AND rh = \"+\";");
+
+        if(bloodDonorList!=null){
+            addDataToTable(bloodDonorList);
+        }
+    }
+
+    public void o_minus_panel_clicked(){
+        bloodDonorList = mysqlFunction.bloodDonationView("SELECT blooddonationuserdata.Donor_ID, Donor_Name, Phone, ABO, RH, Unit, Date_Of_Creation, Expiry_date FROM blooddonationuserdata inner JOIN blooddonationtestingdetails  ON blooddonationuserdata.ID = blooddonationtestingdetails.Donor_ID where abo = \"O\" AND rh = \"-\";");
+
+        if(bloodDonorList!=null){
+            addDataToTable(bloodDonorList);
+        }
+    }
+
+    public void addDataToTable(ObservableList<bloodFindTableModel> tableData){
+        donorIdColumnDB.setCellValueFactory(new PropertyValueFactory<>("donorId"));
+        donorNameColumnDB.setCellValueFactory(new PropertyValueFactory<>("donorName"));
+        donorPhoneColumnDB.setCellValueFactory(new PropertyValueFactory<>("donorPhone"));
+        aboColumnDB.setCellValueFactory(new PropertyValueFactory<>("abo"));
+        rhColumnDB.setCellValueFactory(new PropertyValueFactory<>("rh"));
+        unitColumnDB.setCellValueFactory(new PropertyValueFactory<>("unit"));
+        creationDateColumnDB.setCellValueFactory(new PropertyValueFactory<>("dateOfCreation"));
+        expiryDateColumnDB.setCellValueFactory(new PropertyValueFactory<>("bloodExpiryDate"));
+
+        dashboardBloodTable.setItems(tableData);
+    }
+
+    public void addDataToDonationTable(){
+        bloodDonationAddData = mysqlFunction.bloodDonationAddTable();
+        if(bloodDonationAddData!=null){
+            donorIdColumnAdd.setCellValueFactory(new PropertyValueFactory<>("donorId"));
+            donorNameColumnAdd.setCellValueFactory(new PropertyValueFactory<>("donorName"));
+            donorGenderColumnAdd.setCellValueFactory(new PropertyValueFactory<>("donorGender"));
+            donorPhoneColumnAdd.setCellValueFactory(new PropertyValueFactory<>("donorPhone"));
+            aboColumnAdd.setCellValueFactory(new PropertyValueFactory<>("abo"));
+            rhColumnAdd.setCellValueFactory(new PropertyValueFactory<>("rh"));
+            unitColumnAdd.setCellValueFactory(new PropertyValueFactory<>("unit"));
+
+            donorDataTable.setItems(bloodDonationAddData);
         }
     }
 
@@ -410,5 +551,7 @@ public class dashboardController implements Initializable {
             expired_blood_number.setText(bloodStatusTotal.get(2).toString());
             total_unit_number.setText(bloodStatusTotal.get(3).toString());
         }
+
+        initializeDashboardTable();
     }
 }

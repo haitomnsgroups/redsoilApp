@@ -35,11 +35,7 @@ public class mysqlFunction {
         try {
             stmt = connect.createStatement();
             result = stmt.executeQuery("SELECT username, password from login where username = '" + username + "' AND password = '" + password + "'");
-            if(result.next()){
-                return true;
-            }else{
-                return false;
-            }
+            return result.next();
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return false;
@@ -86,6 +82,7 @@ public class mysqlFunction {
 
     public static boolean bloodAddDonorAndBlood(String donationOrganization,String donorName,String donorGender,String donorAge,String donorPhone,String donorOccupation,String donorAddress,String donorEmail,String patientName,String donorId,String diseaseList,String previousBloodDonatedStatus,String previouslyDonatedDate, String weight,String bp,String hb,String respSys,String cvs,String giSystem,String other,String fit,String unit,String abo,String rh,String hiv,String hcb,String hbsag,String vdrl,String bloodExpiryDate){
         try {
+            //TODO: If one table is inserted and then other is no inserted then it will cause problem
             stmt = connect.createStatement();
             stmt.executeUpdate("INSERT INTO `redsoildb`.`blooddonationuserdata`(`ID`,`Blood_Donation_Orgnization`,`Donor_Name`,`Gender`,`Age`,`Occupation`,`Address`,`Phone`,`Email`,`Patient_Name`,`Donor_ID`,`Date_Of_Creation`)VALUES(Null,'" + donationOrganization + "','" + donorName + "','" + donorGender + "','" + donorAge + "','" + donorOccupation + "','" + donorAddress + "','" + donorPhone + "','" + donorEmail + "','" + patientName + "','" + donorId + "',CURRENT_TIMESTAMP);");
             result = stmt.executeQuery("SELECT ID FROM blooddonationuserdata ORDER BY ID DESC LIMIT 1");
@@ -101,23 +98,48 @@ public class mysqlFunction {
         }
     }
 
-    public static ObservableList<bloodFindTableModel> bloodDonationView(){
+    public static ObservableList<bloodFindTableModel> bloodDonationView(String sqlQuery){
         ObservableList<bloodFindTableModel> bloodDonationList = FXCollections.observableArrayList();
         try{
             stmt = connect.createStatement();
-            result = stmt.executeQuery("SELECT blooddonationuserdata.Donor_ID, Donor_Name, Phone, ABO, RH, Unit, Date_Of_Creation, Expiry_date FROM blooddonationuserdata inner JOIN blooddonationtestingdetails  ON blooddonationuserdata.ID = blooddonationtestingdetails.Donor_ID;");
+            result = stmt.executeQuery(sqlQuery);
             while (result.next()) {
                 String donorId = result.getString("Donor_ID");
                 String donorName = result.getString("Donor_Name");
                 String donorPhone = result.getString("Phone");
                 String abo = result.getString("ABO");
                 String rh = result.getString("RH");
+                String unit = result.getString("Unit");
                 String dateOfCreation = result.getString("Date_Of_Creation");
                 String bloodExpiryDate = result.getString("Expiry_date");
 
-                bloodDonationList.add(new bloodFindTableModel(donorId, donorName, donorPhone, abo, rh, dateOfCreation, bloodExpiryDate));
+                bloodDonationList.add(new bloodFindTableModel(donorId, donorName, donorPhone, abo, rh, unit, dateOfCreation, bloodExpiryDate));
             }
             return bloodDonationList;
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+
+    public static ObservableList<bloodDonationTableModel> bloodDonationAddTable(){
+        ObservableList<bloodDonationTableModel > bloodDonationData = FXCollections.observableArrayList();
+        try{
+            stmt = connect.createStatement();
+            result = stmt.executeQuery("SELECT blooddonationuserdata.Donor_ID, Donor_Name, Gender, Phone, ABO, RH, Unit FROM blooddonationuserdata inner JOIN blooddonationtestingdetails  ON blooddonationuserdata.ID = blooddonationtestingdetails.Donor_ID;");
+            while (result.next()) {
+                String donorId = result.getString("Donor_ID");
+                String donorName = result.getString("Donor_Name");
+                String donorGender = result.getString("Gender");
+                String donorPhone = result.getString("Phone");
+                String abo = result.getString("ABO");
+                String rh = result.getString("RH");
+                String unit = result.getString("Unit");
+
+                bloodDonationData.add(new bloodDonationTableModel(donorId, donorName, donorGender, donorPhone, abo, rh, unit));
+            }
+            return bloodDonationData;
         }
         catch (Exception e){
             System.out.println(e.getMessage());

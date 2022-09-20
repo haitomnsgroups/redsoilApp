@@ -1,17 +1,16 @@
 package com.haitomns.redsoil;
 
-public class bloodFindTableModel {
-    String donorId, donorName, donorPhone, abo, rh, unit, dateOfCreation, bloodExpiryDate;
+public class bloodDonationTableModel {
+    String donorId, donorName, donorGender, donorPhone, abo, rh, unit;
 
-    public bloodFindTableModel(String donorId, String donorName, String donorPhone, String abo, String rh, String unit, String dateOfCreation, String bloodExpiryDate) {
+    public bloodDonationTableModel(String donorId, String donorName, String donorGender, String donorPhone, String abo, String rh, String unit) {
         this.donorId = donorId;
         this.donorName = donorName;
+        this.donorGender = donorGender;
         this.donorPhone = donorPhone;
         this.abo = abo;
         this.rh = rh;
         this.unit = unit;
-        this.dateOfCreation = dateOfCreation;
-        this.bloodExpiryDate = bloodExpiryDate;
     }
 
     public String getDonorId() {
@@ -28,6 +27,14 @@ public class bloodFindTableModel {
 
     public void setDonorName(String donorName) {
         this.donorName = donorName;
+    }
+
+    public String getDonorGender() {
+        return donorGender;
+    }
+
+    public void setDonorGender(String donorGender) {
+        this.donorGender = donorGender;
     }
 
     public String getDonorPhone() {
@@ -52,22 +59,6 @@ public class bloodFindTableModel {
 
     public void setRh(String rh) {
         this.rh = rh;
-    }
-
-    public String getDateOfCreation() {
-        return dateOfCreation;
-    }
-
-    public void setDateOfCreation(String dateOfCreation) {
-        this.dateOfCreation = dateOfCreation;
-    }
-
-    public String getBloodExpiryDate() {
-        return bloodExpiryDate;
-    }
-
-    public void setBloodExpiryDate(String bloodExpiryDate) {
-        this.bloodExpiryDate = bloodExpiryDate;
     }
 
     public String getUnit() {
