@@ -60,8 +60,13 @@ public class dashboardController implements Initializable {
     private TableColumn<bloodFindTableModel, String> creationDateColumn;
     @FXML
     private TableColumn<bloodFindTableModel, String> expiryDateColumn;
+    @FXML
+    private Label a_plus_number, a_minus_number, b_plus_number, b_minus_number, ab_plus_number, ab_minus_number, o_plus_number, o_minus_number;
+    @FXML
+    private Label total_donor_number, active_blood_number, expired_blood_number, total_unit_number;
 
     ObservableList<bloodFindTableModel> bloodDonorList = FXCollections.observableArrayList();
+
     @FXML
     private void dashboardNavigation(ActionEvent event) {
         if (event.getSource() == userAccountButton) {
@@ -134,7 +139,7 @@ public class dashboardController implements Initializable {
         if(previousBloodDonatedStatus.equals("0")){
             lastDonatedDate = getDateOfLastDonation();
         }else {
-            lastDonatedDate = "None";
+            lastDonatedDate = "0000-00-00";
         }
 
         String weight = this.weight.getText();
@@ -372,6 +377,7 @@ public class dashboardController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        //TODO: SEND this to the visible panel function of bloodAdditionPage
         ObservableList<String> genderChoiceBoxValues = FXCollections.observableArrayList("Select","Male","Female", "Other");
         donorGenderField.setItems(genderChoiceBoxValues);
         donorGenderField.setValue("Select");
@@ -383,5 +389,26 @@ public class dashboardController implements Initializable {
         ObservableList<String> rhChoiceBoxValues = FXCollections.observableArrayList("Select","+","-");
         rhField.setItems(rhChoiceBoxValues);
         rhField.setValue("Select");
+
+        mysqlFunction.mysqlDatabaseConnection();
+        List<Integer> bloodTotalList = mysqlFunction.bloodDonationViewCount();
+        if(bloodTotalList!=null){
+            a_plus_number.setText(bloodTotalList.get(0).toString()+" Pouches");
+            a_minus_number.setText(bloodTotalList.get(1).toString()+" Pouches");
+            b_plus_number.setText(bloodTotalList.get(2).toString()+" Pouches");
+            b_minus_number.setText(bloodTotalList.get(3).toString()+" Pouches");
+            ab_plus_number.setText(bloodTotalList.get(4).toString()+" Pouches");
+            ab_minus_number.setText(bloodTotalList.get(5).toString()+" Pouches");
+            o_plus_number.setText(bloodTotalList.get(6).toString()+" Pouches");
+            o_minus_number.setText(bloodTotalList.get(7).toString()+" Pouches");
+        }
+
+        List<Integer> bloodStatusTotal = mysqlFunction.bloodStatusCount();
+        if(bloodStatusTotal!=null){
+            total_donor_number.setText(bloodStatusTotal.get(0).toString());
+            active_blood_number.setText(bloodStatusTotal.get(1).toString());
+            expired_blood_number.setText(bloodStatusTotal.get(2).toString());
+            total_unit_number.setText(bloodStatusTotal.get(3).toString());
+        }
     }
 }

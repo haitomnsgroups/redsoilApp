@@ -73,10 +73,27 @@ ON blooddonationuserdata.ID = blooddonationtestingdetails.Donor_ID;
 drop table blooddonationtestingdetails;
 drop table blooddonationuserdata;
 
+CREATE VIEW bloodTypesTotal AS
+select count(ABO) from blooddonationtestingdetails where abo = "A" AND rh = "+"
+union all
+select count(ABO) from blooddonationtestingdetails where abo = "A" AND rh = "-"
+union all
+select count(ABO) from blooddonationtestingdetails where abo = "B" AND rh = "+"
+union all
+select count(ABO) from blooddonationtestingdetails where abo = "B" AND rh = "-"
+union all
+select count(ABO) from blooddonationtestingdetails where abo = "AB" AND rh = "+"
+union all
+select count(ABO) from blooddonationtestingdetails where abo = "AB" AND rh = "-"
+union all
+select count(ABO) from blooddonationtestingdetails where abo = "O" AND rh = "+"
+union all
+select count(ABO) from blooddonationtestingdetails where abo = "O" AND rh = "-";
 
+select * from bloodtypestotal;
 
-
-
-
-
-
+//make proxedure 
+SELECT count(Donor_ID) FROM redsoildb.blooddonationuserdata;
+Select count(Donor_ID) FROM redsoildb.blooddonationtestingdetails where Expiry_date > current_date();
+Select count(Donor_ID) FROM redsoildb.blooddonationtestingdetails where Expiry_date < current_date();
+Select sum(Unit) FROM redsoildb.blooddonationtestingdetails where Expiry_date > current_date();

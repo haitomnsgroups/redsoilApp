@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
 public class mysqlFunction {
@@ -115,6 +116,38 @@ public class mysqlFunction {
                 String bloodExpiryDate = result.getString("Expiry_date");
 
                 bloodDonationList.add(new bloodFindTableModel(donorId, donorName, donorPhone, abo, rh, dateOfCreation, bloodExpiryDate));
+            }
+            return bloodDonationList;
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+
+    public static List<Integer> bloodDonationViewCount(){
+        List<Integer> bloodDonationList = new ArrayList<>();
+        try{
+            stmt = connect.createStatement();
+            result = stmt.executeQuery("select * from bloodtypestotal;");
+            while (result.next()) {
+                bloodDonationList.add(result.getInt("count(ABO)"));
+            }
+            return bloodDonationList;
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+
+    public static List<Integer> bloodStatusCount(){
+        List<Integer> bloodDonationList = new ArrayList<>();
+        try{
+            stmt = connect.createStatement();
+            result = stmt.executeQuery("select * from bloodstatustotal;");
+            while (result.next()) {
+                bloodDonationList.add(result.getInt("count(Donor_ID)"));
             }
             return bloodDonationList;
         }
