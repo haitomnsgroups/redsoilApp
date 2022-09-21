@@ -11,69 +11,9 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
+<?import com.jfoenix.controls.JFXButton?>
 <AnchorPane prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.haitomns.redsoil.loginAndSignupController">
    <children>
-      <HBox fx:id="registerationHbox" prefHeight="400.0" prefWidth="640.0">
-         <children>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="400.0" prefWidth="185.0" />
-          <AnchorPane maxWidth="460.0" minWidth="460.0" prefHeight="160.0" prefWidth="100.0" style="-fx-background-color: #C93F3E;">
-               <children>
-                  <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="371.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../com.haitomns.images/haitomnsLogoRed.png" />
-                     </image>
-                  </ImageView>
-                  <Label layoutX="263.0" layoutY="14.0" text="RedSoil" textFill="#e4e4e4">
-                     <font>
-                        <Font name="System Bold" size="30.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="311.0" layoutY="58.0" text="Version 1.0" textFill="#e4e4e4" />
-                  <Label layoutX="34.0" layoutY="73.0" text="Registeration" textFill="#e4e4e4">
-                     <font>
-                        <Font size="25.0" />
-                     </font>
-                  </Label>
-                  <Line endX="290.0" layoutX="135.0" layoutY="109.0" startX="-100.0" stroke="#e4e4e4" />
-                  <Label layoutX="34.0" layoutY="126.0" text="Company Name" textFill="#e4e4e4">
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                  </Label>
-                  <TextField layoutX="186.0" layoutY="122.0" prefHeight="30.0" prefWidth="240.0" style="-fx-background-radius: 5;" />
-                  <Button layoutX="355.0" layoutY="331.0" mnemonicParsing="false" style="-fx-background-radius: 5; -fx-background-color: #ffffff;" text="Submit" textFill="#c93f3e">
-                     <font>
-                        <Font name="System Bold" size="15.0" />
-                     </font>
-                  </Button>
-                  <Label layoutX="34.0" layoutY="166.0" text="Company Address" textFill="#e4e4e4">
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                  </Label>
-                  <TextField layoutX="186.0" layoutY="162.0" prefHeight="30.0" prefWidth="240.0" style="-fx-background-radius: 5;" />
-                  <Label layoutX="34.0" layoutY="205.0" text="Company Phone No." textFill="#e4e4e4">
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                  </Label>
-                  <TextField layoutX="186.0" layoutY="201.0" prefHeight="30.0" prefWidth="240.0" style="-fx-background-radius: 5;" />
-                  <Label layoutX="34.0" layoutY="244.0" text="Username" textFill="#e4e4e4">
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                  </Label>
-                  <TextField layoutX="186.0" layoutY="240.0" prefHeight="30.0" prefWidth="240.0" style="-fx-background-radius: 5;" />
-                  <Label layoutX="34.0" layoutY="286.0" text="Password" textFill="#e4e4e4">
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                  </Label>
-                  <TextField layoutX="186.0" layoutY="281.0" prefHeight="30.0" prefWidth="240.0" style="-fx-background-radius: 5;" />
-               </children>
-            </AnchorPane>
-         </children>
-      </HBox>
       <HBox fx:id="loginHbox" prefHeight="400.0" prefWidth="640.0">
          <children>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="400.0" prefWidth="180.0" />
@@ -107,12 +47,73 @@
                      </font>
                   </Label>
                   <TextField fx:id="usernameField" layoutX="111.0" layoutY="210.0" prefHeight="30.0" prefWidth="250.0" style="-fx-background-radius: 5;" />
-                  <Button fx:id="loginButton" layoutX="290.0" layoutY="301.0" mnemonicParsing="false" onAction="#loginButtonClicked" style="-fx-background-radius: 5; -fx-background-color: #ffffff;" text="Submit" textFill="#c93f3e">
+                  <JFXButton fx:id="loginButton" layoutX="290.0" layoutY="301.0" mnemonicParsing="false" onAction="#loginButtonClicked" style="-fx-background-radius: 5; -fx-background-color: #ffffff;" text="Submit" textFill="#c93f3e">
                      <font>
                         <Font name="System Bold" size="15.0" />
                      </font>
-                  </Button>
+                  </JFXButton>
                   <PasswordField fx:id="passwordField" layoutX="111.0" layoutY="257.0" prefHeight="30.0" prefWidth="250.0" style="-fx-background-radius: 5;" />
+               </children>
+            </AnchorPane>
+         </children>
+      </HBox>
+      <HBox fx:id="registerationHbox" prefHeight="400.0" prefWidth="640.0">
+         <children>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="400.0" prefWidth="185.0" />
+          <AnchorPane maxWidth="460.0" minWidth="460.0" prefHeight="160.0" prefWidth="100.0" style="-fx-background-color: #C93F3E;">
+               <children>
+                  <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="371.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../com.haitomns.images/haitomnsLogoRed.png" />
+                     </image>
+                  </ImageView>
+                  <Label layoutX="263.0" layoutY="14.0" text="RedSoil" textFill="#e4e4e4">
+                     <font>
+                        <Font name="System Bold" size="30.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="311.0" layoutY="58.0" text="Version 1.0" textFill="#e4e4e4" />
+                  <Label layoutX="34.0" layoutY="73.0" text="Registeration" textFill="#e4e4e4">
+                     <font>
+                        <Font size="25.0" />
+                     </font>
+                  </Label>
+                  <Line endX="290.0" layoutX="135.0" layoutY="109.0" startX="-100.0" stroke="#e4e4e4" />
+                  <Label layoutX="34.0" layoutY="126.0" text="BlooBank Name" textFill="#e4e4e4">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="companyNameField" layoutX="186.0" layoutY="122.0" prefHeight="30.0" prefWidth="240.0" style="-fx-background-radius: 5;" />
+                  <JFXButton layoutX="355.0" layoutY="331.0" mnemonicParsing="false" onAction="#registrationSubmitButton" style="-fx-background-radius: 5; -fx-background-color: #ffffff;" text="Submit" textFill="#c93f3e">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                  </JFXButton>
+                  <Label layoutX="34.0" layoutY="166.0" text="BloodBank Address" textFill="#e4e4e4">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="companyAddressField" layoutX="186.0" layoutY="162.0" prefHeight="30.0" prefWidth="240.0" style="-fx-background-radius: 5;" />
+                  <Label layoutX="34.0" layoutY="205.0" text="BloodBank Phone No." textFill="#e4e4e4">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="companyPhoneField" layoutX="186.0" layoutY="201.0" prefHeight="30.0" prefWidth="240.0" style="-fx-background-radius: 5;" />
+                  <Label layoutX="34.0" layoutY="244.0" text="Username" textFill="#e4e4e4">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="usernameRegisterField" layoutX="186.0" layoutY="240.0" prefHeight="30.0" prefWidth="240.0" style="-fx-background-radius: 5;" />
+                  <Label layoutX="34.0" layoutY="286.0" text="Password" textFill="#e4e4e4">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="passwordRegisterField" layoutX="186.0" layoutY="281.0" prefHeight="30.0" prefWidth="240.0" style="-fx-background-radius: 5;" />
                </children>
             </AnchorPane>
          </children>

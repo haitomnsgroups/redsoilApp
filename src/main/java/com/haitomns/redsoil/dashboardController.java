@@ -17,9 +17,9 @@ public class dashboardController implements Initializable {
     String previousBloodDonatedStatus = "1";
     String diseaseList = "";
     @FXML
-    private ScrollPane dashboardScrollPane, findBloodScrollPane;
+    private ScrollPane dashboardScrollPane, findBloodScrollPane, userAccountScrollPane;
     @FXML
-    private SplitPane userAccountSplitPane, bloodDonationSplitPane;
+    private SplitPane  bloodDonationSplitPane;
     @FXML
     private Button userAccountButton, bloodDonationButton, dashboardButton, findBloodButton;
     @FXML
@@ -108,24 +108,24 @@ public class dashboardController implements Initializable {
     @FXML
     private void dashboardNavigation(ActionEvent event) {
         if (event.getSource() == userAccountButton) {
-            userAccountSplitPane.toFront();
+            userAccountScrollPane.toFront();
             bloodDonationSplitPane.toBack();
             dashboardScrollPane.toBack();
             findBloodScrollPane.toBack();
             showCompanyDetails();
         } else if (event.getSource() == bloodDonationButton) {
-            userAccountSplitPane.toBack();
+            userAccountScrollPane.toBack();
             bloodDonationSplitPane.toFront();
             dashboardScrollPane.toBack();
             findBloodScrollPane.toBack();
             addDataToDonationTable();
         } else if (event.getSource() == dashboardButton) {
-            userAccountSplitPane.toBack();
+            userAccountScrollPane.toBack();
             bloodDonationSplitPane.toBack();
             dashboardScrollPane.toFront();
             findBloodScrollPane.toBack();
         } else if (event.getSource() == findBloodButton) {
-            userAccountSplitPane.toBack();
+            userAccountScrollPane.toBack();
             bloodDonationSplitPane.toBack();
             dashboardScrollPane.toBack();
             findBloodScrollPane.toFront();
@@ -207,6 +207,7 @@ public class dashboardController implements Initializable {
                 alert.setTitle("RedSoil Dashboard");
                 alert.setContentText("Donor Details Inserted :)");
                 alert.showAndWait();
+                addDataToDonationTable();
             } else {
                 showError("Error", "RedSoil Dashboard", "Donor Details Insertion Failed :(");
             }
@@ -506,6 +507,53 @@ public class dashboardController implements Initializable {
 
             donorDataTable.setItems(bloodDonationAddData);
         }
+    }
+    public void clear_button_click(){
+        donationOrganizationField.setText("");
+        donorNameField.setText("");
+        donorPhoneField.setText("");
+        donorAgeField.setText("");
+        donorGenderField.setValue("Select");
+        donorOccupationField.setText("");
+        donorAddressField.setText("");
+        donorEmailField.setText("");
+        malaria.setSelected(false);
+        leprosy.setSelected(false);
+        highBloodPressure.setSelected(false);
+        lotusPitta.setSelected(false);
+        diabetes.setSelected(false);
+        preSurgery.setSelected(false);
+        tuberculosis.setSelected(false);
+        pregnancy.setSelected(false);
+        drugAbuse.setSelected(false);
+        heartDisease.setSelected(false);
+        pneumonia.setSelected(false);
+        jaundice.setSelected(false);
+        kidneyDisease.setSelected(false);
+        aids.setSelected(false);
+        faintingSpells.setSelected(false);
+        cutaneousDisease.setSelected(false);
+        std.setSelected(false);
+        menstruation.setSelected(false);
+        foreignVisit.setSelected(false);
+        others.setSelected(false);
+        patientNameField.setText("");
+        donorIdField.setText("");
+        weight.setText("");
+        bp.setText("");
+        hb.setText("");
+        respSys.setText("");
+        cvs.setText("");
+        giSystem.setText("");
+        other.setText("");
+        fit.setText("");
+        unit.setText("");
+        aboField.setValue("Select");
+        rhField.setValue("Select");
+        hiv.setText("");
+        hbsag.setText("");
+        hcv.setText("");
+        vdrl.setText("");
     }
 
     public static void showError(String title, String header, String content){
