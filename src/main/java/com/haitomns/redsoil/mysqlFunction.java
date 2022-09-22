@@ -2,6 +2,7 @@ package com.haitomns.redsoil;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Alert;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -26,7 +27,7 @@ public class mysqlFunction {
             connect = DriverManager.getConnection(db_url, db_username, db_password);
             return true;
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            showError("Database Connection Error", "Database Connection Error", "Database Connection Error");
             return false;
         }
     }
@@ -37,7 +38,7 @@ public class mysqlFunction {
             result = stmt.executeQuery("SELECT username, password from login where username = '" + username + "' AND password = '" + password + "'");
             return result.next();
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            showError("Login Error", "Login Error", "Login Error");
             return false;
         }
     }
@@ -50,7 +51,7 @@ public class mysqlFunction {
             stmt.executeUpdate("UPDATE login SET username = '" + companyUsername + "', password = '" + companyPassword + "' WHERE ID = 1");
             return true;
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            showError("Update Error", "Update Error", "Update Error");
             return false;
         }
     }
@@ -75,7 +76,7 @@ public class mysqlFunction {
 
             return List.of(companyName, companyAddress, companyPhone, companyUsername, companyPassword);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            showError("Company Details Error", "Company Details Error", "Company Details Error");
             return null;
         }
     }
@@ -93,7 +94,7 @@ public class mysqlFunction {
             stmt.executeUpdate("INSERT INTO `redsoildb`.`blooddonationtestingdetails`(`ID`,`Donor_ID`,`Previously_Donated`,`Previously_Donated_Date`,`Diseases`,`Weight`,`BP`,`HB`,`Resp_Sys`,`Cvs`,`Gi_System`,`Other`,`Fit`,`Unit`,`ABO`,`RH`,`HIV`,`HBsAg`,`HCV`,`VDRL`,`Expiry_date`)VALUES(Null,'" + donorID + "','" + previousBloodDonatedStatus + "','" + previouslyDonatedDate + "','" + diseaseList + "','" + weight + "','" + bp + "','" + hb + "','" + respSys + "','" + cvs + "','" + giSystem + "','" + other + "','" + fit + "','" + unit + "','" + abo + "','" + rh + "','" + hiv + "','" + hbsag + "','" + hcb + "','" + vdrl + "','" + bloodExpiryDate + "');");
             return true;
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            showError("Blood Add Error", "Blood Add Error", "Blood Add Error");
             return false;
         }
     }
@@ -118,7 +119,7 @@ public class mysqlFunction {
             return bloodDonationList;
         }
         catch (Exception e){
-            System.out.println(e.getMessage());
+            showError("Blood Donation View Error", "Blood Donation View Error", "Blood Donation View Error");
             return null;
         }
     }
@@ -142,7 +143,7 @@ public class mysqlFunction {
             return bloodDonationData;
         }
         catch (Exception e){
-            System.out.println(e.getMessage());
+            showError("Blood Donation Add Table Error", "Blood Donation Add Table Error", "Blood Donation Add Table Error");
             return null;
         }
     }
@@ -158,7 +159,7 @@ public class mysqlFunction {
             return bloodDonationList;
         }
         catch (Exception e){
-            System.out.println(e.getMessage());
+            showError("Blood Donation View Count Error", "Blood Donation View Count Error", "Blood Donation View Count Error");
             return null;
         }
     }
@@ -174,7 +175,7 @@ public class mysqlFunction {
             return bloodDonationList;
         }
         catch (Exception e){
-            System.out.println(e.getMessage());
+            showError("Blood Status Count Error", "Blood Status Count Error", "Blood Status Count Error");
             return null;
         }
     }
@@ -186,7 +187,7 @@ public class mysqlFunction {
             return true;
         }
         catch (Exception e){
-            System.out.println(e.getMessage());
+            showError("Blood Remove Error", "Blood Remove Error", "Blood Remove Error");
             return false;
         }
     }
@@ -233,8 +234,16 @@ public class mysqlFunction {
             return updateData;
         }
         catch (Exception e){
-            System.out.println(e.getMessage());
+            showError("Blood Update Error", "Blood Update Error", "Blood Update Error");
             return null;
         }
+    }
+
+    public static void showError(String title, String header, String content){
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(header);
+        alert.setContentText(content);
+        alert.showAndWait();
     }
 }

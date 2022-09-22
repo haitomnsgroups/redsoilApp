@@ -33,7 +33,7 @@ create table bloodDonationUserData(
     Phone varchar(10),
     Email varchar(320),
     Patient_Name varchar(50) NOT NULL,
-    Donor_ID varchar(100) NOT NULL,
+    Donor_ID varchar(100) NOT NULL unique,
     Date_Of_Creation datetime default current_timestamp,
     primary key(ID)
     );

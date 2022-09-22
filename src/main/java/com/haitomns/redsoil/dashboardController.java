@@ -4,25 +4,16 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 import javafx.util.Callback;
 
-import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class dashboardController implements Initializable {
     String previousBloodDonatedStatus = "1";
@@ -504,6 +495,32 @@ public class dashboardController implements Initializable {
             addDataToTable(bloodDonorList);
         }
     }
+
+    public void total_donor_panel_clicked(){
+        bloodDonorList = mysqlFunction.bloodDonationView("SELECT blooddonationuserdata.Donor_ID, Donor_Name, Phone, ABO, RH, Unit, Date_Of_Creation, Expiry_date FROM blooddonationuserdata inner JOIN blooddonationtestingdetails  ON blooddonationuserdata.ID = blooddonationtestingdetails.Donor_ID;");
+
+        if(bloodDonorList!=null){
+            addDataToTable(bloodDonorList);
+        }
+    }
+
+    public void total_active_donor_panel_clicked(){
+        bloodDonorList = mysqlFunction.bloodDonationView("SELECT blooddonationuserdata.Donor_ID, Donor_Name, Phone, ABO, RH, Unit, Date_Of_Creation, Expiry_date FROM blooddonationuserdata inner JOIN blooddonationtestingdetails  ON blooddonationuserdata.ID = blooddonationtestingdetails.Donor_ID where blooddonationtestingdetails.Expiry_date > current_date(); ;");
+
+        if(bloodDonorList!=null){
+            addDataToTable(bloodDonorList);
+        }
+    }
+
+    public void total_expired_donor_panel_clicked(){
+        bloodDonorList = mysqlFunction.bloodDonationView("SELECT blooddonationuserdata.Donor_ID, Donor_Name, Phone, ABO, RH, Unit, Date_Of_Creation, Expiry_date FROM blooddonationuserdata inner JOIN blooddonationtestingdetails  ON blooddonationuserdata.ID = blooddonationtestingdetails.Donor_ID where blooddonationtestingdetails.Expiry_date < current_date(); ;");
+
+        if(bloodDonorList!=null){
+            addDataToTable(bloodDonorList);
+        }
+    }
+
+
 
     public void addDataToTable(ObservableList<bloodFindTableModel> tableData){
         donorIdColumnDB.setCellValueFactory(new PropertyValueFactory<>("donorId"));

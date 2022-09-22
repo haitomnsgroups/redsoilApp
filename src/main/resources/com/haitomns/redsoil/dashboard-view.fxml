@@ -1,29 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
-<?import javafx.scene.control.CheckBox?>
-<?import javafx.scene.control.ChoiceBox?>
-<?import javafx.scene.control.DatePicker?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.PasswordField?>
-<?import javafx.scene.control.RadioButton?>
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.SplitPane?>
-<?import javafx.scene.control.Tab?>
-<?import javafx.scene.control.TabPane?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.ToggleGroup?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.shape.Line?>
-<?import javafx.scene.text.Font?>
+<?import com.jfoenix.controls.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
 
-<BorderPane prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.haitomns.redsoil.dashboardController">
+<BorderPane prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.haitomns.redsoil.dashboardController">
     <left>
         <Pane prefHeight="718.0" prefWidth="200.0" style="-fx-background-color: #BEBEBE;">
             <children>
@@ -703,7 +687,7 @@
                                         </font>
                                     </Label>
                                     <Line endX="120.0" layoutX="988.0" layoutY="103.0" startX="-100.0" stroke="#1982c4" />
-                                    <Pane layoutX="887.0" layoutY="122.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #1982C4; -fx-background-radius: 10;">
+                                    <Pane layoutX="887.0" layoutY="122.0" onMouseClicked="#total_donor_panel_clicked" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #1982C4; -fx-background-radius: 10;">
                                         <children>
                                             <Label layoutX="7.0" layoutY="14.0" text="Total Donors" textFill="WHITE">
                                                 <font>
@@ -717,7 +701,7 @@
                                             </Label>
                                         </children>
                                     </Pane>
-                           <Pane layoutX="1009.0" layoutY="122.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #1982C4; -fx-background-radius: 10;">
+                           <Pane layoutX="1009.0" layoutY="122.0" onMouseClicked="#total_active_donor_panel_clicked" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #1982C4; -fx-background-radius: 10;">
                               <children>
                                  <Label layoutX="7.0" layoutY="14.0" text="Active Blood" textFill="WHITE">
                                     <font>
@@ -731,7 +715,7 @@
                                  </Label>
                               </children>
                            </Pane>
-                           <Pane layoutX="887.0" layoutY="249.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #1982C4; -fx-background-radius: 10;">
+                           <Pane layoutX="887.0" layoutY="249.0" onMouseClicked="#total_expired_donor_panel_clicked" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #1982C4; -fx-background-radius: 10;">
                               <children>
                                  <Label layoutX="3.0" layoutY="14.0" text="Expired Blood" textFill="WHITE">
                                     <font>
