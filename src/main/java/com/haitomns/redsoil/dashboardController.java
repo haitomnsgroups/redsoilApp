@@ -4,14 +4,25 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.util.Callback;
 
+import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class dashboardController implements Initializable {
     String previousBloodDonatedStatus = "1";
@@ -97,6 +108,14 @@ public class dashboardController implements Initializable {
     @FXML
     private TableColumn<bloodDonationTableModel, String> unitColumnAdd;
     @FXML
+    private TableColumn<bloodFindTableModel, String> viewButtonColumn;
+    @FXML
+    private TableColumn<bloodFindTableModel, String> removeButtonColumn;
+    @FXML
+    private TableColumn<bloodFindTableModel, String> viewButtonDBColumn;
+    @FXML
+    private TableColumn<bloodFindTableModel, String> removeButtonDBColumn;
+    @FXML
     private Label a_plus_number, a_minus_number, b_plus_number, b_minus_number, ab_plus_number, ab_minus_number, o_plus_number, o_minus_number;
     @FXML
     private Label total_donor_number, active_blood_number, expired_blood_number, total_unit_number;
@@ -104,6 +123,9 @@ public class dashboardController implements Initializable {
     ObservableList<bloodFindTableModel> bloodDonorList = FXCollections.observableArrayList();
     ObservableList<bloodFindTableModel> dashboardTableData = FXCollections.observableArrayList();
     ObservableList<bloodDonationTableModel> bloodDonationAddData = FXCollections.observableArrayList();
+
+    public dashboardController() {
+    }
 
     @FXML
     private void dashboardNavigation(ActionEvent event) {
@@ -124,6 +146,8 @@ public class dashboardController implements Initializable {
             bloodDonationSplitPane.toBack();
             dashboardScrollPane.toFront();
             findBloodScrollPane.toBack();
+            initializeDashboardTable();
+            initializeDashboardDataView();
         } else if (event.getSource() == findBloodButton) {
             userAccountScrollPane.toBack();
             bloodDonationSplitPane.toBack();
@@ -329,7 +353,7 @@ public class dashboardController implements Initializable {
 
     public void getSelectedDisease(){
         if(malaria.isSelected()){
-            diseaseList = diseaseList + "Maleria, ";
+            diseaseList = diseaseList + "Malaria, ";
         }
         if(leprosy.isSelected()){
             diseaseList = diseaseList + "Leprosy, ";
@@ -491,6 +515,81 @@ public class dashboardController implements Initializable {
         creationDateColumnDB.setCellValueFactory(new PropertyValueFactory<>("dateOfCreation"));
         expiryDateColumnDB.setCellValueFactory(new PropertyValueFactory<>("bloodExpiryDate"));
 
+        Callback<TableColumn<bloodFindTableModel, String>, TableCell<bloodFindTableModel, String>> cellFactory = new Callback<>() {
+            @Override
+            public TableCell call(final TableColumn<bloodFindTableModel, String> param) {
+                return new TableCell<bloodFindTableModel, String>() {
+                    final Button btn = new Button("View");
+
+                    @Override
+                    public void updateItem(String item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (empty) {
+                            setGraphic(null);
+                            setText(null);
+                        } else {
+                            btn.setOnAction(event -> {
+                                bloodFindTableModel bloodFindTableModel = getTableView().getItems().get(getIndex());
+                                editDataController editDataController = new editDataController();
+                                editDataController.updateView(bloodFindTableModel.getDonorId());
+                            });
+                            setGraphic(btn);
+                            setText(null);
+                        }
+                    }
+                };
+            }
+        };
+        viewButtonColumn.setCellFactory(cellFactory);
+        viewButtonDBColumn.setCellFactory(cellFactory);
+        Callback<TableColumn<bloodFindTableModel, String>, TableCell<bloodFindTableModel, String>> cellFactoryDelete = new Callback<>() {
+            @Override
+            public TableCell call(final TableColumn<bloodFindTableModel, String> param) {
+                return new TableCell<bloodFindTableModel, String>() {
+                    final Button btn = new Button("Remove");
+
+                    @Override
+                    public void updateItem(String item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (empty) {
+                            setGraphic(null);
+                            setText(null);
+                        } else {
+                            btn.setOnAction(event -> {
+                                bloodFindTableModel bloodFindTableModel = getTableView().getItems().get(getIndex());
+                                String idToDelete = bloodFindTableModel.getDonorId();
+
+                                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                                alert.setTitle("RedSoil Dashboard");
+                                alert.setHeaderText("Remove Blood Donation");
+                                alert.setContentText("Are you sure you want to remove this blood donation?");
+                                Optional<ButtonType> result = alert.showAndWait();
+                                if (result.get() == ButtonType.OK){
+                                    boolean removeSuccess = mysqlFunction.removeBloodDonation(idToDelete);
+                                    if(removeSuccess){
+                                        Alert alertSuccess = new Alert(Alert.AlertType.INFORMATION);
+                                        alertSuccess.setTitle("RedSoil Dashboard");
+                                        alertSuccess.setHeaderText("Remove Blood Donation");
+                                        alertSuccess.setContentText("Blood donation removed successfully!");
+                                        alertSuccess.showAndWait();
+                                        initializeDashboardTable();
+                                        initializeBloodFindTable();
+                                    }
+                                    else{
+                                        showError("RedSoil Dashboard", "Remove Blood Donation", "Blood donation removal failed!");
+                                    }
+                                }
+                            });
+                            setGraphic(btn);
+                            setText(null);
+                        }
+                    }
+                };
+            }
+        };
+        removeButtonColumn.setCellFactory(cellFactoryDelete);
+        removeButtonDBColumn.setCellFactory(cellFactoryDelete);
+
         dashboardBloodTable.setItems(tableData);
     }
 
@@ -556,6 +655,29 @@ public class dashboardController implements Initializable {
         vdrl.setText("");
     }
 
+    public void initializeDashboardDataView(){
+        mysqlFunction.mysqlDatabaseConnection();
+        List<Integer> bloodTotalList = mysqlFunction.bloodDonationViewCount();
+        if(bloodTotalList!=null){
+            a_plus_number.setText(bloodTotalList.get(0).toString()+" Pouches");
+            a_minus_number.setText(bloodTotalList.get(1).toString()+" Pouches");
+            b_plus_number.setText(bloodTotalList.get(2).toString()+" Pouches");
+            b_minus_number.setText(bloodTotalList.get(3).toString()+" Pouches");
+            ab_plus_number.setText(bloodTotalList.get(4).toString()+" Pouches");
+            ab_minus_number.setText(bloodTotalList.get(5).toString()+" Pouches");
+            o_plus_number.setText(bloodTotalList.get(6).toString()+" Pouches");
+            o_minus_number.setText(bloodTotalList.get(7).toString()+" Pouches");
+        }
+
+        List<Integer> bloodStatusTotal = mysqlFunction.bloodStatusCount();
+        if(bloodStatusTotal!=null){
+            total_donor_number.setText(bloodStatusTotal.get(0).toString());
+            active_blood_number.setText(bloodStatusTotal.get(1).toString());
+            expired_blood_number.setText(bloodStatusTotal.get(2).toString());
+            total_unit_number.setText(bloodStatusTotal.get(3).toString());
+        }
+    }
+
     public static void showError(String title, String header, String content){
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle(title);
@@ -579,27 +701,7 @@ public class dashboardController implements Initializable {
         rhField.setItems(rhChoiceBoxValues);
         rhField.setValue("Select");
 
-        mysqlFunction.mysqlDatabaseConnection();
-        List<Integer> bloodTotalList = mysqlFunction.bloodDonationViewCount();
-        if(bloodTotalList!=null){
-            a_plus_number.setText(bloodTotalList.get(0).toString()+" Pouches");
-            a_minus_number.setText(bloodTotalList.get(1).toString()+" Pouches");
-            b_plus_number.setText(bloodTotalList.get(2).toString()+" Pouches");
-            b_minus_number.setText(bloodTotalList.get(3).toString()+" Pouches");
-            ab_plus_number.setText(bloodTotalList.get(4).toString()+" Pouches");
-            ab_minus_number.setText(bloodTotalList.get(5).toString()+" Pouches");
-            o_plus_number.setText(bloodTotalList.get(6).toString()+" Pouches");
-            o_minus_number.setText(bloodTotalList.get(7).toString()+" Pouches");
-        }
-
-        List<Integer> bloodStatusTotal = mysqlFunction.bloodStatusCount();
-        if(bloodStatusTotal!=null){
-            total_donor_number.setText(bloodStatusTotal.get(0).toString());
-            active_blood_number.setText(bloodStatusTotal.get(1).toString());
-            expired_blood_number.setText(bloodStatusTotal.get(2).toString());
-            total_unit_number.setText(bloodStatusTotal.get(3).toString());
-        }
-
         initializeDashboardTable();
+        initializeDashboardDataView();
     }
 }

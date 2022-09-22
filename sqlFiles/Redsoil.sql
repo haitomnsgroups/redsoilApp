@@ -63,7 +63,7 @@ create table bloodDonationTestingDetails(
     VDRL varchar(128),
     Expiry_date date,
     primary key(ID),
-    FOREIGN KEY(Donor_ID) REFERENCES bloodDonationUserData(ID)
+    FOREIGN KEY(Donor_ID) REFERENCES bloodDonationUserData(ID) ON DELETE CASCADE
 );
 
 SELECT blooddonationuserdata.Donor_ID, Donor_Name, Phone, ABO, RH, Unit, Date_Of_Creation, Expiry_date 
@@ -98,3 +98,55 @@ SELECT count(Donor_ID) FROM redsoildb.blooddonationuserdata;
 Select count(Donor_ID) FROM redsoildb.blooddonationtestingdetails where Expiry_date > current_date();
 Select count(Donor_ID) FROM redsoildb.blooddonationtestingdetails where Expiry_date < current_date();
 Select sum(Unit) FROM redsoildb.blooddonationtestingdetails where Expiry_date > current_date();
+
+create table removeBloodDetails(
+	ID int unsigned NOT NULL auto_increment,
+    Blood_Donation_Orgnization varchar(200),
+    Donor_Name varchar(50) NOT NULL,
+    Gender varchar(8),
+    Age TINYINT unsigned,
+    Occupation varchar(100),
+    Address varchar(128),
+    Phone varchar(10),
+    Email varchar(320),
+    Patient_Name varchar(50),
+    Donor_ID varchar(100),
+    Date_Of_Creation date,
+    Previously_Donated bool,
+    Previously_Donated_Date date,
+    Diseases varchar(512),
+    Weight varchar(128),
+    BP varchar(128),
+    HB varchar(128),
+    Resp_Sys varchar(128),
+    Cvs varchar(128),
+    Gi_System varchar(128),
+    Other varchar(128),
+    Fit varchar(128),
+    Unit varchar(128),
+    ABO varchar(128),
+    RH varchar(128),
+    HIV varchar(128),
+    HBsAg varchar(128),
+    HCV varchar(128),
+    VDRL varchar(128),
+    Expiry_date date,
+    primary key(ID)
+    );
+    
+DELIMITER //
+CREATE PROCEDURE removeBlood(DonorIdToDelete varchar(100))
+BEGIN
+	INSERT INTO removeblooddetails (`ID`,`Blood_Donation_Orgnization`,`Donor_Name`,`Gender`,`Age`,`Occupation`,`Address`,`Phone`,`Email`,`Patient_Name`,`Donor_ID`,`Date_Of_Creation`,`Previously_Donated`,`Previously_Donated_Date`,`Diseases`,`Weight`,`BP`,`HB`,`Resp_Sys`,`Cvs`,`Gi_System`,`Other`,`Fit`,`Unit`,`ABO`,`RH`,`HIV`,`HBsAg`,`HCV`,`VDRL`,`Expiry_date`)
+	SELECT blooddonationuserdata.Donor_ID,`Blood_Donation_Orgnization`,`Donor_Name`,`Gender`,`Age`,`Occupation`,`Address`,`Phone`,`Email`,`Patient_Name`,blooddonationuserdata.Donor_ID,`Date_Of_Creation`,`Previously_Donated`,`Previously_Donated_Date`,`Diseases`,`Weight`,`BP`,`HB`,`Resp_Sys`,`Cvs`,`Gi_System`,`Other`,`Fit`,`Unit`,`ABO`,`RH`,`HIV`,`HBsAg`,`HCV`,`VDRL`,`Expiry_date`
+	FROM blooddonationuserdata inner JOIN blooddonationtestingdetails  
+	ON blooddonationuserdata.ID = blooddonationtestingdetails.Donor_ID
+	where blooddonationuserdata.Donor_ID = DonorIdToDelete;
+    
+    delete from blooddonationtestingdetails where Donor_ID = 
+    (select ID from blooddonationuserdata where Donor_ID = DonorIdToDelete);
+    delete from blooddonationuserdata where Donor_ID = DonorIdToDelete;
+END //
+
+SET SQL_SAFE_UPDATES = 0;
+

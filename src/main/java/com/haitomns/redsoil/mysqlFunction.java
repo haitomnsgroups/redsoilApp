@@ -178,4 +178,63 @@ public class mysqlFunction {
             return null;
         }
     }
+
+    public static boolean removeBloodDonation(String donerToRemove){
+        try{
+            stmt = connect.createStatement();
+            stmt.executeUpdate("call removeBlood('"+donerToRemove+"');");
+            return true;
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
+
+    public static List<String> fetchUpdateData(String donorId){
+        try{
+            List<String> updateData = new ArrayList<>();
+
+            stmt = connect.createStatement();
+            result = stmt.executeQuery("select * FROM blooddonationuserdata inner JOIN blooddonationtestingdetails ON blooddonationuserdata.ID = blooddonationtestingdetails.Donor_ID where blooddonationuserdata.Donor_ID = '"+donorId+"';");
+            while (result.next()) {
+                updateData.add(result.getString("ID"));
+                updateData.add(result.getString("Blood_Donation_Orgnization"));
+                updateData.add(result.getString("Donor_Name"));
+                updateData.add(result.getString("Gender"));
+                updateData.add(result.getString("Age"));
+                updateData.add(result.getString("Occupation"));
+                updateData.add(result.getString("Address"));
+                updateData.add(result.getString("Phone"));
+                updateData.add(result.getString("Email"));
+                updateData.add(result.getString("Patient_Name"));
+                updateData.add(result.getString("Donor_ID"));
+                updateData.add(result.getString("Previously_Donated"));
+                updateData.add(result.getString("Previously_Donated_Date"));
+                updateData.add(result.getString("Diseases"));
+                updateData.add(result.getString("Weight"));
+                updateData.add(result.getString("BP"));
+                updateData.add(result.getString("HB"));
+                updateData.add(result.getString("Resp_Sys"));
+                updateData.add(result.getString("Cvs"));
+                updateData.add(result.getString("Gi_System"));
+                updateData.add(result.getString("Other"));
+                updateData.add(result.getString("Fit"));
+                updateData.add(result.getString("Unit"));
+                updateData.add(result.getString("ABO"));
+                updateData.add(result.getString("RH"));
+                updateData.add(result.getString("HIV"));
+                updateData.add(result.getString("HBsAg"));
+                updateData.add(result.getString("HCV"));
+                updateData.add(result.getString("VDRL"));
+                updateData.add(result.getString("Expiry_date"));
+            }
+            System.out.println(updateData);
+            return updateData;
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
 }
