@@ -230,11 +230,36 @@ public class mysqlFunction {
                 updateData.add(result.getString("VDRL"));
                 updateData.add(result.getString("Expiry_date"));
             }
-            System.out.println(updateData);
             return updateData;
         }
         catch (Exception e){
             showError("Blood Update Error", "Blood Update Error", "Blood Update Error");
+            return null;
+        }
+    }
+
+    public static ObservableList<bloodFindTableModel> removeMedicineView(){
+        try{
+            ObservableList<bloodFindTableModel> removedData = FXCollections.observableArrayList();
+
+            stmt = connect.createStatement();
+            result = stmt.executeQuery("SELECT Donor_ID, Donor_Name, Phone, ABO, RH, Unit, Date_Of_Creation, Expiry_date FROM redsoildb.removeblooddetails;");
+            while (result.next()) {
+                String donorId = result.getString("Donor_ID");
+                String donorName = result.getString("Donor_Name");
+                String donorPhone = result.getString("Phone");
+                String abo = result.getString("ABO");
+                String rh = result.getString("RH");
+                String unit = result.getString("Unit");
+                String dateOfCreation = result.getString("Date_Of_Creation");
+                String expiryDate = result.getString("Expiry_date");
+
+                removedData.add(new bloodFindTableModel(donorId, donorName, donorPhone, abo, rh, unit, dateOfCreation, expiryDate));
+            }
+            return removedData;
+        }
+        catch (Exception e){
+            showError("Medicine Remove Error", "Medicine Remove Error", "Medicine Remove Error");
             return null;
         }
     }

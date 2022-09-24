@@ -6,6 +6,10 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 public class loginAndSignupController {
     @FXML
     private TextField usernameField;
@@ -18,14 +22,14 @@ public class loginAndSignupController {
     @FXML
     private TextField companyNameField, companyAddressField, companyPhoneField, usernameRegisterField, passwordRegisterField;
 
-    public void loginButtonClicked(){
+    public void loginButtonClicked() throws NoSuchAlgorithmException {
         String username = usernameField.getText();
         String password = passwordField.getText();
 
         if(usernameAndPasswordValidate(username, password)){
             mysqlFunction.mysqlDatabaseConnection();
 
-            if(mysqlFunction.loginCheck(username, password)){
+            if(mysqlFunction.loginCheck(username, encryptString(password))){
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("RedSoil Login");
                 alert.setContentText("Login Successful");
@@ -33,6 +37,8 @@ public class loginAndSignupController {
             }
             else{
                 showError("Error", "RedSoil Login", "Login Failed :(");
+                passwordField.setText("");
+                usernameField.setText("");
             }
         }
     }
@@ -59,7 +65,7 @@ public class loginAndSignupController {
         }
     }
 
-    public void registrationSubmitButton(){
+    public void registrationSubmitButton() throws NoSuchAlgorithmException {
         String companyName = companyNameField.getText();
         String companyAddress = companyAddressField.getText();
         String companyPhone = companyPhoneField.getText();
@@ -68,7 +74,7 @@ public class loginAndSignupController {
 
         if(companyValidate(companyName, companyAddress, companyPhone, username, password)){
             mysqlFunction.mysqlDatabaseConnection();
-            if(mysqlFunction.companyUpdate(companyName, companyAddress, companyPhone, username, password)){
+            if(mysqlFunction.companyUpdate(companyName, companyAddress, companyPhone, username, encryptString(password))){
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("RedSoil Registration");
                 alert.setContentText("Registration Successful");
@@ -120,5 +126,12 @@ public class loginAndSignupController {
         alert.setHeaderText(header);
         alert.setContentText(content);
         alert.showAndWait();
+    }
+
+    public static String encryptString(String input) throws NoSuchAlgorithmException {
+        MessageDigest md = MessageDigest.getInstance("SHA-1");
+        byte[] messageDigest = md.digest(input.getBytes());
+        BigInteger bigInt = new BigInteger(1,messageDigest);
+        return bigInt.toString(16);
     }
 }

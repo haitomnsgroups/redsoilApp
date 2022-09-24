@@ -5,8 +5,17 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.stage.Screen;
+import javafx.stage.Stage;
 import javafx.util.Callback;
 
 import java.net.URL;
@@ -19,9 +28,11 @@ public class dashboardController implements Initializable {
     String previousBloodDonatedStatus = "1";
     String diseaseList = "";
     @FXML
+    private BorderPane dashboard_borderpane;
+    @FXML
     private ScrollPane dashboardScrollPane, findBloodScrollPane, userAccountScrollPane;
     @FXML
-    private SplitPane  bloodDonationSplitPane;
+    private HBox bloodDonationHbox;
     @FXML
     private Button userAccountButton, bloodDonationButton, dashboardButton, findBloodButton;
     @FXML
@@ -110,41 +121,47 @@ public class dashboardController implements Initializable {
     private Label a_plus_number, a_minus_number, b_plus_number, b_minus_number, ab_plus_number, ab_minus_number, o_plus_number, o_minus_number;
     @FXML
     private Label total_donor_number, active_blood_number, expired_blood_number, total_unit_number;
+    @FXML
+    private TextField findDonorIdInput;
+    @FXML
+    private Pane a_plus_pane, a_minus_pane, b_plus_pane, b_minus_pane, ab_plus_pane, ab_minus_pane, o_plus_pane, o_minus_pane;
+    @FXML
+    private Pane total_donor_pane, active_pane, expired_pane;
+    @FXML
+    private ImageView dashboardCloseButton, dashboardMinimizeButton, dashboardMaximizeButton;
 
     ObservableList<bloodFindTableModel> bloodDonorList = FXCollections.observableArrayList();
     ObservableList<bloodFindTableModel> dashboardTableData = FXCollections.observableArrayList();
     ObservableList<bloodDonationTableModel> bloodDonationAddData = FXCollections.observableArrayList();
-
-    public dashboardController() {
-    }
+    String getFindDonorID;
 
     @FXML
     private void dashboardNavigation(ActionEvent event) {
         if (event.getSource() == userAccountButton) {
             userAccountScrollPane.toFront();
-            bloodDonationSplitPane.toBack();
+            bloodDonationHbox.toBack();
             dashboardScrollPane.toBack();
             findBloodScrollPane.toBack();
             showCompanyDetails();
         } else if (event.getSource() == bloodDonationButton) {
             userAccountScrollPane.toBack();
-            bloodDonationSplitPane.toFront();
+            bloodDonationHbox.toFront();
             dashboardScrollPane.toBack();
             findBloodScrollPane.toBack();
             addDataToDonationTable();
         } else if (event.getSource() == dashboardButton) {
             userAccountScrollPane.toBack();
-            bloodDonationSplitPane.toBack();
+            bloodDonationHbox.toBack();
             dashboardScrollPane.toFront();
             findBloodScrollPane.toBack();
             initializeDashboardTable();
             initializeDashboardDataView();
         } else if (event.getSource() == findBloodButton) {
             userAccountScrollPane.toBack();
-            bloodDonationSplitPane.toBack();
+            bloodDonationHbox.toBack();
             dashboardScrollPane.toBack();
             findBloodScrollPane.toFront();
-            initializeBloodFindTable();
+            initializeBloodFindTable(false);
         }
     }
 
@@ -222,6 +239,7 @@ public class dashboardController implements Initializable {
                 alert.setTitle("RedSoil Dashboard");
                 alert.setContentText("Donor Details Inserted :)");
                 alert.showAndWait();
+                clear_button_click();
                 addDataToDonationTable();
             } else {
                 showError("Error", "RedSoil Dashboard", "Donor Details Insertion Failed :(");
@@ -317,7 +335,6 @@ public class dashboardController implements Initializable {
             companyAddressField.setText(companyDetails.get(1).toString());
             companyPhoneField.setText(companyDetails.get(2).toString());
             companyUsernameField.setText(companyDetails.get(3).toString());
-            companyPasswordField.setText(companyDetails.get(4).toString());
         }
         else{
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -339,7 +356,12 @@ public class dashboardController implements Initializable {
 
     public String getDateOfBloodExpiry(){
         LocalDate bloodExpiry = bloodExpiryDateField.getValue();
-        return bloodExpiry.toString();
+        if(bloodExpiry != null) {
+            return bloodExpiry.toString();
+        }
+        else{
+            return null;
+        }
     }
 
     public void getSelectedDisease(){
@@ -405,10 +427,14 @@ public class dashboardController implements Initializable {
         }
     }
 
-    public void initializeBloodFindTable(){
+    public void initializeBloodFindTable(Boolean findCondition){
         mysqlFunction.mysqlDatabaseConnection();
-        bloodDonorList = mysqlFunction.bloodDonationView("SELECT blooddonationuserdata.Donor_ID, Donor_Name, Phone, ABO, RH, Unit, Date_Of_Creation, Expiry_date FROM blooddonationuserdata inner JOIN blooddonationtestingdetails  ON blooddonationuserdata.ID = blooddonationtestingdetails.Donor_ID;");
+        if(findCondition) {
+            bloodDonorList = mysqlFunction.bloodDonationView("SELECT blooddonationuserdata.Donor_ID, Donor_Name, Phone, ABO, RH, Unit, Date_Of_Creation, Expiry_date FROM blooddonationuserdata inner JOIN blooddonationtestingdetails  ON blooddonationuserdata.ID = blooddonationtestingdetails.Donor_ID where blooddonationuserdata.Donor_ID = '"+getFindDonorID+"';");
+        }else{
+            bloodDonorList = mysqlFunction.bloodDonationView("SELECT blooddonationuserdata.Donor_ID, Donor_Name, Phone, ABO, RH, Unit, Date_Of_Creation, Expiry_date FROM blooddonationuserdata inner JOIN blooddonationtestingdetails  ON blooddonationuserdata.ID = blooddonationtestingdetails.Donor_ID;");
 
+        }
         if(bloodDonorList!=null){
             donorIdColumn.setCellValueFactory(new PropertyValueFactory<>("donorId"));
             donorNameColumn.setCellValueFactory(new PropertyValueFactory<>("donorName"));
@@ -422,7 +448,6 @@ public class dashboardController implements Initializable {
             findBloodTable.setItems(bloodDonorList);
         }
     }
-    
     public void initializeDashboardTable(){
         mysqlFunction.mysqlDatabaseConnection();
         dashboardTableData = mysqlFunction.bloodDonationView("SELECT blooddonationuserdata.Donor_ID, Donor_Name, Phone, ABO, RH, Unit, Date_Of_Creation, Expiry_date FROM blooddonationuserdata inner JOIN blooddonationtestingdetails  ON blooddonationuserdata.ID = blooddonationtestingdetails.Donor_ID;");
@@ -440,12 +465,28 @@ public class dashboardController implements Initializable {
         }
     }
 
+    public void pane_enter_a_plus(){
+        a_plus_pane.setStyle("-fx-background-color: #8d2c2b; -fx-background-radius: 10px;");
+    }
+
+    public void pane_exit_a_plus(){
+        a_plus_pane.setStyle("-fx-background-color: #C93F3E; -fx-background-radius: 10px");
+    }
+
     public void a_minus_panel_clicked(){
         bloodDonorList = mysqlFunction.bloodDonationView("SELECT blooddonationuserdata.Donor_ID, Donor_Name, Phone, ABO, RH, Unit, Date_Of_Creation, Expiry_date FROM blooddonationuserdata inner JOIN blooddonationtestingdetails  ON blooddonationuserdata.ID = blooddonationtestingdetails.Donor_ID where abo = \"A\" AND rh = \"-\";");
 
         if(bloodDonorList!=null){
             addDataToTable(bloodDonorList);
         }
+    }
+
+    public void pane_enter_a_minus(){
+        a_minus_pane.setStyle("-fx-background-color: #8d2c2b; -fx-background-radius: 10px;");
+    }
+
+    public void pane_exit_a_minus(){
+        a_minus_pane.setStyle("-fx-background-color: #C93F3E; -fx-background-radius: 10px");
     }
 
     public void b_plus_panel_clicked(){
@@ -456,12 +497,28 @@ public class dashboardController implements Initializable {
         }
     }
 
+    public void pane_enter_b_plus(){
+        b_plus_pane.setStyle("-fx-background-color: #8d2c2b; -fx-background-radius: 10px;");
+    }
+
+    public void pane_exit_b_plus(){
+        b_plus_pane.setStyle("-fx-background-color: #C93F3E; -fx-background-radius: 10px");
+    }
+
     public void b_minus_panel_clicked(){
         bloodDonorList = mysqlFunction.bloodDonationView("SELECT blooddonationuserdata.Donor_ID, Donor_Name, Phone, ABO, RH, Unit, Date_Of_Creation, Expiry_date FROM blooddonationuserdata inner JOIN blooddonationtestingdetails  ON blooddonationuserdata.ID = blooddonationtestingdetails.Donor_ID where abo = \"B\" AND rh = \"-\";");
 
         if(bloodDonorList!=null){
             addDataToTable(bloodDonorList);
         }
+    }
+
+    public void pane_enter_b_minus(){
+        b_minus_pane.setStyle("-fx-background-color: #8d2c2b; -fx-background-radius: 10px;");
+    }
+
+    public void pane_exit_b_minus(){
+        b_minus_pane.setStyle("-fx-background-color: #C93F3E; -fx-background-radius: 10px");
     }
 
     public void ab_plus_panel_clicked(){
@@ -472,12 +529,28 @@ public class dashboardController implements Initializable {
         }
     }
 
+    public void pane_enter_ab_plus(){
+        ab_plus_pane.setStyle("-fx-background-color: #8d2c2b; -fx-background-radius: 10px;");
+    }
+
+    public void pane_exit_ab_plus(){
+        ab_plus_pane.setStyle("-fx-background-color: #C93F3E; -fx-background-radius: 10px");
+    }
+
     public void ab_minus_panel_clicked(){
         bloodDonorList = mysqlFunction.bloodDonationView("SELECT blooddonationuserdata.Donor_ID, Donor_Name, Phone, ABO, RH, Unit, Date_Of_Creation, Expiry_date FROM blooddonationuserdata inner JOIN blooddonationtestingdetails  ON blooddonationuserdata.ID = blooddonationtestingdetails.Donor_ID where abo = \"AB\" AND rh = \"-\";");
 
         if(bloodDonorList!=null){
             addDataToTable(bloodDonorList);
         }
+    }
+
+    public void pane_enter_ab_minus(){
+        ab_minus_pane.setStyle("-fx-background-color: #8d2c2b; -fx-background-radius: 10px;");
+    }
+
+    public void pane_exit_ab_minus(){
+        ab_minus_pane.setStyle("-fx-background-color: #C93F3E; -fx-background-radius: 10px");
     }
 
     public void o_plus_panel_clicked(){
@@ -488,12 +561,28 @@ public class dashboardController implements Initializable {
         }
     }
 
+    public void pane_enter_o_plus(){
+        o_plus_pane.setStyle("-fx-background-color: #8d2c2b; -fx-background-radius: 10px;");
+    }
+
+    public void pane_exit_o_plus(){
+        o_plus_pane.setStyle("-fx-background-color: #C93F3E; -fx-background-radius: 10px");
+    }
+
     public void o_minus_panel_clicked(){
         bloodDonorList = mysqlFunction.bloodDonationView("SELECT blooddonationuserdata.Donor_ID, Donor_Name, Phone, ABO, RH, Unit, Date_Of_Creation, Expiry_date FROM blooddonationuserdata inner JOIN blooddonationtestingdetails  ON blooddonationuserdata.ID = blooddonationtestingdetails.Donor_ID where abo = \"O\" AND rh = \"-\";");
 
         if(bloodDonorList!=null){
             addDataToTable(bloodDonorList);
         }
+    }
+
+    public void pane_enter_o_minus(){
+        o_minus_pane.setStyle("-fx-background-color: #8d2c2b; -fx-background-radius: 10px;");
+    }
+
+    public void pane_exit_o_minus(){
+        o_minus_pane.setStyle("-fx-background-color: #C93F3E; -fx-background-radius: 10px");
     }
 
     public void total_donor_panel_clicked(){
@@ -504,12 +593,28 @@ public class dashboardController implements Initializable {
         }
     }
 
+    public void pane_enter_total_donor(){
+        total_donor_pane.setStyle("-fx-background-color: #126091; -fx-background-radius: 10px;");
+    }
+
+    public void pane_exit_total_donor(){
+        total_donor_pane.setStyle("-fx-background-color:  #1982C4; -fx-background-radius: 10px");
+    }
+
     public void total_active_donor_panel_clicked(){
         bloodDonorList = mysqlFunction.bloodDonationView("SELECT blooddonationuserdata.Donor_ID, Donor_Name, Phone, ABO, RH, Unit, Date_Of_Creation, Expiry_date FROM blooddonationuserdata inner JOIN blooddonationtestingdetails  ON blooddonationuserdata.ID = blooddonationtestingdetails.Donor_ID where blooddonationtestingdetails.Expiry_date > current_date(); ;");
 
         if(bloodDonorList!=null){
             addDataToTable(bloodDonorList);
         }
+    }
+
+    public void pane_enter_total_active_donor(){
+        active_pane.setStyle("-fx-background-color: #126091; -fx-background-radius: 10px;");
+    }
+
+    public void pane_exit_total_active_donor(){
+        active_pane.setStyle("-fx-background-color:  #1982C4; -fx-background-radius: 10px");
     }
 
     public void total_expired_donor_panel_clicked(){
@@ -520,7 +625,13 @@ public class dashboardController implements Initializable {
         }
     }
 
+    public void pane_enter_total_expired_donor(){
+        expired_pane.setStyle("-fx-background-color: #126091; -fx-background-radius: 10px;");
+    }
 
+    public void pane_exit_total_expired_donor(){
+        expired_pane.setStyle("-fx-background-color:  #1982C4; -fx-background-radius: 10px");
+    }
 
     public void addDataToTable(ObservableList<bloodFindTableModel> tableData){
         donorIdColumnDB.setCellValueFactory(new PropertyValueFactory<>("donorId"));
@@ -590,7 +701,7 @@ public class dashboardController implements Initializable {
                                         alertSuccess.setContentText("Blood donation removed successfully!");
                                         alertSuccess.showAndWait();
                                         initializeDashboardTable();
-                                        initializeBloodFindTable();
+                                        initializeBloodFindTable(false);
                                     }
                                     else{
                                         showError("RedSoil Dashboard", "Remove Blood Donation", "Blood donation removal failed!");
@@ -608,6 +719,24 @@ public class dashboardController implements Initializable {
         removeButtonDBColumn.setCellFactory(cellFactoryDelete);
 
         dashboardBloodTable.setItems(tableData);
+    }
+
+    public void removed_medicine_view(){
+        ObservableList<bloodFindTableModel> removeTableData = mysqlFunction.removeMedicineView();
+        if(removeTableData!=null){
+            donorIdColumn.setCellValueFactory(new PropertyValueFactory<>("donorId"));
+            donorNameColumn.setCellValueFactory(new PropertyValueFactory<>("donorName"));
+            donorPhoneColumn.setCellValueFactory(new PropertyValueFactory<>("donorPhone"));
+            aboColumn.setCellValueFactory(new PropertyValueFactory<>("abo"));
+            rhColumn.setCellValueFactory(new PropertyValueFactory<>("rh"));
+            unitColumn.setCellValueFactory(new PropertyValueFactory<>("unit"));
+            creationDateColumn.setCellValueFactory(new PropertyValueFactory<>("dateOfCreation"));
+            expiryDateColumn.setCellValueFactory(new PropertyValueFactory<>("bloodExpiryDate"));
+            viewButtonColumn.setVisible(false);
+            removeButtonColumn.setVisible(false);
+
+            findBloodTable.setItems(removeTableData);
+        }
     }
 
     public void addDataToDonationTable(){
@@ -672,6 +801,16 @@ public class dashboardController implements Initializable {
         vdrl.setText("");
     }
 
+    public void find_donor_button_click(){
+        getFindDonorID = findDonorIdInput.getText();
+        if(getFindDonorID.isEmpty()){
+            showError("RedSoil Dashboard", "Find Donor", "Please enter donor ID!");
+        }
+        else {
+           initializeBloodFindTable(true);
+        }
+    }
+
     public void initializeDashboardDataView(){
         mysqlFunction.mysqlDatabaseConnection();
         List<Integer> bloodTotalList = mysqlFunction.bloodDonationViewCount();
@@ -701,6 +840,53 @@ public class dashboardController implements Initializable {
         alert.setHeaderText(header);
         alert.setContentText(content);
         alert.showAndWait();
+    }
+
+    public void dashboard_close_button(){
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("RedSoil Dashboard");
+        alert.setHeaderText("Close Dashboard");
+        alert.setContentText("Are you sure you want to close the dashboard?");
+        Optional<ButtonType> result = alert.showAndWait();
+        if(result.get() == ButtonType.OK){
+            Stage stage = (Stage) dashboardCloseButton.getScene().getWindow();
+            stage.close();
+        }
+    }
+
+    public void dashboard_minimize_button(){
+        Stage stage = (Stage) dashboardMinimizeButton.getScene().getWindow();
+        stage.setIconified(true);
+    }
+
+    public void dashboard_maximize_button(){
+        Stage stage = (Stage) dashboardMaximizeButton.getScene().getWindow();
+        if(stage.isMaximized()){
+            stage.setMaximized(false);
+        }
+        else {
+            Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+            stage.setX(primaryScreenBounds.getMinX());
+            stage.setY(primaryScreenBounds.getMinY());
+
+            stage.setMaxWidth(primaryScreenBounds.getWidth());
+            stage.setMinWidth(primaryScreenBounds.getWidth());
+
+            stage.setMaxHeight(primaryScreenBounds.getHeight());
+            stage.setMinHeight(primaryScreenBounds.getHeight());
+        }
+    }
+
+    int xx, yy;
+    public void title_mouse_pressed(MouseEvent event){
+        xx = (int) event.getSceneX();
+        yy = (int) event.getSceneY();
+    }
+
+    public void title_mouse_dragged(MouseEvent event){
+        Stage stage = (Stage) dashboard_borderpane.getScene().getWindow();
+        stage.setX(event.getScreenX() - xx);
+        stage.setY(event.getScreenY() - yy);
     }
 
     @Override

@@ -1,19 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.shape.*?>
-<?import javafx.scene.text.*?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.haitomns.redsoil.dashboardController">
+<BorderPane fx:id="dashboard_borderpane" prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.haitomns.redsoil.dashboardController">
     <left>
         <Pane prefHeight="718.0" prefWidth="200.0" style="-fx-background-color: #BEBEBE;">
             <children>
-                <Pane prefHeight="718.0" prefWidth="200.0" style="-fx-background-color: #C93F3E; -fx-background-radius: 0 50 0 0;">
-                    <children>
-                        <JFXButton fx:id="dashboardButton" buttonType="RAISED" layoutX="23.0" layoutY="84.0" mnemonicParsing="false" onAction="#dashboardNavigation" prefHeight="45.0" prefWidth="155.0" style="-fx-background-color: #1F743E; -fx-background-radius: 100;" text="Dashboard" textAlignment="CENTER" textFill="WHITE">
+            <AnchorPane layoutX="-14.0" prefHeight="720.0" style="-fx-background-color: #C93F3E; -fx-background-radius: 0 50 0 0;">
+               <children>
+                        <JFXButton fx:id="dashboardButton" buttonType="RAISED" layoutX="37.0" layoutY="84.0" mnemonicParsing="false" onAction="#dashboardNavigation" prefHeight="45.0" prefWidth="155.0" style="-fx-background-color: #1F743E; -fx-background-radius: 100;" text="Dashboard" textAlignment="CENTER" textFill="WHITE">
                             <font>
                                 <Font name="System Bold" size="18.0" />
                             </font>
@@ -25,7 +41,7 @@
                                 </ImageView>
                             </graphic>
                         </JFXButton>
-                        <JFXButton fx:id="bloodDonationButton" buttonType="RAISED" layoutX="1.0" layoutY="165.0" mnemonicParsing="false" onAction="#dashboardNavigation" prefHeight="45.0" prefWidth="200.0" style="-fx-background-color: #C93F3E; -fx-alignment: center-left;" text="Blood Donation" textFill="WHITE">
+                        <JFXButton fx:id="bloodDonationButton" buttonType="RAISED" layoutX="15.0" layoutY="165.0" mnemonicParsing="false" onAction="#dashboardNavigation" prefHeight="45.0" prefWidth="200.0" style="-fx-background-color: #C93F3E; -fx-alignment: center-left;" text="Blood Donation" textFill="WHITE">
                             <font>
                                 <Font name="System Bold" size="18.0" />
                             </font>
@@ -37,7 +53,7 @@
                                 </ImageView>
                             </graphic>
                         </JFXButton>
-                        <JFXButton fx:id="findBloodButton" buttonType="RAISED" layoutX="1.0" layoutY="225.0" mnemonicParsing="false" onAction="#dashboardNavigation" prefHeight="45.0" prefWidth="200.0" style="-fx-background-color: #C93F3E; -fx-alignment: center-left;" text="Find Blood" textFill="WHITE">
+                        <JFXButton fx:id="findBloodButton" buttonType="RAISED" layoutX="15.0" layoutY="225.0" mnemonicParsing="false" onAction="#dashboardNavigation" prefHeight="45.0" prefWidth="200.0" style="-fx-background-color: #C93F3E; -fx-alignment: center-left;" text="Find Blood" textFill="WHITE">
                             <font>
                                 <Font name="System Bold" size="18.0" />
                             </font>
@@ -49,7 +65,7 @@
                                 </ImageView>
                             </graphic>
                         </JFXButton>
-                        <JFXButton fx:id="userAccountButton" buttonType="RAISED" layoutX="1.0" layoutY="285.0" mnemonicParsing="false" onAction="#dashboardNavigation" prefHeight="45.0" prefWidth="200.0" style="-fx-background-color: #C93F3E; -fx-alignment: center-left;" text="User Account" textFill="WHITE">
+                        <JFXButton fx:id="userAccountButton" buttonType="RAISED" layoutX="15.0" layoutY="285.0" mnemonicParsing="false" onAction="#dashboardNavigation" prefHeight="45.0" prefWidth="200.0" style="-fx-background-color: #C93F3E; -fx-alignment: center-left;" text="User Account" textFill="WHITE">
                             <font>
                                 <Font name="System Bold" size="18.0" />
                             </font>
@@ -61,44 +77,105 @@
                                 </ImageView>
                             </graphic>
                         </JFXButton>
-                  <ImageView fitHeight="80.0" fitWidth="80.0" layoutX="7.0" layoutY="499.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="80.0" fitWidth="80.0" layoutX="21.0" layoutY="496.0" pickOnBounds="true" preserveRatio="true" AnchorPane.topAnchor="496.0">
                      <image>
                         <Image url="@../../../com.haitomns.images/haitomnsLogoRed.png" />
                      </image>
                   </ImageView>
-                  <Label layoutX="18.0" layoutY="579.0" text="Built By;" textFill="WHITE">
+                  <Label layoutX="32.0" layoutY="576.0" text="Built By;" textFill="WHITE" AnchorPane.topAnchor="576.0">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
                   </Label>
-                  <Label layoutX="18.0" layoutY="606.0" text="Haitomn's Group" textFill="WHITE">
+                  <Label layoutX="32.0" layoutY="596.0" text="Haitomn's Group" textFill="WHITE" AnchorPane.topAnchor="596.0">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
                   </Label>
-                    </children>
-                </Pane>
+               </children>
+            </AnchorPane>
             </children>
         </Pane>
     </left>
     <top>
-        <Pane prefHeight="50.0" prefWidth="1366.0" BorderPane.alignment="CENTER">
-            <Label layoutX="42.0" layoutY="10.0" text="RedSoil" textFill="#c93f3e">
-                <font>
-                    <Font name="System Bold" size="24.0" />
-                </font>
-            </Label>
-            <ImageView fitHeight="42.0" fitWidth="69.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
-                <Image url="@../../../com.haitomns.images/redsoilIcon.png" />
+      <AnchorPane onMouseDragged="#title_mouse_dragged" onMousePressed="#title_mouse_pressed" BorderPane.alignment="CENTER">
+         <children>
+               <Label layoutX="42.0" layoutY="10.0" text="RedSoil" textFill="#c93f3e">
+                   <font>
+                       <Font name="System Bold" size="24.0" />
+                   </font>
+               </Label>
+               <ImageView fitHeight="42.0" fitWidth="69.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
+                   <Image url="@../../../com.haitomns.images/redsoilIcon.png" />
+               </ImageView>
+            <ImageView fx:id="dashboardCloseButton" fitHeight="45.0" fitWidth="25.0" layoutX="1327.0" layoutY="15.0" onMouseClicked="#dashboard_close_button" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0">
+               <image>
+                  <Image url="@../../../com.haitomns.images/closeIcon.png" />
+               </image>
             </ImageView>
-        </Pane>
+            <ImageView fx:id="dashboardMaximizeButton" fitHeight="45.0" fitWidth="25.0" layoutX="1248.0" layoutY="15.0" onMouseClicked="#dashboard_maximize_button" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="45.0" AnchorPane.topAnchor="15.0">
+               <image>
+                  <Image url="@../../../com.haitomns.images/maximize.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="dashboardMinimizeButton" fitHeight="45.0" fitWidth="25.0" layoutX="1283.0" layoutY="15.0" onMouseClicked="#dashboard_minimize_button" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="75.0" AnchorPane.topAnchor="15.0">
+               <image>
+                  <Image url="@../../../com.haitomns.images/minimizeIcon.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
     </top>
     <center>
         <Pane>
             <children>
-                <SplitPane fx:id="bloodDonationSplitPane" dividerPositions="0.4" prefHeight="718.0" prefWidth="1166.0">
-                    <items>
-                        <TabPane prefHeight="718.0" prefWidth="450.0" tabClosingPolicy="UNAVAILABLE" SplitPane.resizableWithParent="false">
+            <ScrollPane fx:id="findBloodScrollPane" prefHeight="718.0" prefWidth="1166.0">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="700.0" prefWidth="1166.0" style="-fx-background-color: #bebebe;">
+                     <children>
+                        <TableView fx:id="findBloodTable" layoutX="67.0" layoutY="187.0" prefHeight="445.0" prefWidth="1000.0" AnchorPane.bottomAnchor="86.0" AnchorPane.leftAnchor="67.0" AnchorPane.rightAnchor="99.0" AnchorPane.topAnchor="187.0">
+                          <columns>
+                            <TableColumn fx:id="donorIdColumn" prefWidth="70.0" text="Donor ID" />
+                            <TableColumn fx:id="donorNameColumn" prefWidth="200.0" text="Donor Name" />
+                              <TableColumn fx:id="donorPhoneColumn" prefWidth="90.0" text="Phone" />
+                              <TableColumn fx:id="aboColumn" prefWidth="42.0" text="ABO" />
+                              <TableColumn fx:id="rhColumn" prefWidth="41.0" text="RH" />
+                              <TableColumn fx:id="unitColumn" prefWidth="75.0" text="Unit" />
+                              <TableColumn fx:id="creationDateColumn" prefWidth="120.0" text="Creation Date " />
+                              <TableColumn fx:id="expiryDateColumn" prefWidth="100.0" text="Expiry Date" />
+                              <TableColumn fx:id="viewButtonColumn" prefWidth="50.0" text="View" />
+                              <TableColumn fx:id="removeButtonColumn" minWidth="0.0" prefWidth="65.0" text="Remove" />
+                          </columns>
+                        </TableView>
+                        <Line endX="900.0" layoutX="167.0" layoutY="101.0" startX="-100.0" stroke="#c93f3e" />
+                        <Label layoutX="66.0" layoutY="65.0" text="Find Blood" textFill="#c93f3e">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="67.0" layoutY="125.0" text="Donor ID" textFill="#c93f3e">
+                           <font>
+                              <Font size="13.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="findDonorIdInput" layoutX="137.0" layoutY="117.0" prefHeight="35.0" prefWidth="320.0" style="-fx-border-color: #C93F3E; -fx-border-radius: 10; -fx-background-color: #bebebe;" />
+                        <JFXButton buttonType="RAISED" layoutX="474.0" layoutY="119.0" mnemonicParsing="false" onAction="#find_donor_button_click" style="-fx-background-color: #C93F3E; -fx-background-radius: 10;" text="Find" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </JFXButton>
+                        <JFXButton buttonType="RAISED" layoutX="909.0" layoutY="120.0" mnemonicParsing="false" onAction="#removed_medicine_view" style="-fx-background-color: #1F743E; -fx-background-radius: 10;" text="View Removed Blood" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </JFXButton>
+                     </children>
+                  </AnchorPane>
+              </content>
+            </ScrollPane>
+            <HBox fx:id="bloodDonationHbox" prefHeight="718.0" prefWidth="1168.0">
+               <children>
+                        <TabPane prefHeight="718.0" prefWidth="450.0" tabClosingPolicy="UNAVAILABLE">
                             <tabs>
                                 <Tab text="New Donor">
                                     <content>
@@ -439,13 +516,13 @@
                                 </Tab>
                             </tabs>
                         </TabPane>
-                        <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" SplitPane.resizableWithParent="false">
+                        <TabPane prefHeight="718.0" prefWidth="715.0" tabClosingPolicy="UNAVAILABLE">
                             <tabs>
                                 <Tab text="Donor Data Display">
                                     <content>
-                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #f4f4f4;">
                                  <children>
-                                    <TableView fx:id="donorDataTable" layoutX="23.0" layoutY="31.0" prefHeight="560.0" prefWidth="650.0">
+                                    <TableView fx:id="donorDataTable" layoutX="23.0" layoutY="31.0" prefHeight="560.0" prefWidth="650.0" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0">
                                        <columns>
                                           <TableColumn fx:id="donorIdColumnAdd" prefWidth="70.0" text="Donor ID" />
                                           <TableColumn fx:id="donorNameColumnAdd" prefWidth="200.0" text="Donor Name" />
@@ -456,52 +533,14 @@
                                           <TableColumn fx:id="unitColumnAdd" prefWidth="75.0" text="Unit" />
                                        </columns>
                                     </TableView>
-                                 </children></AnchorPane>
+                                 </children>
+                              </AnchorPane>
                                     </content>
                                 </Tab>
                             </tabs>
                         </TabPane>
-                    </items>
-                </SplitPane>
-            <ScrollPane fx:id="findBloodScrollPane" prefHeight="718.0" prefWidth="1166.0">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="700.0" prefWidth="1166.0" style="-fx-background-color: #bebebe;">
-                     <children>
-                        <TableView fx:id="findBloodTable" layoutX="67.0" layoutY="187.0" prefHeight="445.0" prefWidth="1000.0" AnchorPane.bottomAnchor="86.0" AnchorPane.leftAnchor="67.0" AnchorPane.rightAnchor="99.0" AnchorPane.topAnchor="187.0">
-                          <columns>
-                            <TableColumn fx:id="donorIdColumn" prefWidth="70.0" text="Donor ID" />
-                            <TableColumn fx:id="donorNameColumn" prefWidth="200.0" text="Donor Name" />
-                              <TableColumn fx:id="donorPhoneColumn" prefWidth="90.0" text="Phone" />
-                              <TableColumn fx:id="aboColumn" prefWidth="42.0" text="ABO" />
-                              <TableColumn fx:id="rhColumn" prefWidth="41.0" text="RH" />
-                              <TableColumn fx:id="unitColumn" prefWidth="75.0" text="Unit" />
-                              <TableColumn fx:id="creationDateColumn" prefWidth="120.0" text="Creation Date " />
-                              <TableColumn fx:id="expiryDateColumn" prefWidth="100.0" text="Expiry Date" />
-                              <TableColumn fx:id="viewButtonColumn" prefWidth="50.0" text="View" />
-                              <TableColumn fx:id="removeButtonColumn" minWidth="0.0" prefWidth="65.0" text="Remove" />
-                          </columns>
-                        </TableView>
-                        <Line endX="900.0" layoutX="167.0" layoutY="101.0" startX="-100.0" stroke="#c93f3e" />
-                        <Label layoutX="66.0" layoutY="65.0" text="Find Blood" textFill="#c93f3e">
-                           <font>
-                              <Font name="System Bold" size="18.0" />
-                           </font>
-                        </Label>
-                        <Label layoutX="67.0" layoutY="125.0" text="Donor ID" textFill="#c93f3e">
-                           <font>
-                              <Font size="13.0" />
-                           </font>
-                        </Label>
-                        <TextField fx:id="donorIdField1" layoutX="137.0" layoutY="117.0" prefHeight="35.0" prefWidth="320.0" style="-fx-border-color: #C93F3E; -fx-border-radius: 10; -fx-background-color: #bebebe;" />
-                        <JFXButton buttonType="RAISED" layoutX="474.0" layoutY="119.0" mnemonicParsing="false" style="-fx-background-color: #C93F3E; -fx-background-radius: 10;" text="Find" textFill="WHITE">
-                           <font>
-                              <Font name="System Bold" size="14.0" />
-                           </font>
-                        </JFXButton>
-                     </children>
-                  </AnchorPane>
-              </content>
-            </ScrollPane>
+               </children>
+            </HBox>
                   <ScrollPane fx:id="userAccountScrollPane" prefHeight="718.0" prefWidth="1166.0">
                       <content>
                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="700.0" prefWidth="1166.0" style="-fx-background-color: #bebebe;">
@@ -559,205 +598,203 @@
                   </ScrollPane>
                 <ScrollPane fx:id="dashboardScrollPane" prefHeight="718.0" prefWidth="1166.0">
                     <content>
-                        <AnchorPane prefHeight="700.0" prefWidth="1166.0">
+                        <AnchorPane prefHeight="700.0" prefWidth="1166.0" style="-fx-background-color: #bebebe;">
                             <children>
-                                <Pane prefHeight="700.0" prefWidth="1166.0" style="-fx-background-color: #bebebe;">
-                                    <Label layoutX="51.0" layoutY="35.0" text="Dashboard" textFill="#c93f3e">
-                                        <font>
-                                            <Font name="System Bold" size="24.0" />
-                                        </font>
-                                    </Label>
-                                    <Label layoutX="51.0" layoutY="77.0" text="Blood Details" textFill="#c93f3e">
-                                        <font>
-                                            <Font name="System Bold" size="18.0" />
-                                        </font>
-                                    </Label>
-                                    <Line endX="700.0" layoutX="152.0" layoutY="104.0" startX="-100.0" stroke="#c93f3e" />
-                                    <Pane layoutX="51.0" layoutY="122.0" onMouseClicked="#a_plus_panel_clicked" prefHeight="105.0" prefWidth="185.0" style="-fx-background-color: #C93F3E; -fx-background-radius: 10;">
-                                        <Label layoutX="14.0" layoutY="6.0" text="A+" textFill="WHITE">
-                                            <font>
-                                                <Font name="System Bold" size="36.0" />
-                                            </font>
-                                        </Label>
-                                        <Label fx:id="a_plus_number" layoutX="93.0" layoutY="70.0" text="0 Pouches" textAlignment="RIGHT" textFill="WHITE">
-                                            <font>
-                                                <Font name="System Bold" size="18.0" />
-                                            </font>
-                                        </Label>
-                                    </Pane>
-                                    <Pane layoutX="258.0" layoutY="122.0" onMouseClicked="#b_plus_panel_clicked" prefHeight="105.0" prefWidth="185.0" style="-fx-background-color: #C93F3E; -fx-background-radius: 10;">
-                                        <Label layoutX="14.0" layoutY="6.0" text="B+" textFill="WHITE">
-                                            <font>
-                                                <Font name="System Bold" size="36.0" />
-                                            </font>
-                                        </Label>
-                                        <Label fx:id="b_plus_number" layoutX="93.0" layoutY="70.0" text="0 Pouches" textAlignment="RIGHT" textFill="WHITE">
-                                            <font>
-                                                <Font name="System Bold" size="18.0" />
-                                            </font>
-                                        </Label>
-                                    </Pane>
-                                    <Pane layoutX="465.0" layoutY="122.0" onMouseClicked="#ab_plus_panel_clicked" prefHeight="105.0" prefWidth="185.0" style="-fx-background-color: #C93F3E; -fx-background-radius: 10;">
-                                        <children>
-                                            <Label layoutX="14.0" layoutY="6.0" text="AB+" textFill="WHITE">
-                                                <font>
-                                                    <Font name="System Bold" size="36.0" />
-                                                </font>
-                                            </Label>
-                                            <Label fx:id="ab_plus_number" layoutX="93.0" layoutY="70.0" text="0 Pouches" textAlignment="RIGHT" textFill="WHITE">
-                                                <font>
-                                                    <Font name="System Bold" size="18.0" />
-                                                </font>
-                                            </Label>
-                                        </children>
-                                    </Pane>
-                                    <Pane layoutX="671.0" layoutY="122.0" onMouseClicked="#o_plus_panel_clicked" prefHeight="105.0" prefWidth="185.0" style="-fx-background-color: #C93F3E; -fx-background-radius: 10;">
-                                        <children>
-                                            <Label layoutX="14.0" layoutY="6.0" text="O+" textFill="WHITE">
-                                                <font>
-                                                    <Font name="System Bold" size="36.0" />
-                                                </font>
-                                            </Label>
-                                            <Label fx:id="o_plus_number" layoutX="93.0" layoutY="70.0" text="0 Pouches" textAlignment="RIGHT" textFill="WHITE">
-                                                <font>
-                                                    <Font name="System Bold" size="18.0" />
-                                                </font>
-                                            </Label>
-                                        </children>
-                                    </Pane>
-                                    <Pane layoutX="51.0" layoutY="246.0" onMouseClicked="#a_minus_panel_clicked" prefHeight="105.0" prefWidth="185.0" style="-fx-background-color: #C93F3E; -fx-background-radius: 10;">
-                                        <children>
-                                            <Label layoutX="14.0" layoutY="6.0" text="A-" textFill="WHITE">
-                                                <font>
-                                                    <Font name="System Bold" size="36.0" />
-                                                </font>
-                                            </Label>
-                                            <Label fx:id="a_minus_number" layoutX="93.0" layoutY="70.0" text="0 Pouches" textAlignment="RIGHT" textFill="WHITE">
-                                                <font>
-                                                    <Font name="System Bold" size="18.0" />
-                                                </font>
-                                            </Label>
-                                        </children>
-                                    </Pane>
-                                    <Pane layoutX="258.0" layoutY="246.0" onMouseClicked="#b_minus_panel_clicked" prefHeight="105.0" prefWidth="185.0" style="-fx-background-color: #C93F3E; -fx-background-radius: 10;">
-                                        <children>
-                                            <Label layoutX="14.0" layoutY="6.0" text="B-" textFill="WHITE">
-                                                <font>
-                                                    <Font name="System Bold" size="36.0" />
-                                                </font>
-                                            </Label>
-                                            <Label fx:id="b_minus_number" layoutX="93.0" layoutY="70.0" text="0 Pouches" textAlignment="RIGHT" textFill="WHITE">
-                                                <font>
-                                                    <Font name="System Bold" size="18.0" />
-                                                </font>
-                                            </Label>
-                                        </children>
-                                    </Pane>
-                                    <Pane layoutX="465.0" layoutY="246.0" prefHeight="105.0" prefWidth="185.0" style="-fx-background-color: #C93F3E; -fx-background-radius: 10;">
-                                        <children>
-                                            <Label layoutX="14.0" layoutY="6.0" onMouseClicked="#ab_minus_panel_clicked" text="AB-" textFill="WHITE">
-                                                <font>
-                                                    <Font name="System Bold" size="36.0" />
-                                                </font>
-                                            </Label>
-                                            <Label fx:id="ab_minus_number" layoutX="93.0" layoutY="70.0" text="0 Pouches" textAlignment="RIGHT" textFill="WHITE">
-                                                <font>
-                                                    <Font name="System Bold" size="18.0" />
-                                                </font>
-                                            </Label>
-                                        </children>
-                                    </Pane>
-                                    <Pane layoutX="671.0" layoutY="246.0" onMouseClicked="#o_minus_panel_clicked" prefHeight="105.0" prefWidth="185.0" style="-fx-background-color: #C93F3E; -fx-background-radius: 10;">
-                                        <children>
-                                            <Label layoutX="14.0" layoutY="6.0" text="O-" textFill="WHITE">
-                                                <font>
-                                                    <Font name="System Bold" size="36.0" />
-                                                </font>
-                                            </Label>
-                                            <Label fx:id="o_minus_number" layoutX="93.0" layoutY="70.0" text="0 Pouches" textAlignment="RIGHT" textFill="WHITE">
-                                                <font>
-                                                    <Font name="System Bold" size="18.0" />
-                                                </font>
-                                            </Label>
-                                        </children>
-                                    </Pane>
-                                    <Label layoutX="887.0" layoutY="76.0" text="Blood Status" textFill="#1982c4">
-                                        <font>
-                                            <Font name="System Bold" size="18.0" />
-                                        </font>
-                                    </Label>
-                                    <Line endX="120.0" layoutX="988.0" layoutY="103.0" startX="-100.0" stroke="#1982c4" />
-                                    <Pane layoutX="887.0" layoutY="122.0" onMouseClicked="#total_donor_panel_clicked" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #1982C4; -fx-background-radius: 10;">
-                                        <children>
-                                            <Label layoutX="7.0" layoutY="14.0" text="Total Donors" textFill="WHITE">
-                                                <font>
-                                                    <Font name="System Bold" size="14.0" />
-                                                </font>
-                                            </Label>
-                                            <Label fx:id="total_donor_number" layoutX="44.0" layoutY="50.0" text="0" textAlignment="RIGHT" textFill="WHITE">
-                                                <font>
-                                                    <Font name="System Bold" size="18.0" />
-                                                </font>
-                                            </Label>
-                                        </children>
-                                    </Pane>
-                           <Pane layoutX="1009.0" layoutY="122.0" onMouseClicked="#total_active_donor_panel_clicked" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #1982C4; -fx-background-radius: 10;">
-                              <children>
-                                 <Label layoutX="7.0" layoutY="14.0" text="Active Blood" textFill="WHITE">
-                                    <font>
-                                       <Font name="System Bold" size="14.0" />
-                                    </font>
+                                 <Label layoutX="51.0" layoutY="35.0" text="Dashboard" textFill="#c93f3e">
+                                     <font>
+                                         <Font name="System Bold" size="24.0" />
+                                     </font>
                                  </Label>
-                                 <Label fx:id="active_blood_number" layoutX="44.0" layoutY="50.0" text="0" textAlignment="RIGHT" textFill="WHITE">
-                                    <font>
-                                       <Font name="System Bold" size="18.0" />
-                                    </font>
+                                 <Label layoutX="51.0" layoutY="77.0" text="Blood Details" textFill="#c93f3e">
+                                     <font>
+                                         <Font name="System Bold" size="18.0" />
+                                     </font>
                                  </Label>
-                              </children>
-                           </Pane>
-                           <Pane layoutX="887.0" layoutY="249.0" onMouseClicked="#total_expired_donor_panel_clicked" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #1982C4; -fx-background-radius: 10;">
-                              <children>
-                                 <Label layoutX="3.0" layoutY="14.0" text="Expired Blood" textFill="WHITE">
-                                    <font>
-                                       <Font name="System Bold" size="14.0" />
-                                    </font>
+                                 <Line endX="700.0" layoutX="152.0" layoutY="104.0" startX="-100.0" stroke="#c93f3e" />
+                                 <Pane fx:id="a_plus_pane" layoutX="51.0" layoutY="122.0" onMouseClicked="#a_plus_panel_clicked" onMouseEntered="#pane_enter_a_plus" onMouseExited="#pane_exit_a_plus" prefHeight="105.0" prefWidth="185.0" style="-fx-background-color: #C93F3E; -fx-background-radius: 10;">
+                                     <Label layoutX="14.0" layoutY="6.0" text="A+" textFill="WHITE">
+                                         <font>
+                                             <Font name="System Bold" size="36.0" />
+                                         </font>
+                                     </Label>
+                                     <Label fx:id="a_plus_number" layoutX="93.0" layoutY="70.0" text="0 Pouches" textAlignment="RIGHT" textFill="WHITE">
+                                         <font>
+                                             <Font name="System Bold" size="18.0" />
+                                         </font>
+                                     </Label>
+                                 </Pane>
+                                 <Pane fx:id="b_plus_pane" layoutX="258.0" layoutY="122.0" onMouseClicked="#b_plus_panel_clicked" onMouseEntered="#pane_enter_b_plus" onMouseExited="#pane_exit_b_plus" prefHeight="105.0" prefWidth="185.0" style="-fx-background-color: #C93F3E; -fx-background-radius: 10;">
+                                     <Label layoutX="14.0" layoutY="6.0" text="B+" textFill="WHITE">
+                                         <font>
+                                             <Font name="System Bold" size="36.0" />
+                                         </font>
+                                     </Label>
+                                     <Label fx:id="b_plus_number" layoutX="93.0" layoutY="70.0" text="0 Pouches" textAlignment="RIGHT" textFill="WHITE">
+                                         <font>
+                                             <Font name="System Bold" size="18.0" />
+                                         </font>
+                                     </Label>
+                                 </Pane>
+                                 <Pane fx:id="ab_plus_pane" layoutX="465.0" layoutY="122.0" onMouseClicked="#ab_plus_panel_clicked" onMouseEntered="#pane_enter_ab_plus" onMouseExited="#pane_exit_ab_plus" prefHeight="105.0" prefWidth="185.0" style="-fx-background-color: #C93F3E; -fx-background-radius: 10;">
+                                     <children>
+                                         <Label layoutX="14.0" layoutY="6.0" text="AB+" textFill="WHITE">
+                                             <font>
+                                                 <Font name="System Bold" size="36.0" />
+                                             </font>
+                                         </Label>
+                                         <Label fx:id="ab_plus_number" layoutX="93.0" layoutY="70.0" text="0 Pouches" textAlignment="RIGHT" textFill="WHITE">
+                                             <font>
+                                                 <Font name="System Bold" size="18.0" />
+                                             </font>
+                                         </Label>
+                                     </children>
+                                 </Pane>
+                                 <Pane fx:id="o_plus_pane" layoutX="671.0" layoutY="122.0" onMouseClicked="#o_plus_panel_clicked" onMouseEntered="#pane_enter_o_plus" onMouseExited="#pane_exit_o_plus" prefHeight="105.0" prefWidth="185.0" style="-fx-background-color: #C93F3E; -fx-background-radius: 10;">
+                                     <children>
+                                         <Label layoutX="14.0" layoutY="6.0" text="O+" textFill="WHITE">
+                                             <font>
+                                                 <Font name="System Bold" size="36.0" />
+                                             </font>
+                                         </Label>
+                                         <Label fx:id="o_plus_number" layoutX="93.0" layoutY="70.0" text="0 Pouches" textAlignment="RIGHT" textFill="WHITE">
+                                             <font>
+                                                 <Font name="System Bold" size="18.0" />
+                                             </font>
+                                         </Label>
+                                     </children>
+                                 </Pane>
+                                 <Pane fx:id="a_minus_pane" layoutX="51.0" layoutY="246.0" onMouseClicked="#a_minus_panel_clicked" onMouseEntered="#pane_enter_a_minus" onMouseExited="#pane_exit_a_minus" prefHeight="105.0" prefWidth="185.0" style="-fx-background-color: #C93F3E; -fx-background-radius: 10;">
+                                     <children>
+                                         <Label layoutX="14.0" layoutY="6.0" text="A-" textFill="WHITE">
+                                             <font>
+                                                 <Font name="System Bold" size="36.0" />
+                                             </font>
+                                         </Label>
+                                         <Label fx:id="a_minus_number" layoutX="93.0" layoutY="70.0" text="0 Pouches" textAlignment="RIGHT" textFill="WHITE">
+                                             <font>
+                                                 <Font name="System Bold" size="18.0" />
+                                             </font>
+                                         </Label>
+                                     </children>
+                                 </Pane>
+                                 <Pane fx:id="b_minus_pane" layoutX="258.0" layoutY="246.0" onMouseClicked="#b_minus_panel_clicked" onMouseEntered="#pane_enter_b_minus" onMouseExited="#pane_exit_b_minus" prefHeight="105.0" prefWidth="185.0" style="-fx-background-color: #C93F3E; -fx-background-radius: 10;">
+                                     <children>
+                                         <Label layoutX="14.0" layoutY="6.0" text="B-" textFill="WHITE">
+                                             <font>
+                                                 <Font name="System Bold" size="36.0" />
+                                             </font>
+                                         </Label>
+                                         <Label fx:id="b_minus_number" layoutX="93.0" layoutY="70.0" text="0 Pouches" textAlignment="RIGHT" textFill="WHITE">
+                                             <font>
+                                                 <Font name="System Bold" size="18.0" />
+                                             </font>
+                                         </Label>
+                                     </children>
+                                 </Pane>
+                                 <Pane fx:id="ab_minus_pane" layoutX="465.0" layoutY="246.0" onMouseEntered="#pane_enter_ab_minus" onMouseExited="#pane_exit_ab_minus" prefHeight="105.0" prefWidth="185.0" style="-fx-background-color: #C93F3E; -fx-background-radius: 10;">
+                                     <children>
+                                         <Label layoutX="14.0" layoutY="6.0" onMouseClicked="#ab_minus_panel_clicked" text="AB-" textFill="WHITE">
+                                             <font>
+                                                 <Font name="System Bold" size="36.0" />
+                                             </font>
+                                         </Label>
+                                         <Label fx:id="ab_minus_number" layoutX="93.0" layoutY="70.0" text="0 Pouches" textAlignment="RIGHT" textFill="WHITE">
+                                             <font>
+                                                 <Font name="System Bold" size="18.0" />
+                                             </font>
+                                         </Label>
+                                     </children>
+                                 </Pane>
+                                 <Pane fx:id="o_minus_pane" layoutX="671.0" layoutY="246.0" onMouseClicked="#o_minus_panel_clicked" onMouseEntered="#pane_enter_o_minus" onMouseExited="#pane_exit_o_minus" prefHeight="105.0" prefWidth="185.0" style="-fx-background-color: #C93F3E; -fx-background-radius: 10;">
+                                     <children>
+                                         <Label layoutX="14.0" layoutY="6.0" text="O-" textFill="WHITE">
+                                             <font>
+                                                 <Font name="System Bold" size="36.0" />
+                                             </font>
+                                         </Label>
+                                         <Label fx:id="o_minus_number" layoutX="93.0" layoutY="70.0" text="0 Pouches" textAlignment="RIGHT" textFill="WHITE">
+                                             <font>
+                                                 <Font name="System Bold" size="18.0" />
+                                             </font>
+                                         </Label>
+                                     </children>
+                                 </Pane>
+                                 <Label layoutX="887.0" layoutY="76.0" text="Blood Status" textFill="#1982c4">
+                                     <font>
+                                         <Font name="System Bold" size="18.0" />
+                                     </font>
                                  </Label>
-                                 <Label fx:id="expired_blood_number" layoutX="44.0" layoutY="50.0" text="0" textAlignment="RIGHT" textFill="WHITE">
-                                    <font>
-                                       <Font name="System Bold" size="18.0" />
-                                    </font>
-                                 </Label>
-                              </children>
-                           </Pane>
-                           <Pane layoutX="1009.0" layoutY="249.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #1982C4; -fx-background-radius: 10;">
-                              <children>
-                                 <Label layoutX="17.0" layoutY="14.0" text="Total Unit" textFill="WHITE">
-                                    <font>
-                                       <Font name="System Bold" size="14.0" />
-                                    </font>
-                                 </Label>
-                                 <Label fx:id="total_unit_number" layoutX="44.0" layoutY="50.0" text="0" textAlignment="RIGHT" textFill="WHITE">
-                                    <font>
-                                       <Font name="System Bold" size="18.0" />
-                                    </font>
-                                 </Label>
-                              </children>
-                           </Pane>
-                           <TableView fx:id="dashboardBloodTable" layoutX="51.0" layoutY="387.0" prefHeight="240.0" prefWidth="1060.0">
-                              <columns>
-                                 <TableColumn fx:id="donorIdColumnDB" prefWidth="70.0" text="Donor ID" />
-                                 <TableColumn fx:id="donorNameColumnDB" prefWidth="200.0" text="Donor Name" />
-                                 <TableColumn fx:id="donorPhoneColumnDB" prefWidth="90.0" text="Phone" />
-                                 <TableColumn fx:id="aboColumnDB" prefWidth="42.0" text="ABO" />
-                                 <TableColumn fx:id="rhColumnDB" prefWidth="41.0" text="RH" />
-                                 <TableColumn fx:id="unitColumnDB" prefWidth="75.0" text="Unit" />
-                                 <TableColumn fx:id="creationDateColumnDB" prefWidth="120.0" text="Creation Date " />
-                                 <TableColumn fx:id="expiryDateColumnDB" prefWidth="100.0" text="Expiry Date" />
-                                 <TableColumn fx:id="viewButtonDBColumn" prefWidth="50.0" text="View" />
-                                 <TableColumn fx:id="removeButtonDBColumn" minWidth="0.0" prefWidth="65.0" text="Remove" />
-                              </columns>
-                           </TableView>
-                                </Pane>
+                                 <Line endX="120.0" layoutX="988.0" layoutY="103.0" startX="-100.0" stroke="#1982c4" />
+                                 <Pane fx:id="total_donor_pane" layoutX="887.0" layoutY="122.0" onMouseClicked="#total_donor_panel_clicked" onMouseEntered="#pane_enter_total_donor" onMouseExited="#pane_exit_total_donor" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #1982C4; -fx-background-radius: 10;">
+                                     <children>
+                                         <Label layoutX="7.0" layoutY="14.0" text="Total Donors" textFill="WHITE">
+                                             <font>
+                                                 <Font name="System Bold" size="14.0" />
+                                             </font>
+                                         </Label>
+                                         <Label fx:id="total_donor_number" layoutX="44.0" layoutY="50.0" text="0" textAlignment="RIGHT" textFill="WHITE">
+                                             <font>
+                                                 <Font name="System Bold" size="18.0" />
+                                             </font>
+                                         </Label>
+                                     </children>
+                                 </Pane>
+                        <Pane fx:id="active_pane" layoutX="1009.0" layoutY="122.0" onMouseClicked="#total_active_donor_panel_clicked" onMouseEntered="#pane_enter_total_active_donor" onMouseExited="#pane_exit_total_active_donor" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #1982C4; -fx-background-radius: 10;" AnchorPane.rightAnchor="57.0">
+                           <children>
+                              <Label layoutX="7.0" layoutY="14.0" text="Active Blood" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="active_blood_number" layoutX="44.0" layoutY="50.0" text="0" textAlignment="RIGHT" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </Pane>
+                        <Pane fx:id="expired_pane" layoutX="887.0" layoutY="249.0" onMouseClicked="#total_expired_donor_panel_clicked" onMouseEntered="#pane_enter_total_expired_donor" onMouseExited="#pane_exit_total_expired_donor" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #1982C4; -fx-background-radius: 10;">
+                           <children>
+                              <Label layoutX="3.0" layoutY="14.0" text="Expired Blood" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="expired_blood_number" layoutX="44.0" layoutY="50.0" text="0" textAlignment="RIGHT" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </Pane>
+                        <Pane layoutX="1009.0" layoutY="249.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #1F743E; -fx-background-radius: 10;" AnchorPane.rightAnchor="57.0">
+                           <children>
+                              <Label layoutX="17.0" layoutY="14.0" text="Total Unit" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="total_unit_number" layoutX="44.0" layoutY="50.0" text="0" textAlignment="RIGHT" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </Pane>
+                        <TableView fx:id="dashboardBloodTable" layoutX="51.0" layoutY="387.0" prefHeight="240.0" prefWidth="1060.0">
+                           <columns>
+                              <TableColumn fx:id="donorIdColumnDB" prefWidth="70.0" text="Donor ID" />
+                              <TableColumn fx:id="donorNameColumnDB" prefWidth="200.0" text="Donor Name" />
+                              <TableColumn fx:id="donorPhoneColumnDB" prefWidth="90.0" text="Phone" />
+                              <TableColumn fx:id="aboColumnDB" prefWidth="42.0" text="ABO" />
+                              <TableColumn fx:id="rhColumnDB" prefWidth="41.0" text="RH" />
+                              <TableColumn fx:id="unitColumnDB" prefWidth="75.0" text="Unit" />
+                              <TableColumn fx:id="creationDateColumnDB" prefWidth="120.0" text="Creation Date " />
+                              <TableColumn fx:id="expiryDateColumnDB" prefWidth="100.0" text="Expiry Date" />
+                              <TableColumn fx:id="viewButtonDBColumn" prefWidth="50.0" text="View" />
+                              <TableColumn fx:id="removeButtonDBColumn" minWidth="0.0" prefWidth="65.0" text="Remove" />
+                           </columns>
+                        </TableView>
                             </children>
                         </AnchorPane>
                     </content>
