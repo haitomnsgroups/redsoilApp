@@ -264,6 +264,39 @@ public class mysqlFunction {
         }
     }
 
+    public static boolean updateDonor(String donorIdToUpdate, String donationOrganization, String donorName, String donorGender, String donorAge, String donorOccupation, String donorAddress, String donorPhone, String donorEmail, String patientName, String donorId, String previouslyDonated, String previouslyDonatedDate, String diseases, String weight, String bp, String hb, String respSys, String cvs, String giSystem, String other, String fit, String unit, String abo, String rh, String hiv, String hbsAg, String hcv, String vdrl, String expiryDate){
+        try{
+            System.out.println(donorIdToUpdate+" "+ donationOrganization+" "+ donorName+" "+ donorGender+" "+ donorAge+" "+ donorOccupation+" "+ donorAddress+" "+ donorPhone+" "+ donorEmail+" "+ patientName+" "+ donorId+" "+ previouslyDonated+" "+ previouslyDonatedDate+" "+ diseases+" "+ weight+" "+ bp+" "+ hb+" "+ respSys+" "+ cvs+" "+ giSystem+" "+ other+" "+ fit+" "+ unit+" "+ abo+" "+ rh+" "+ hiv+" "+ hbsAg+" "+ hcv+" "+ vdrl+" "+ expiryDate);
+            stmt = connect.createStatement();
+
+            stmt.executeUpdate("update blooddonationtestingdetails set `Previously_Donated`= '"+previouslyDonated+"', `Previously_Donated_Date` = '"+previouslyDonatedDate+"',`Diseases` = '"+diseases+"',`Weight` = '"+weight+"',`BP` = '"+bp+"',`HB` = '"+hb+"',`Resp_Sys` = '"+respSys+"',`Cvs` = '"+cvs+"',`Gi_System` = '"+giSystem+"',`Other` = '"+other+"',`Fit` = '"+fit+"',`Unit`= '"+unit+"',`ABO` = '"+abo+"',`RH` = '"+rh+"',`HIV` = '"+hiv+"',`HBsAg` = '"+hbsAg+"',`HCV` = '"+hcv+"',`VDRL` = '"+vdrl+"',`Expiry_date` = '"+expiryDate+"'where Donor_ID = (select ID from blooddonationuserdata where Donor_ID = '"+donorIdToUpdate+"');");
+            stmt.executeUpdate("update blooddonationuserdata set`Blood_Donation_Orgnization` = '"+donationOrganization+"',`Donor_Name` = '"+donorName+"',`Gender` = '"+donorGender+"',`Age` = '"+donorAge+"',`Occupation` = '"+donorOccupation+"',`Address` = '"+donorAddress+"',`Phone` = '"+donorPhone+"',`Email` = '"+donorEmail+"',`Patient_Name` = '"+patientName+"',`Donor_ID` = '"+donorId+"'where Donor_ID = '"+donorIdToUpdate+"'; ");
+            return true;
+        }
+        catch (Exception e){
+            showError("Blood Update Error", "Blood Update Error", e.toString());
+            return false;
+        }
+    }
+
+    public static boolean resetPassword(String phone, String username, String password){
+        try{
+            stmt = connect.createStatement();
+            result = stmt.executeQuery("SELECT * FROM redsoildb.company;");
+            while (result.next()) {
+                if(phone.equals(result.getString("Company_Phone"))){
+                    stmt.executeUpdate("update login set username = '"+username+"', password = '"+password+"' where id = 1;");
+                    return true;
+                }
+            }
+            return false;
+        }
+        catch (Exception e){
+            showError("Password Reset Error", "Password Reset Error", e.toString());
+            return false;
+        }
+    }
+
     public static void showError(String title, String header, String content){
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle(title);

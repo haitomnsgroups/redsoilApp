@@ -4,11 +4,13 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Rectangle2D;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
@@ -16,8 +18,10 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Callback;
 
+import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.List;
@@ -225,7 +229,7 @@ public class dashboardController implements Initializable {
         String abo = this.aboField.getValue();
         String rh = this.rhField.getValue();
         String hiv = this.hiv.getText();
-        String hcb = this.hcv.getText();
+        String hcv = this.hcv.getText();
         String hbsag = this.hbsag.getText();
         String vdrl = this.vdrl.getText();
 
@@ -234,7 +238,7 @@ public class dashboardController implements Initializable {
         mysqlFunction.mysqlDatabaseConnection();
 
         if(validateDonorAndTesting(donorId, donorName, donorGender, donorAge, donorPhone, donorEmail, patientName, abo, rh)) {
-            if (mysqlFunction.bloodAddDonorAndBlood(donationOrganization, donorName, donorGender, donorAge, donorPhone, donorOccupation, donorAddress, donorEmail, patientName, donorId, diseaseList, previousBloodDonatedStatus, lastDonatedDate, weight, bp, hb, respSys, cvs, giSystem, other, fit, unit, abo, rh, hiv, hcb, hbsag, vdrl, bloodExpiryDate)) {
+            if (mysqlFunction.bloodAddDonorAndBlood(donationOrganization, donorName, donorGender, donorAge, donorPhone, donorOccupation, donorAddress, donorEmail, patientName, donorId, diseaseList, previousBloodDonatedStatus, lastDonatedDate, weight, bp, hb, respSys, cvs, giSystem, other, fit, unit, abo, rh, hiv, hcv, hbsag, vdrl, bloodExpiryDate)) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("RedSoil Dashboard");
                 alert.setContentText("Donor Details Inserted :)");
@@ -444,6 +448,8 @@ public class dashboardController implements Initializable {
             unitColumn.setCellValueFactory(new PropertyValueFactory<>("unit"));
             creationDateColumn.setCellValueFactory(new PropertyValueFactory<>("dateOfCreation"));
             expiryDateColumn.setCellValueFactory(new PropertyValueFactory<>("bloodExpiryDate"));
+            viewButtonColumn.setVisible(true);
+            removeButtonColumn.setVisible(true);
 
             findBloodTable.setItems(bloodDonorList);
         }
@@ -657,9 +663,23 @@ public class dashboardController implements Initializable {
                             setText(null);
                         } else {
                             btn.setOnAction(event -> {
-                                bloodFindTableModel bloodFindTableModel = getTableView().getItems().get(getIndex());
-                                editDataController editDataController = new editDataController();
-                                editDataController.updateView(bloodFindTableModel.getDonorId());
+
+                                FXMLLoader updateViewLoader = new FXMLLoader ();
+                                updateViewLoader.setLocation(getClass().getResource("editData-view.fxml"));
+                                try {
+                                    updateViewLoader.load();
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                                editDataController editDataController = updateViewLoader.getController();
+                                editDataController.initializeUpdatePage(getTableView().getItems().get(getIndex()).getDonorId());
+
+                                Parent parent = updateViewLoader.getRoot();
+                                Stage stage = new Stage();
+                                stage.setScene(new Scene(parent));
+                                stage.initStyle(StageStyle.UNDECORATED);
+                                stage.setTitle("RedSoil Dashboard");
+                                stage.show();
                             });
                             setGraphic(btn);
                             setText(null);
@@ -721,7 +741,7 @@ public class dashboardController implements Initializable {
         dashboardBloodTable.setItems(tableData);
     }
 
-    public void removed_medicine_view(){
+    public void removed_view(){
         ObservableList<bloodFindTableModel> removeTableData = mysqlFunction.removeMedicineView();
         if(removeTableData!=null){
             donorIdColumn.setCellValueFactory(new PropertyValueFactory<>("donorId"));
@@ -737,6 +757,10 @@ public class dashboardController implements Initializable {
 
             findBloodTable.setItems(removeTableData);
         }
+    }
+
+    public void view_all_blood(){
+        initializeBloodFindTable(false);
     }
 
     public void addDataToDonationTable(){

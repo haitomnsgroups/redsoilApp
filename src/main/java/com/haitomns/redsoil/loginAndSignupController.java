@@ -1,11 +1,17 @@
 package com.haitomns.redsoil;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
+import java.io.IOException;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -16,9 +22,13 @@ public class loginAndSignupController {
     @FXML
     private PasswordField passwordField;
     @FXML
+    private TextField resetPhoneNumber, resetUsername, resetPassword;
+    @FXML
     private HBox registerationHbox;
     @FXML
     private HBox loginHbox;
+    @FXML
+    private HBox resetPasswordHbox;
     @FXML
     private TextField companyNameField, companyAddressField, companyPhoneField, usernameRegisterField, passwordRegisterField;
 
@@ -34,6 +44,23 @@ public class loginAndSignupController {
                 alert.setTitle("RedSoil Login");
                 alert.setContentText("Login Successful");
                 alert.showAndWait();
+
+                Stage stage1 = (Stage) loginHbox.getScene().getWindow();
+                stage1.close();
+
+                FXMLLoader dashboardLoader = new FXMLLoader(getClass().getResource("dashboard-view.fxml"));
+                try {
+                    dashboardLoader.load();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                Parent parent = dashboardLoader.getRoot();
+                Stage stage = new Stage();
+                stage.setScene(new Scene(parent));
+                stage.initStyle(StageStyle.UNDECORATED);
+                stage.setTitle("RedSoil Dashboard");
+                stage.show();
             }
             else{
                 showError("Error", "RedSoil Login", "Login Failed :(");
@@ -118,6 +145,46 @@ public class loginAndSignupController {
         else{
             return true;
         }
+    }
+
+    public void resetButtonClick() throws NoSuchAlgorithmException {
+        String username = resetUsername.getText();
+        String password = resetPassword.getText();
+        String phoneNumber = resetPhoneNumber.getText();
+
+        if(username.isEmpty() || password.isEmpty() || phoneNumber.isEmpty()){
+            showError("Error", "RedSoil Reset", "All fields are required");
+        }
+        else if(username.length() < 5 || username.length() > 20){
+            showError("Error", "RedSoil Reset", "Username must be between 5 and 20 characters");
+        }
+        else if(password.length() < 5 || password.length() > 50){
+            showError("Error", "RedSoil Reset", "Password must be between 5 and 30 characters");
+        }
+        else if(username.contains(" ") || password.contains(" ")){
+            showError("Error", "RedSoil Reset", "Username and Password cannot contain spaces");
+        }
+        else if(phoneNumber.length() != 10){
+            showError("Error", "RedSoil Reset", "Phone Number must be 10 digits");
+        }
+        else{
+            mysqlFunction.mysqlDatabaseConnection();
+            if(mysqlFunction.resetPassword(phoneNumber, username, encryptString(password))){
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("RedSoil Reset");
+                alert.setContentText("Password Reset Successful");
+                alert.showAndWait();
+
+                loginHbox.toFront();
+            }
+            else{
+                showError("Error", "RedSoil Reset", "Password Reset Failed :(");
+            }
+        }
+    }
+
+    public void resetPageOpen(){
+        resetPasswordHbox.toFront();
     }
 
     public static void showError(String title, String header, String content){

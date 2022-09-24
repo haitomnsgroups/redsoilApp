@@ -13,7 +13,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1518.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.haitomns.redsoil.editDataController">
 <AnchorPane prefHeight="1518.0" prefWidth="450.0">
 <children>
     <Label layoutX="23.0" layoutY="14.0" text="Personal Details" textFill="#c93f3e">
@@ -202,7 +202,7 @@
         </font>
     </Label>
     <TextField fx:id="giSystem" layoutX="303.0" layoutY="1044.0" prefHeight="35.0" prefWidth="120.0" style="-fx-border-color: #C93F3E; -fx-border-radius: 10;" />
-    <JFXButton fx:id="updateButton" buttonType="RAISED" layoutX="359.0" layoutY="1435.0" mnemonicParsing="false" style="-fx-background-color: #C93F3E; -fx-background-radius: 10;" text="Update" textFill="WHITE">
+    <JFXButton fx:id="updateButton" buttonType="RAISED" layoutX="359.0" layoutY="1435.0" mnemonicParsing="false" onMouseClicked="#updateBloodDetails" style="-fx-background-color: #C93F3E; -fx-background-radius: 10;" text="Update" textFill="WHITE">
         <font>
             <Font name="System Bold" size="14.0" />
         </font>
@@ -304,7 +304,7 @@
             <Font size="13.0" />
         </font>
     </Label>
-    <TextField fx:id="donationOrganizationField" layoutX="103.0" layoutY="54.0" prefHeight="35.0" prefWidth="321.0" style="-fx-border-color: #C93F3E; -fx-border-radius: 10;" />
+    <TextField fx:id="donationOrganizationField" layoutX="103.0" layoutY="54.0" prefHeight="35.0" prefWidth="320.0" style="-fx-border-color: #C93F3E; -fx-border-radius: 10;" />
     <Label layoutX="23.0" layoutY="784.0" text="Patient Details" textFill="#c93f3e">
         <font>
             <Font name="System Bold Italic" size="18.0" />
