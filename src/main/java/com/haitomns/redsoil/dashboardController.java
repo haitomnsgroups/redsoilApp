@@ -22,7 +22,10 @@ import javafx.stage.StageStyle;
 import javafx.util.Callback;
 
 import java.io.IOException;
+import java.math.BigInteger;
 import java.net.URL;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -170,7 +173,7 @@ public class dashboardController implements Initializable {
     }
 
     @FXML
-    private void companyUpdateButtonAction() {
+    private void companyUpdateButtonAction() throws NoSuchAlgorithmException {
         String companyName = companyNameField.getText();
         String companyAddress = companyAddressField.getText();
         String companyPhone = companyPhoneField.getText();
@@ -180,7 +183,7 @@ public class dashboardController implements Initializable {
         mysqlFunction.mysqlDatabaseConnection();
 
         if(validateCompanyDetails(companyName, companyAddress, companyPhone, companyUsername, companyPassword)) {
-            if (mysqlFunction.companyUpdate(companyName, companyAddress, companyPhone, companyUsername, companyPassword)) {
+            if (mysqlFunction.companyUpdate(companyName, companyAddress, companyPhone, companyUsername, encryptString(companyPassword))) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("RedSoil Dashboard");
                 alert.setContentText("Company Details Updated :)");
@@ -189,6 +192,13 @@ public class dashboardController implements Initializable {
                 showError("Error", "RedSoil Dashboard", "Company Details Update Failed :(");
             }
         }
+    }
+
+    public static String encryptString(String input) throws NoSuchAlgorithmException {
+        MessageDigest md = MessageDigest.getInstance("SHA-1");
+        byte[] messageDigest = md.digest(input.getBytes());
+        BigInteger bigInt = new BigInteger(1,messageDigest);
+        return bigInt.toString(16);
     }
 
     @FXML
@@ -294,8 +304,14 @@ public class dashboardController implements Initializable {
             return false;
         }
         else if(companyPassword.length() < 5 || companyPassword.length() > 30){
-            showError("Error", "RedSoil Dashboard", "Company Password must be between 5 and 30 characters");
-            return false;
+            if(companyPassword.matches(".*\\d.*")){
+                showError("Error", "RedSoil Dashboard", "Provide a Company Password");
+                return false;
+            }
+            else {
+                showError("Error", "RedSoil Dashboard", "Company Password must be between 5 and 30 characters");
+                return false;
+            }
         }
         else if(companyPhone.contains(" ") || companyUsername.contains(" ") || companyPassword.contains(" ")){
             showError("Error", "RedSoil Dashboard", "Company Phone, Username and Password must not contain spaces");
@@ -339,6 +355,7 @@ public class dashboardController implements Initializable {
             companyAddressField.setText(companyDetails.get(1).toString());
             companyPhoneField.setText(companyDetails.get(2).toString());
             companyUsernameField.setText(companyDetails.get(3).toString());
+            companyPasswordField.setText("********");
         }
         else{
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -437,7 +454,6 @@ public class dashboardController implements Initializable {
             bloodDonorList = mysqlFunction.bloodDonationView("SELECT blooddonationuserdata.Donor_ID, Donor_Name, Phone, ABO, RH, Unit, Date_Of_Creation, Expiry_date FROM blooddonationuserdata inner JOIN blooddonationtestingdetails  ON blooddonationuserdata.ID = blooddonationtestingdetails.Donor_ID where blooddonationuserdata.Donor_ID = '"+getFindDonorID+"';");
         }else{
             bloodDonorList = mysqlFunction.bloodDonationView("SELECT blooddonationuserdata.Donor_ID, Donor_Name, Phone, ABO, RH, Unit, Date_Of_Creation, Expiry_date FROM blooddonationuserdata inner JOIN blooddonationtestingdetails  ON blooddonationuserdata.ID = blooddonationtestingdetails.Donor_ID;");
-
         }
         if(bloodDonorList!=null){
             donorIdColumn.setCellValueFactory(new PropertyValueFactory<>("donorId"));

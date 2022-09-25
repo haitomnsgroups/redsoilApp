@@ -2,6 +2,7 @@ package com.haitomns.redsoil;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -12,11 +13,15 @@ public class databaseConfigurator {
     @FXML
     private TextField mysqlPort, mysqlUsername, mysqlPassword, mysqlPath;
     @FXML
+    private ProgressBar dbConfProgress;
+    @FXML
     public void dbConfigSubmitClick(){
         String mysqlPortInput = mysqlPort.getText();
         String mysqlUsernameInput = mysqlUsername.getText();
         String mysqlPasswordInput = mysqlPassword.getText();
         String mysqlPathInput = mysqlPath.getText();
+
+        dbConfProgress.setVisible(true);
 
         if(validateDatabaseConfig(mysqlPortInput, mysqlUsernameInput, mysqlPasswordInput, mysqlPathInput)) {
             try {
@@ -31,6 +36,7 @@ public class databaseConfigurator {
                 if(!statusAfterWrite){
                     boolean statusOfConnection = mysqlFunction.mysqlConnectionCheck();
                     if(!statusOfConnection){
+                        dbConfProgress.setVisible(false);
                         Alert alert = new Alert(Alert.AlertType.ERROR);
                         alert.setTitle("RedSoil Database Configurator");
                         alert.setHeaderText("Database Connection");
@@ -39,6 +45,8 @@ public class databaseConfigurator {
                     }
                     else {
                         boolean restoreStatus = mysqlFunction.restoreDatabase();
+                        dbConfProgress.setVisible(false);
+
                         if(restoreStatus){
                             Alert alert = new Alert(Alert.AlertType.INFORMATION);
                             alert.setTitle("RedSoil Database Configurator");

@@ -1,5 +1,6 @@
 package com.haitomns.redsoil;
 
+import javafx.animation.PauseTransition;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -8,7 +9,9 @@ import javafx.scene.control.Alert;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.util.Duration;
 
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -31,49 +34,68 @@ public class redsoilMain extends Application {
         stage.setX((Screen.getPrimary().getVisualBounds().getWidth() - stage.getWidth()) / 2);
         stage.setY((Screen.getPrimary().getVisualBounds().getHeight() - stage.getHeight()) / 2);
 
-        redsoilMain.database_connection = mysqlFunction.mysqlDatabaseConnection();
-        if(!database_connection){
+        PauseTransition delay = new PauseTransition(Duration.seconds(5));
+        delay.setOnFinished( event -> {
+            redsoilMain.database_connection = mysqlFunction.mysqlDatabaseConnection();
+            if(!database_connection){
 
-            mysql_connection = mysqlFunction.mysqlConnectionCheck();
-            if(!mysql_connection){
-                openDBConfigurator();
-            }
-            else{
-                boolean restoreStatus = mysqlFunction.restoreDatabase();
-                if(restoreStatus){
-                    redsoilMainController restoreSignup = new redsoilMainController();
-                    restoreSignup.startLoginOrSignup("signup");
-                }
-                else{
-                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("Error");
-                    alert.setHeaderText("Database Restore Failed");
-                    alert.setContentText("Contact the RedSoil Support Team.");
-                    alert.showAndWait();
-
+                mysql_connection = mysqlFunction.mysqlConnectionCheck();
+                if(!mysql_connection){
+                    stage.close();
                     openDBConfigurator();
                 }
-            }
-            stage.close();
-        }else{
-            stage.close();
-            redsoilMainController startLoginOrSignup = new redsoilMainController();
-            String userStatus = redsoilMainController.checkUser();
-            if (userStatus != null) {
-                if(userStatus.equals("true")) {
-                    startLoginOrSignup.startLoginOrSignup("login");
+                else{
+                    boolean restoreStatus = mysqlFunction.restoreDatabase();
+                    if(restoreStatus){
+                        stage.close();
+                        redsoilMainController restoreSignup = new redsoilMainController();
+                        restoreSignup.startLoginOrSignup("signup");
+                    }
+                    else{
+                        Alert alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setTitle("Error");
+                        alert.setHeaderText("Database Restore Failed");
+                        alert.setContentText("Contact the RedSoil Support Team.");
+                        alert.showAndWait();
+
+                        stage.close();
+                        openDBConfigurator();
+                    }
+                }
+            }else{
+                redsoilMainController startLoginOrSignup = new redsoilMainController();
+                String userStatus;
+                try {
+                    userStatus = redsoilMainController.checkUser();
+                } catch (FileNotFoundException e) {
+                    throw new RuntimeException(e);
+                }
+
+                if (userStatus != null) {
+                    if(userStatus.equals("true")) {
+                        stage.close();
+                        startLoginOrSignup.startLoginOrSignup("login");
+                    }
+                    else{
+                        stage.close();
+                        startLoginOrSignup.startLoginOrSignup("signup");
+                    }
                 }
                 else{
+                    FileWriter fileWriter;
+                    try {
+                        fileWriter = new FileWriter("redSoilUser.rdfs");
+                        fileWriter.write("false");
+                        fileWriter.close();
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                    stage.close();
                     startLoginOrSignup.startLoginOrSignup("signup");
                 }
             }
-            else{
-                FileWriter fileWriter = new FileWriter("redSoilUser.rdfs");
-                fileWriter.write("false");
-                fileWriter.close();
-                startLoginOrSignup.startLoginOrSignup("signup");
-            }
-        }
+        } );
+        delay.play();
     }
 
     public void  openDBConfigurator(){

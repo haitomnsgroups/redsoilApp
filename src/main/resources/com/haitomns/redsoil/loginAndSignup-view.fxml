@@ -78,13 +78,13 @@
                      </font>
                   </Label>
                   <Label layoutX="311.0" layoutY="58.0" text="Version 1.0" textFill="#e4e4e4" />
-                  <Label layoutX="34.0" layoutY="73.0" text="Registeration" textFill="#e4e4e4">
+                  <Label layoutX="34.0" layoutY="73.0" text="Registration" textFill="#e4e4e4">
                      <font>
                         <Font size="25.0" />
                      </font>
                   </Label>
                   <Line endX="290.0" layoutX="135.0" layoutY="109.0" startX="-100.0" stroke="#e4e4e4" />
-                  <Label layoutX="34.0" layoutY="126.0" text="BlooBank Name" textFill="#e4e4e4">
+                  <Label layoutX="34.0" layoutY="126.0" text="BloodBank Name" textFill="#e4e4e4">
                      <font>
                         <Font size="15.0" />
                      </font>
@@ -125,7 +125,29 @@
       </HBox>
       <HBox fx:id="loginHbox" prefHeight="400.0" prefWidth="640.0">
          <children>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="400.0" prefWidth="180.0" />
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="400.0" prefWidth="180.0">
+               <children>
+                  <ImageView fitHeight="150.0" fitWidth="180.0" layoutY="152.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../com.haitomns.images/sideImage.png" />
+                     </image>
+                  </ImageView>
+                  <Label layoutX="27.0" layoutY="38.0" text="Blood Donation" textFill="#c93f3e">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="35.0" layoutY="290.0" text="People Live &#10;When People &#10;Give" textAlignment="CENTER" textFill="#c93f3e">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="37.0" layoutY="86.0" text="14th June &#10;World Donor Day" textAlignment="CENTER" textFill="#c93f3e">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                  </Label>
+               </children></AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="400.0" prefWidth="460.0" style="-fx-background-color: #C93F3E;">
                <children>
                   <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="25.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">

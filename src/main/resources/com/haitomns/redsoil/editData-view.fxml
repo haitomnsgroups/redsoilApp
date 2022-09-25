@@ -56,7 +56,7 @@
         </font>
     </Label>
     <Line endX="300.0" layoutX="123.0" layoutY="440.0" startX="-100.0" stroke="#c93f3e" />
-    <RadioButton fx:id="donatedNoRadio" layoutX="24.0" layoutY="482.0" mnemonicParsing="false" selected="true" text="NO" textFill="#c93f3e">
+    <RadioButton fx:id="donatedNoRadio" layoutX="24.0" layoutY="482.0" mnemonicParsing="false" onAction="#donatedPreviouslySelection" selected="true" text="NO" textFill="#c93f3e">
         <font>
             <Font size="13.0" />
         </font>
@@ -69,7 +69,7 @@
             <Font size="14.0" />
         </font>
     </Label>
-    <RadioButton fx:id="donatedYesRadio" layoutX="94.0" layoutY="482.0" mnemonicParsing="false" text="YES then when" textFill="#c93f3e" toggleGroup="$previouslyDonatedBlood">
+    <RadioButton fx:id="donatedYesRadio" layoutX="94.0" layoutY="482.0" mnemonicParsing="false" onAction="#donatedPreviouslySelection" text="YES then when" textFill="#c93f3e" toggleGroup="$previouslyDonatedBlood">
         <font>
             <Font size="13.0" />
         </font>
@@ -202,7 +202,7 @@
         </font>
     </Label>
     <TextField fx:id="giSystem" layoutX="303.0" layoutY="1044.0" prefHeight="35.0" prefWidth="120.0" style="-fx-border-color: #C93F3E; -fx-border-radius: 10;" />
-    <JFXButton fx:id="updateButton" buttonType="RAISED" layoutX="359.0" layoutY="1435.0" mnemonicParsing="false" onMouseClicked="#updateBloodDetails" style="-fx-background-color: #C93F3E; -fx-background-radius: 10;" text="Update" textFill="WHITE">
+    <JFXButton fx:id="updateBloodButton" buttonType="RAISED" layoutX="359.0" layoutY="1435.0" mnemonicParsing="false" onMouseClicked="#updateBloodDetails" style="-fx-background-color: #C93F3E; -fx-background-radius: 10;" text="Update" textFill="WHITE">
         <font>
             <Font name="System Bold" size="14.0" />
         </font>

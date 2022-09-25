@@ -4,6 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
 
 import java.util.List;
 
@@ -28,6 +29,8 @@ public class editDataController{
     private CheckBox malaria, leprosy, highBloodPressure, lotusPitta, diabetes, preSurgery, tuberculosis, pregnancy, drugAbuse, heartDisease, pneumonia, jaundice, kidneyDisease, aids, faintingSpells, cutaneousDisease, std, menstruation, foreignVisit, others;
     @FXML
     private DatePicker bloodExpiryDateField;
+    @FXML
+    public Button updateBloodButton;
 
     String donorIdToUpdate;
 
@@ -260,8 +263,11 @@ public class editDataController{
             if (mysqlFunction.updateDonor(donorIdToUpdate, donationOrganization, donorName, donorGender, donorAge, donorOccupation, donorAddress, donorPhone, donorEmail, patientName, donorId, donated, previouslyDonatedDate, disease, weight, bp, hb, respSys, cvs, giSystem, other, fit, unit, abo, rh, hiv, hcv, hbsag, vdrl, bloodExpiryDate)) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("RedSoil Dashboard");
-                alert.setContentText("Donor Details Updated :)");
+                alert.setContentText("Donor Details Updated. Refresh the table to view changes :)");
                 alert.showAndWait();
+
+                Stage stage = (Stage) updateBloodButton.getScene().getWindow();
+                stage.close();
             } else {
                 showError("Error", "RedSoil Dashboard", "Donor Details Update Failed :(");
             }
@@ -289,6 +295,15 @@ public class editDataController{
             return false;
         } else {
             return true;
+        }
+    }
+
+    @FXML
+    private void donatedPreviouslySelection(){
+        if(donatedYesRadio.isSelected()){
+            previouslyDonatedDate.setDisable(false);
+        } else if(donatedNoRadio.isSelected()){
+            previouslyDonatedDate.setDisable(true);
         }
     }
 
