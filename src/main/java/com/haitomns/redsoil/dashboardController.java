@@ -677,8 +677,8 @@ public class dashboardController implements Initializable {
                                 Parent parent = updateViewLoader.getRoot();
                                 Stage stage = new Stage();
                                 stage.setScene(new Scene(parent));
-                                stage.initStyle(StageStyle.UNDECORATED);
-                                stage.setTitle("RedSoil Dashboard");
+                                stage.initStyle(StageStyle.UTILITY);
+                                stage.setTitle("RedSoil Update");
                                 stage.show();
                             });
                             setGraphic(btn);

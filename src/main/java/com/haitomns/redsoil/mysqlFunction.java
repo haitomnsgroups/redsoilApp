@@ -4,32 +4,68 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class mysqlFunction {
     static Connection connect = null;
     static Statement stmt = null;
     static ResultSet result = null;
 
+    public static String databaseUsername;
+    public static String databasePassword;
+    public static String portNumber;
+    public static String databasePath;
+
     public static boolean mysqlDatabaseConnection() {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
 
-            String db_url = "jdbc:mysql://localhost:3307/redsoilDB";
-            String db_username = "root";
-            String db_password = "redSoil@1220";
+            databaseCredentialsReader();
+            String db_url = "jdbc:mysql://localhost:"+portNumber+"/redsoilDB";
 
-            connect = DriverManager.getConnection(db_url, db_username, db_password);
+            connect = DriverManager.getConnection(db_url, databaseUsername, databasePassword);
             return true;
         } catch (Exception e) {
-            showError("Database Connection Error", "Database Connection Error", "Database Connection Error");
             return false;
         }
+    }
+
+    public static boolean mysqlConnectionCheck() {
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+
+            databaseCredentialsReader();
+            String db_url = "jdbc:mysql://localhost:"+portNumber+"/";
+
+            connect = DriverManager.getConnection(db_url, databaseUsername, databasePassword);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public static void databaseCredentialsReader() throws FileNotFoundException {
+        File databaseFile = new File("redSoilDatabaseConnection.rdfs");
+        Scanner databaseFileReader = new Scanner(databaseFile);
+        if(databaseFile.exists()){
+            portNumber = databaseFileReader.nextLine();
+            databaseUsername = databaseFileReader.nextLine();
+            databasePassword = databaseFileReader.nextLine();
+            databasePath = databaseFileReader.nextLine();
+        }
+        else{
+            redsoilMain databaseConnection = new redsoilMain();
+            databaseConnection.openDBConfigurator();
+        }
+        databaseFileReader.close();
     }
 
     public static boolean loginCheck(String username, String password){
@@ -168,7 +204,7 @@ public class mysqlFunction {
         List<Integer> bloodDonationList = new ArrayList<>();
         try{
             stmt = connect.createStatement();
-            result = stmt.executeQuery("select * from bloodstatustotal;");
+            result = stmt.executeQuery("SELECT * FROM redsoildb.bloodstautstotal;");
             while (result.next()) {
                 bloodDonationList.add(result.getInt("count(Donor_ID)"));
             }
@@ -293,6 +329,31 @@ public class mysqlFunction {
         }
         catch (Exception e){
             showError("Password Reset Error", "Password Reset Error", e.toString());
+            return false;
+        }
+    }
+
+    public static boolean restoreDatabase(){
+        try{
+            stmt = connect.createStatement();
+            stmt.executeUpdate("create database redsoilDB;");
+            stmt.executeUpdate("use redsoilDB;");
+
+            databaseCredentialsReader();
+            File restore_full_path = new File("redsoilDatabase/redSoilMainDB.sql");
+            String restore_file_path = restore_full_path.getAbsolutePath();
+
+            // TODO :Read the path from the file
+            String[] restoreCmd = new String[]{"C:/Program Files/MySQL/MySQL Server 8.0/bin/mysql ", "--user=" +databaseUsername, "--password=" +databasePassword, "--port=" +portNumber, "redsoilDB", "-e", "source "+restore_file_path};
+
+            Process runtimeProcess = Runtime.getRuntime().exec(restoreCmd);
+            int processComplete = runtimeProcess.waitFor();
+
+            return processComplete == 0;
+
+        }
+        catch (Exception e){
+            showError("Database Restore Error", "Database Restore Error", e.toString());
             return false;
         }
     }

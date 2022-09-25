@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="400.0" prefWidth="460.0" style="-fx-background-color: #C93F3E;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.haitomns.redsoil.databaseConfigurator">
+   <children>
+      <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="25.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../com.haitomns.images/haitomnsLogoRed.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="90.0" layoutY="25.0" text="RedSoil" textFill="#e4e4e4">
+         <font>
+            <Font name="System Bold" size="30.0" />
+         </font>
+      </Label>
+      <Label layoutX="90.0" layoutY="64.0" text="Version 1.0" textFill="#e4e4e4" />
+      <Label layoutX="31.0" layoutY="103.0" text="Database Configurator" textFill="#e4e4e4">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Label>
+      <Line endX="290.0" layoutX="132.0" layoutY="149.0" startX="-100.0" stroke="#e4e4e4" />
+      <Label layoutX="33.0" layoutY="168.0" text="Port Number" textFill="#e4e4e4">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="35.0" layoutY="210.0" text="MySQL Username" textFill="#e4e4e4">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <TextField fx:id="mysqlPort" layoutX="173.0" layoutY="164.0" prefHeight="30.0" prefWidth="250.0" style="-fx-background-radius: 5;" />
+      <JFXButton layoutX="352.0" layoutY="340.0" mnemonicParsing="false" onAction="#dbConfigSubmitClick" style="-fx-background-radius: 5; -fx-background-color: #ffffff;" text="Submit" textFill="#c93f3e">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </JFXButton>
+      <TextField fx:id="mysqlUsername" layoutX="173.0" layoutY="206.0" prefHeight="30.0" prefWidth="250.0" style="-fx-background-radius: 5;" />
+      <Label layoutX="34.0" layoutY="252.0" text="MySQL Password" textFill="#e4e4e4">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <TextField fx:id="mysqlPassword" layoutX="173.0" layoutY="248.0" prefHeight="30.0" prefWidth="250.0" style="-fx-background-radius: 5;" />
+      <Label layoutX="33.0" layoutY="294.0" text="MySQL Path" textFill="#e4e4e4">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <TextField fx:id="mysqlPath" layoutX="172.0" layoutY="290.0" prefHeight="30.0" prefWidth="250.0" style="-fx-background-radius: 5;" />
+   </children>
+</AnchorPane>

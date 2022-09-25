@@ -11,6 +11,8 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.math.BigInteger;
 import java.security.MessageDigest;
@@ -45,8 +47,8 @@ public class loginAndSignupController {
                 alert.setContentText("Login Successful");
                 alert.showAndWait();
 
-                Stage stage1 = (Stage) loginHbox.getScene().getWindow();
-                stage1.close();
+                Stage loginStage = (Stage) loginHbox.getScene().getWindow();
+                loginStage.close();
 
                 FXMLLoader dashboardLoader = new FXMLLoader(getClass().getResource("dashboard-view.fxml"));
                 try {
@@ -92,7 +94,7 @@ public class loginAndSignupController {
         }
     }
 
-    public void registrationSubmitButton() throws NoSuchAlgorithmException {
+    public void registrationSubmitButton() throws NoSuchAlgorithmException, IOException {
         String companyName = companyNameField.getText();
         String companyAddress = companyAddressField.getText();
         String companyPhone = companyPhoneField.getText();
@@ -106,6 +108,12 @@ public class loginAndSignupController {
                 alert.setTitle("RedSoil Registration");
                 alert.setContentText("Registration Successful");
                 alert.showAndWait();
+
+                FileWriter fileWriter = new FileWriter(new File("redSoilUser.rdfs"));
+                fileWriter.write("true");
+                fileWriter.close();
+
+                loginHbox.toFront();
             }
             else{
                 showError("Error", "RedSoil Registration", "Registration Failed :(");
@@ -185,6 +193,14 @@ public class loginAndSignupController {
 
     public void resetPageOpen(){
         resetPasswordHbox.toFront();
+    }
+
+    public void setLoginHbox(){
+        loginHbox.toFront();
+    }
+
+    public void setRegisterHbox(){
+        registerationHbox.toFront();
     }
 
     public static void showError(String title, String header, String content){

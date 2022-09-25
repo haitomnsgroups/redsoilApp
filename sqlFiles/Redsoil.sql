@@ -1,5 +1,7 @@
 create database redsoilDB;
 
+use redsoilDB;
+
 create table login (
 	ID int  NOT NULL AUTO_INCREMENT,
     company_id int NOT NULL,
@@ -94,9 +96,12 @@ select * from bloodtypestotal;
 select * from bloodtypestotal;
 
 CREATE VIEW bloodStautsTotal AS
-SELECT count(Donor_ID) FROM redsoildb.blooddonationuserdata;
-Select count(Donor_ID) FROM redsoildb.blooddonationtestingdetails where Expiry_date > current_date();
-Select count(Donor_ID) FROM redsoildb.blooddonationtestingdetails where Expiry_date < current_date();
+SELECT count(Donor_ID) FROM redsoildb.blooddonationuserdata
+union all
+Select count(Donor_ID) FROM redsoildb.blooddonationtestingdetails where Expiry_date > current_date()
+union all
+Select count(Donor_ID) FROM redsoildb.blooddonationtestingdetails where Expiry_date < current_date()
+union all
 Select sum(Unit) FROM redsoildb.blooddonationtestingdetails where Expiry_date > current_date();
 
 create table removeBloodDetails(
