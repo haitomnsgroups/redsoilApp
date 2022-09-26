@@ -891,6 +891,7 @@ public class dashboardController implements Initializable {
         if(result.get() == ButtonType.OK){
             Stage stage = (Stage) dashboardCloseButton.getScene().getWindow();
             stage.close();
+            mysqlFunction.closeDatabase();
         }
     }
 

@@ -54,7 +54,7 @@ public class redsoilMainController implements Initializable {
         loginStage.initStyle(StageStyle.DECORATED);
         loginStage.setTitle("RedSoil Login & Signup");
         loginStage.setResizable(false);
-        Image icon = new Image("file:redsoilIcon.png");
+        Image icon = new Image("file:redSoilLogoRed.png");
         loginStage.getIcons().add(icon);
         loginStage.show();
 

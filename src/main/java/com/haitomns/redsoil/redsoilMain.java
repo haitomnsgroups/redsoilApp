@@ -31,7 +31,7 @@ public class redsoilMain extends Application {
         stage.alwaysOnTopProperty();
         stage.initStyle(StageStyle.UNDECORATED);
 
-        Image icon = new Image("file:redsoilIcon.png");
+        Image icon = new Image("file:redSoilLogoRed.png");
         stage.getIcons().add(icon);
 
         stage.show();
@@ -115,9 +115,10 @@ public class redsoilMain extends Application {
         Parent parent = dbConfLoader.getRoot();
         Stage dbConfStage = new Stage();
         dbConfStage.setScene(new Scene(parent));
-        dbConfStage.initStyle(StageStyle.UTILITY);
+        dbConfStage.initStyle(StageStyle.DECORATED);
+        dbConfStage.setResizable(false);
         dbConfStage.setTitle("RedSoil DB Configurator");
-        Image icon = new Image("file:redsoilIcon.png");
+        Image icon = new Image("file:redSoilLogoRed.png");
         dbConfStage.getIcons().add(icon);
         dbConfStage.show();
     }

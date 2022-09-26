@@ -342,7 +342,6 @@ public class mysqlFunction {
             File restore_full_path = new File("redsoilDatabase/redSoilMainDB.sql");
             String restore_file_path = restore_full_path.getAbsolutePath();
 
-            // TODO :Read the path from the file
             String[] restoreCmd = new String[]{databasePath+"mysql ", "--user=" +databaseUsername, "--password=" +databasePassword, "--port=" +portNumber, "redsoilDB", "-e", "source "+restore_file_path};
 
             Process runtimeProcess = Runtime.getRuntime().exec(restoreCmd);
@@ -354,6 +353,15 @@ public class mysqlFunction {
         catch (Exception e){
             showError("Database Restore Error", "Database Restore Error", e.toString());
             return false;
+        }
+    }
+
+    public static void closeDatabase(){
+        try{
+            connect.close();
+        }
+        catch (Exception e){
+            showError("Database Close Error", "Database Close Error", e.toString());
         }
     }
 

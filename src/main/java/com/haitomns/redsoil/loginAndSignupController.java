@@ -63,7 +63,7 @@ public class loginAndSignupController {
                 stage.setScene(new Scene(parent));
                 stage.initStyle(StageStyle.UNDECORATED);
                 stage.setTitle("RedSoil Dashboard");
-                Image icon = new Image("file:redsoilIcon.png");
+                Image icon = new Image("file:redSoilLogoRed.png");
                 stage.getIcons().add(icon);
                 stage.show();
             }
