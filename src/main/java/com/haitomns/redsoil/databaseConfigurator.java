@@ -25,6 +25,11 @@ public class databaseConfigurator {
 
         if(validateDatabaseConfig(mysqlPortInput, mysqlUsernameInput, mysqlPasswordInput, mysqlPathInput)) {
             try {
+                if(mysqlPathInput.contains("\\")){
+                    mysqlPathInput = mysqlPathInput.replace("\\", "/");
+                }
+                mysqlPathInput = mysqlPathInput + "/";
+
                 FileWriter dbConfig = new FileWriter("redSoilDatabaseConnection.rdfs");
                 dbConfig.write(mysqlPortInput+"\n");
                 dbConfig.write(mysqlUsernameInput+"\n");

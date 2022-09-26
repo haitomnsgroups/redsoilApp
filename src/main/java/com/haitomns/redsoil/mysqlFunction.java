@@ -343,7 +343,7 @@ public class mysqlFunction {
             String restore_file_path = restore_full_path.getAbsolutePath();
 
             // TODO :Read the path from the file
-            String[] restoreCmd = new String[]{"C:/Program Files/MySQL/MySQL Server 8.0/bin/mysql ", "--user=" +databaseUsername, "--password=" +databasePassword, "--port=" +portNumber, "redsoilDB", "-e", "source "+restore_file_path};
+            String[] restoreCmd = new String[]{databasePath+"mysql ", "--user=" +databaseUsername, "--password=" +databasePassword, "--port=" +portNumber, "redsoilDB", "-e", "source "+restore_file_path};
 
             Process runtimeProcess = Runtime.getRuntime().exec(restoreCmd);
             int processComplete = runtimeProcess.waitFor();

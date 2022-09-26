@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.image.Image;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -29,6 +30,10 @@ public class redsoilMain extends Application {
         stage.setScene(scene);
         stage.alwaysOnTopProperty();
         stage.initStyle(StageStyle.UNDECORATED);
+
+        Image icon = new Image("file:redsoilIcon.png");
+        stage.getIcons().add(icon);
+
         stage.show();
 
         stage.setX((Screen.getPrimary().getVisualBounds().getWidth() - stage.getWidth()) / 2);
@@ -112,6 +117,8 @@ public class redsoilMain extends Application {
         dbConfStage.setScene(new Scene(parent));
         dbConfStage.initStyle(StageStyle.UTILITY);
         dbConfStage.setTitle("RedSoil DB Configurator");
+        Image icon = new Image("file:redsoilIcon.png");
+        dbConfStage.getIcons().add(icon);
         dbConfStage.show();
     }
 }

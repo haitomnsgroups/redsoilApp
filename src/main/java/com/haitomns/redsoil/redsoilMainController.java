@@ -8,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -51,7 +52,10 @@ public class redsoilMainController implements Initializable {
         Stage loginStage = new Stage();
         loginStage.setScene(new Scene(parent));
         loginStage.initStyle(StageStyle.DECORATED);
-        loginStage.setTitle("RedSoil Dashboard");
+        loginStage.setTitle("RedSoil Login & Signup");
+        loginStage.setResizable(false);
+        Image icon = new Image("file:redsoilIcon.png");
+        loginStage.getIcons().add(icon);
         loginStage.show();
 
         if(userStatus.equals("login")){

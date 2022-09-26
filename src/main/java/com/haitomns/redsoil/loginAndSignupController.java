@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -62,6 +63,8 @@ public class loginAndSignupController {
                 stage.setScene(new Scene(parent));
                 stage.initStyle(StageStyle.UNDECORATED);
                 stage.setTitle("RedSoil Dashboard");
+                Image icon = new Image("file:redsoilIcon.png");
+                stage.getIcons().add(icon);
                 stage.show();
             }
             else{

@@ -20,7 +20,7 @@
                <children>
                   <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="371.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../com.haitomns.images/haitomnsLogoRed.png" />
+                        <Image url="@../../../com.haitomns.images/redSoilLogoRed.png" />
                      </image>
                   </ImageView>
                   <Label layoutX="263.0" layoutY="14.0" text="RedSoil" textFill="#e4e4e4">
@@ -69,7 +69,7 @@
                <children>
                   <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="371.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../com.haitomns.images/haitomnsLogoRed.png" />
+                        <Image url="@../../../com.haitomns.images/redSoilLogoRed.png" />
                      </image>
                   </ImageView>
                   <Label layoutX="263.0" layoutY="14.0" text="RedSoil" textFill="#e4e4e4">
@@ -152,7 +152,7 @@
                <children>
                   <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="25.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../com.haitomns.images/haitomnsLogoRed.png" />
+                        <Image url="@../../../com.haitomns.images/redSoilLogoRed.png" />
                      </image>
                   </ImageView>
                   <Label layoutX="31.0" layoutY="78.0" text="RedSoil" textFill="#e4e4e4">

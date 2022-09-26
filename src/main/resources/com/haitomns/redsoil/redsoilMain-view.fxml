@@ -9,23 +9,23 @@
 
 <AnchorPane fx:id="splashPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="440.0" style="-fx-background-color: #C93F3E;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.haitomns.redsoil.redsoilMainController">
    <children>
-      <Label layoutX="29.0" layoutY="74.0" text="RedSoil" textFill="#e4e4e4">
+      <Label layoutX="174.0" layoutY="43.0" text="RedSoil" textFill="#e4e4e4">
          <font>
             <Font name="System Bold" size="30.0" />
          </font>
       </Label>
-      <Label layoutX="29.0" layoutY="110.0" text="Get all you blood work done" textFill="#e4e4e4">
+      <Label layoutX="173.0" layoutY="88.0" text="Get all you blood work done" textFill="#e4e4e4">
          <font>
-            <Font name="System Italic" size="20.0" />
+            <Font name="System Italic" size="18.0" />
          </font>
       </Label>
-      <Label layoutX="29.0" layoutY="140.0" text="Version 1.0" textFill="#e4e4e4" />
-      <Label fx:id="splashProgressLabel" layoutX="29.0" layoutY="219.0" text="Connecting to database..." textFill="#e4e4e4" />
-      <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="23.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+      <Label layoutX="174.0" layoutY="117.0" text="Version 1.0" textFill="#e4e4e4" />
+      <Label fx:id="splashProgressLabel" layoutX="174.0" layoutY="190.0" text="Connecting to database..." textFill="#e4e4e4" />
+      <ImageView fitHeight="164.0" fitWidth="191.0" layoutX="10.0" layoutY="43.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../com.haitomns.images/haitomnsLogoRed.png" />
+            <Image url="@../../../com.haitomns.images/redSoilLogoRed.png" />
          </image>
       </ImageView>
-      <ProgressBar fx:id="splashProgressBar" layoutX="29.0" layoutY="191.0" prefWidth="200.0" />
+      <ProgressBar fx:id="splashProgressBar" layoutX="172.0" layoutY="171.0" prefWidth="200.0" />
    </children>
 </AnchorPane>
