@@ -268,6 +268,10 @@ public class editDataController{
 
                 Stage stage = (Stage) updateBloodButton.getScene().getWindow();
                 stage.close();
+
+                dashboardController dashboardRefresh = new dashboardController();
+                dashboardRefresh.initializeDashboardTable();
+                dashboardRefresh.initializeDashboardDataView();
             } else {
                 showError("Error", "RedSoil Dashboard", "Donor Details Update Failed :(");
             }
@@ -281,12 +285,18 @@ public class editDataController{
         } else if (donorGender.equals("Select")) {
             showError("Error", "RedSoil Dashboard", "Select Donor Gender");
             return false;
-        } else if(donorPhone.length() != 10){
-            showError("Error", "RedSoil Dashboard", "Phone number must be 10 digits");
-            return false;
-        } else if(!donorEmail.contains("@") || !donorEmail.contains(".")){
-            showError("Error", "RedSoil Dashboard", "Invalid Email Address");
-            return false;
+        }  else if(!donorPhone.equals("")) {
+            if (donorPhone.length() != 10) {
+                showError("Error", "RedSoil Dashboard", "Phone number must be 10 digits");
+                return false;
+            }
+            return true;
+        } else if(!donorEmail.equals("")){
+            if (!donorEmail.contains("@") || !donorEmail.contains(".")) {
+                showError("Error", "RedSoil Dashboard", "Invalid Email Address");
+                return false;
+            }
+            return true;
         } else if (donorAge.isEmpty() || Integer.parseInt(donorAge) < 18 || Integer.parseInt(donorAge) > 55) {
             showError("Error", "RedSoil Dashboard", "Donor Age is Not Valid");
             return false;

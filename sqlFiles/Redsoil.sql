@@ -2,6 +2,17 @@ create database redsoilDB;
 
 use redsoilDB;
 
+create table company(
+	ID int NOT NULL auto_increment,
+    Company_Name varchar(1024) not null,
+    Company_Address text(2048) not null,
+    Company_Phone varchar(10) not null,
+    primary key(id)
+    );
+    
+insert into company(id, Company_Name, Company_Address, Company_Phone) 
+values(null, "Haitomns Blood Bank", "Knowhere", "9800000000");
+
 create table login (
 	ID int  NOT NULL AUTO_INCREMENT,
     company_id int NOT NULL,
@@ -13,17 +24,6 @@ create table login (
     
 INSERT INTO login (id, company_id, username, password) 
 VALUES(null, 1,'haitomns', 'aad0ad135729292b9f0fc454ab7e0568820231b8');
-
-create table company(
-	ID int NOT NULL auto_increment,
-    Company_Name varchar(1024) not null,
-    Company_Address text(2048) not null,
-    Company_Phone varchar(10) not null,
-    primary key(id)
-    );
-    
-insert into company(id, Company_Name, Company_Address, Company_Phone) 
-values(null, "Haitomns Blood Bank", "Knowhere", "9800000000");
 
 create table bloodDonationUserData(
 	ID int unsigned NOT NULL auto_increment,
@@ -40,8 +40,6 @@ create table bloodDonationUserData(
     Date_Of_Creation datetime default current_timestamp,
     primary key(ID)
     );
-
-INSERT INTO `redsoildb`.`blooddonationuserdata`(`ID`,`Blood_Donation_Orgnization`,`Donor_Name`,`Gender`,`Age`,`Occupation`,`Address`,`Phone`,`Email`,`Patient_Name`,`Donor_ID`,`Date_Of_Creation`)VALUES();
 
 create table bloodDonationTestingDetails(
 	ID int unsigned NOT NULL auto_increment,
@@ -69,94 +67,64 @@ create table bloodDonationTestingDetails(
     FOREIGN KEY(Donor_ID) REFERENCES bloodDonationUserData(ID) ON DELETE CASCADE
 );
 
-SELECT blooddonationuserdata.Donor_ID, Donor_Name, Phone, ABO, RH, Unit, Date_Of_Creation, Expiry_date 
-FROM blooddonationuserdata inner JOIN blooddonationtestingdetails  
-ON blooddonationuserdata.ID = blooddonationtestingdetails.Donor_ID;
-
-drop table blooddonationtestingdetails;
-drop table blooddonationuserdata;
 
 CREATE VIEW bloodTypesTotal AS
-select count(ABO) from blooddonationtestingdetails where abo = "A" AND rh = "+"
+SELECT count(ABO) FROM blooddonationtestingdetails inner JOIN blooddonationuserdata
+ON blooddonationuserdata.ID = blooddonationtestingdetails.Donor_ID 
+inner JOIN bloodcomponent on blooddonationuserdata.ID = bloodcomponent.Donor_ID 
+where abo = "A" AND rh = "+" AND discard_blood = "No"  AND Expiry_date > current_date()
 union all
-select count(ABO) from blooddonationtestingdetails where abo = "A" AND rh = "-"
+SELECT count(ABO) FROM blooddonationtestingdetails inner JOIN blooddonationuserdata
+ON blooddonationuserdata.ID = blooddonationtestingdetails.Donor_ID 
+inner JOIN bloodcomponent on blooddonationuserdata.ID = bloodcomponent.Donor_ID 
+where abo = "A" AND rh = "-" AND discard_blood = "No"  AND Expiry_date > current_date()
 union all
-select count(ABO) from blooddonationtestingdetails where abo = "B" AND rh = "+"
+SELECT count(ABO) FROM blooddonationtestingdetails inner JOIN blooddonationuserdata
+ON blooddonationuserdata.ID = blooddonationtestingdetails.Donor_ID 
+inner JOIN bloodcomponent on blooddonationuserdata.ID = bloodcomponent.Donor_ID 
+where abo = "B" AND rh = "+" AND discard_blood = "No"  AND Expiry_date > current_date()
 union all
-select count(ABO) from blooddonationtestingdetails where abo = "B" AND rh = "-"
+SELECT count(ABO) FROM blooddonationtestingdetails inner JOIN blooddonationuserdata
+ON blooddonationuserdata.ID = blooddonationtestingdetails.Donor_ID 
+inner JOIN bloodcomponent on blooddonationuserdata.ID = bloodcomponent.Donor_ID 
+where abo = "B" AND rh = "-" AND discard_blood = "No"  AND Expiry_date > current_date()
 union all
-select count(ABO) from blooddonationtestingdetails where abo = "AB" AND rh = "+"
+SELECT count(ABO) FROM blooddonationtestingdetails inner JOIN blooddonationuserdata
+ON blooddonationuserdata.ID = blooddonationtestingdetails.Donor_ID 
+inner JOIN bloodcomponent on blooddonationuserdata.ID = bloodcomponent.Donor_ID 
+where abo = "AB" AND rh = "+" AND discard_blood = "No"  AND Expiry_date > current_date()
 union all
-select count(ABO) from blooddonationtestingdetails where abo = "AB" AND rh = "-"
+SELECT count(ABO) FROM blooddonationtestingdetails inner JOIN blooddonationuserdata
+ON blooddonationuserdata.ID = blooddonationtestingdetails.Donor_ID 
+inner JOIN bloodcomponent on blooddonationuserdata.ID = bloodcomponent.Donor_ID 
+where abo = "AB" AND rh = "-" AND discard_blood = "No"   AND Expiry_date > current_date()
 union all
-select count(ABO) from blooddonationtestingdetails where abo = "O" AND rh = "+"
+SELECT count(ABO) FROM blooddonationtestingdetails inner JOIN blooddonationuserdata
+ON blooddonationuserdata.ID = blooddonationtestingdetails.Donor_ID 
+inner JOIN bloodcomponent on blooddonationuserdata.ID = bloodcomponent.Donor_ID 
+where abo = "O" AND rh = "+" AND discard_blood = "No"  AND Expiry_date > current_date()
 union all
-select count(ABO) from blooddonationtestingdetails where abo = "O" AND rh = "-";
-
-select * from bloodtypestotal;
-select * from bloodtypestotal;
+SELECT count(ABO) FROM blooddonationtestingdetails inner JOIN blooddonationuserdata
+ON blooddonationuserdata.ID = blooddonationtestingdetails.Donor_ID 
+inner JOIN bloodcomponent on blooddonationuserdata.ID = bloodcomponent.Donor_ID 
+where abo = "O" AND rh = "-" AND discard_blood = "No"  AND Expiry_date > current_date();
 
 CREATE VIEW bloodStautsTotal AS
-SELECT count(blooddonationuserdata.Donor_ID) as donorTotal FROM blooddonationuserdata inner JOIN blooddonationtestingdetails  
+SELECT count(blooddonationuserdata.Donor_ID) as donorTotal FROM blooddonationuserdata 
+inner JOIN blooddonationtestingdetails  
 ON blooddonationuserdata.ID = blooddonationtestingdetails.Donor_ID
 union all
-Select count(Donor_ID) as donorTotal FROM redsoildb.blooddonationtestingdetails where Expiry_date > current_date()
+SELECT count(blooddonationuserdata.Donor_ID) as donorTotal FROM blooddonationuserdata inner 
+JOIN blooddonationtestingdetails  ON blooddonationuserdata.ID = blooddonationtestingdetails.Donor_ID inner 
+JOIN bloodcomponent on blooddonationuserdata.ID = bloodcomponent.Donor_ID where discard_blood = "No"  AND Expiry_date > current_date()
 union all
-Select count(Donor_ID) as donorTotal FROM redsoildb.blooddonationtestingdetails where Expiry_date < current_date()
+SELECT count(blooddonationuserdata.Donor_ID) FROM blooddonationuserdata 
+inner JOIN blooddonationtestingdetails  ON blooddonationuserdata.ID = blooddonationtestingdetails.Donor_ID 
+where blooddonationtestingdetails.Expiry_date < current_date()
 union all
-Select sum(Unit) as donorTotal FROM redsoildb.blooddonationtestingdetails where Expiry_date > current_date();
-
-create table removeBloodDetails(
-	ID int unsigned NOT NULL auto_increment,
-    Blood_Donation_Orgnization varchar(200),
-    Donor_Name varchar(50) NOT NULL,
-    Gender varchar(8),
-    Age TINYINT unsigned,
-    Occupation varchar(100),
-    Address varchar(128),
-    Phone varchar(10),
-    Email varchar(320),
-    Patient_Name varchar(50),
-    Donor_ID varchar(100),
-    Date_Of_Creation date,
-    Previously_Donated bool,
-    Previously_Donated_Date date,
-    Diseases varchar(512),
-    Weight varchar(128),
-    BP varchar(128),
-    HB varchar(128),
-    Resp_Sys varchar(128),
-    Cvs varchar(128),
-    Gi_System varchar(128),
-    Other varchar(128),
-    Fit varchar(128),
-    Unit varchar(128),
-    ABO varchar(128),
-    RH varchar(128),
-    HIV varchar(128),
-    HBsAg varchar(128),
-    HCV varchar(128),
-    VDRL varchar(128),
-    Expiry_date date,
-    primary key(ID)
-    );
-    
-DELIMITER //
-CREATE PROCEDURE removeBlood(DonorIdToDelete varchar(100))
-BEGIN
-	INSERT INTO removeblooddetails (`ID`,`Blood_Donation_Orgnization`,`Donor_Name`,`Gender`,`Age`,`Occupation`,`Address`,`Phone`,`Email`,`Patient_Name`,`Donor_ID`,`Date_Of_Creation`,`Previously_Donated`,`Previously_Donated_Date`,`Diseases`,`Weight`,`BP`,`HB`,`Resp_Sys`,`Cvs`,`Gi_System`,`Other`,`Fit`,`Unit`,`ABO`,`RH`,`HIV`,`HBsAg`,`HCV`,`VDRL`,`Expiry_date`)
-	SELECT blooddonationuserdata.Donor_ID,`Blood_Donation_Orgnization`,`Donor_Name`,`Gender`,`Age`,`Occupation`,`Address`,`Phone`,`Email`,`Patient_Name`,blooddonationuserdata.Donor_ID,`Date_Of_Creation`,`Previously_Donated`,`Previously_Donated_Date`,`Diseases`,`Weight`,`BP`,`HB`,`Resp_Sys`,`Cvs`,`Gi_System`,`Other`,`Fit`,`Unit`,`ABO`,`RH`,`HIV`,`HBsAg`,`HCV`,`VDRL`,`Expiry_date`
-	FROM blooddonationuserdata inner JOIN blooddonationtestingdetails  
-	ON blooddonationuserdata.ID = blooddonationtestingdetails.Donor_ID
-	where blooddonationuserdata.Donor_ID = DonorIdToDelete;
-    
-    delete from blooddonationtestingdetails where Donor_ID = 
-    (select ID from blooddonationuserdata where Donor_ID = DonorIdToDelete);
-    delete from blooddonationuserdata where Donor_ID = DonorIdToDelete;
-END //
-DELIMITER ;
-
-SET SQL_SAFE_UPDATES = 0;
+Select sum(Unit) as donorTotal FROM blooddonationuserdata inner 
+JOIN blooddonationtestingdetails  ON blooddonationuserdata.ID = blooddonationtestingdetails.Donor_ID inner 
+JOIN bloodcomponent on blooddonationuserdata.ID = bloodcomponent.Donor_ID where Expiry_date < current_date() AND discard_blood != "No";
 
 create table bloodComponent(
 	ID int unsigned NOT NULL auto_increment,
@@ -172,22 +140,21 @@ create table bloodComponent(
     FOREIGN KEY(Donor_ID) REFERENCES bloodDonationUserData(ID) ON DELETE CASCADE
 );
 
-
 DELIMITER //
 CREATE PROCEDURE bloodcompInit()
 BEGIN
-	SET @donorGet_id =  (select MAX(id) FROM blooddonationuserdata);
+	SET @donorGet_id =  (select id FROM blooddonationuserdata ORDER BY ID DESC LIMIT 1);
 	INSERT INTO `redsoildb`.`bloodcomponent`
-	(`ID`,`Donor_ID`,`prbcs`,`prbc`,`ffp`,`platelets`,`prp`,`cryoppt`,`discard_blood`)
-VALUES(null, @donorGet_id, "No", "No", "No", "No" "No", "No", "No");
+	(`ID`,`Donor_ID`,`prbcs`,`prbc`,`ffp`,`platelets`,`prp`,`cryoppt`,`discard_blood`) 
+    VALUES(null, @donorGet_id, "No", "No", "No", "No", "No", "No", "No");
 END //
 DELIMITER ;
 
 DELIMITER $$
-create trigger bloodcompInit
+create trigger bloodcompInitTRG
 after insert on blooddonationuserdata
 for each row
 begin
 	call bloodcompInit();
-end$$
+end $$
 DELIMITER ;

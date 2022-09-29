@@ -36,6 +36,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+import static com.haitomns.redsoil.mysqlFunction.checkDonorID;
+
 public class dashboardController implements Initializable {
     String previousBloodDonatedStatus = "1";
     String diseaseList = "";
@@ -349,13 +351,12 @@ public class dashboardController implements Initializable {
             showError("Error", "RedSoil Dashboard", "Company Username must be between 5 and 20 characters");
             return false;
         }
-        else if(companyPassword.length() < 5 || companyPassword.length() > 30){
-            if(companyPassword.matches(".*\\d.*")){
-                showError("Error", "RedSoil Dashboard", "Provide a Company Password");
-            }
-            else {
-                showError("Error", "RedSoil Dashboard", "Company Password must be between 5 and 30 characters");
-            }
+        else if(companyPassword.contains("*")){
+            showError("Error", "RedSoil Dashboard", "Provide different a Company Password");
+            return false;
+        }
+        else if(companyPassword.length() < 5 || companyPassword.length() > 20){
+            showError("Error", "RedSoil Dashboard", "Company Password must be between 5 and 20 characters");
             return false;
         }
         else if(companyPhone.contains(" ") || companyUsername.contains(" ") || companyPassword.contains(" ")){
@@ -371,7 +372,10 @@ public class dashboardController implements Initializable {
         if(donorId.isEmpty() || donorName.isEmpty() || patientName.isEmpty()){
             showError("Error", "RedSoil Dashboard", "Patient Name, Donor Name and Donor ID are required");
             return false;
-        } else if (donorGender.equals("Select")) {
+        } else if(checkDonorID(donorId)){
+            showError("Error", "RedSoil Dashboard", "Donor ID is already in use.");
+            return false;
+        }else if (donorGender.equals("Select")) {
             showError("Error", "RedSoil Dashboard", "Select Donor Gender");
             return false;
         } else if(!donorPhone.equals("")) {
@@ -504,14 +508,12 @@ public class dashboardController implements Initializable {
             diseaseList = diseaseList + "Other, ";
         }
     }
-
-    //TODO: Change
     public void initializeBloodFindTable(Boolean findCondition){
         mysqlFunction.mysqlDatabaseConnection();
         if(findCondition) {
-            bloodDonorList = mysqlFunction.bloodDonationView("SELECT blooddonationuserdata.Donor_ID, Donor_Name, Phone, ABO, RH, Unit, Date_Of_Creation, Expiry_date FROM blooddonationuserdata inner JOIN blooddonationtestingdetails  ON blooddonationuserdata.ID = blooddonationtestingdetails.Donor_ID where blooddonationuserdata.Donor_ID = '"+getFindDonorID+"';");
+            bloodDonorList = mysqlFunction.bloodDonationView("SELECT blooddonationuserdata.Donor_ID, Donor_Name, Phone, ABO, RH, Unit, Date_Of_Creation, Expiry_date FROM blooddonationuserdata inner JOIN blooddonationtestingdetails ON blooddonationuserdata.ID = blooddonationtestingdetails.Donor_ID inner JOIN bloodcomponent on blooddonationuserdata.ID = bloodcomponent.Donor_ID where blooddonationuserdata.Donor_ID = '"+getFindDonorID+"';");
         }else{
-            bloodDonorList = mysqlFunction.bloodDonationView("SELECT blooddonationuserdata.Donor_ID, Donor_Name, Phone, ABO, RH, Unit, Date_Of_Creation, Expiry_date FROM blooddonationuserdata inner JOIN blooddonationtestingdetails  ON blooddonationuserdata.ID = blooddonationtestingdetails.Donor_ID;");
+            bloodDonorList = mysqlFunction.bloodDonationView("SELECT blooddonationuserdata.Donor_ID, Donor_Name, Phone, ABO, RH, Unit, Date_Of_Creation, Expiry_date FROM blooddonationuserdata inner JOIN blooddonationtestingdetails  ON blooddonationuserdata.ID = blooddonationtestingdetails.Donor_ID inner JOIN bloodcomponent on blooddonationuserdata.ID = bloodcomponent.Donor_ID where discard_blood = \"No\"  AND Expiry_date > current_date();;");
         }
         if(bloodDonorList!=null){
             donorIdColumn.setCellValueFactory(new PropertyValueFactory<>("donorId"));
@@ -529,19 +531,17 @@ public class dashboardController implements Initializable {
         }
     }
 
-    //TODO: Change
     public void initializeDashboardTable(){
         mysqlFunction.mysqlDatabaseConnection();
-        dashboardTableData = mysqlFunction.bloodDonationView("SELECT blooddonationuserdata.Donor_ID, Donor_Name, Phone, ABO, RH, Unit, Date_Of_Creation, Expiry_date FROM blooddonationuserdata inner JOIN blooddonationtestingdetails  ON blooddonationuserdata.ID = blooddonationtestingdetails.Donor_ID;");
+        dashboardTableData = mysqlFunction.bloodDonationView("SELECT blooddonationuserdata.Donor_ID, Donor_Name, Phone, ABO, RH, Unit, Date_Of_Creation, Expiry_date FROM blooddonationuserdata inner JOIN blooddonationtestingdetails ON blooddonationuserdata.ID = blooddonationtestingdetails.Donor_ID inner JOIN bloodcomponent on blooddonationuserdata.ID = bloodcomponent.Donor_ID where discard_blood = \"No\" AND Expiry_date > current_date();");
 
         if(dashboardTableData!=null){
             addDataToTable(dashboardTableData);
         }
     }
 
-    //TODO: Change
     public void a_plus_panel_clicked(){
-        bloodDonorList = mysqlFunction.bloodDonationView("SELECT blooddonationuserdata.Donor_ID, Donor_Name, Phone, ABO, RH, Unit, Date_Of_Creation, Expiry_date FROM blooddonationuserdata inner JOIN blooddonationtestingdetails  ON blooddonationuserdata.ID = blooddonationtestingdetails.Donor_ID where abo = \"A\" AND rh = \"+\";");
+        bloodDonorList = mysqlFunction.bloodDonationView("SELECT blooddonationuserdata.Donor_ID, Donor_Name, Phone, ABO, RH, Unit, Date_Of_Creation, Expiry_date FROM blooddonationuserdata inner JOIN blooddonationtestingdetails ON blooddonationuserdata.ID = blooddonationtestingdetails.Donor_ID inner JOIN bloodcomponent on blooddonationuserdata.ID = bloodcomponent.Donor_ID where discard_blood = \"No\" AND abo = \"A\" AND rh = \"+\"  AND Expiry_date > current_date(); ;");
 
         if(bloodDonorList!=null){
             addDataToTable(bloodDonorList);
@@ -556,9 +556,8 @@ public class dashboardController implements Initializable {
         a_plus_pane.setStyle("-fx-background-color: #C93F3E; -fx-background-radius: 10px");
     }
 
-    //TODO: Change
     public void a_minus_panel_clicked(){
-        bloodDonorList = mysqlFunction.bloodDonationView("SELECT blooddonationuserdata.Donor_ID, Donor_Name, Phone, ABO, RH, Unit, Date_Of_Creation, Expiry_date FROM blooddonationuserdata inner JOIN blooddonationtestingdetails  ON blooddonationuserdata.ID = blooddonationtestingdetails.Donor_ID where abo = \"A\" AND rh = \"-\";");
+        bloodDonorList = mysqlFunction.bloodDonationView("SELECT blooddonationuserdata.Donor_ID, Donor_Name, Phone, ABO, RH, Unit, Date_Of_Creation, Expiry_date FROM blooddonationuserdata inner JOIN blooddonationtestingdetails ON blooddonationuserdata.ID = blooddonationtestingdetails.Donor_ID inner JOIN bloodcomponent on blooddonationuserdata.ID = bloodcomponent.Donor_ID where discard_blood = \"No\" AND abo = \"A\" AND rh = \"-\"  AND Expiry_date > current_date();;");
 
         if(bloodDonorList!=null){
             addDataToTable(bloodDonorList);
@@ -573,9 +572,8 @@ public class dashboardController implements Initializable {
         a_minus_pane.setStyle("-fx-background-color: #C93F3E; -fx-background-radius: 10px");
     }
 
-    //TODO: Change
     public void b_plus_panel_clicked(){
-        bloodDonorList = mysqlFunction.bloodDonationView("SELECT blooddonationuserdata.Donor_ID, Donor_Name, Phone, ABO, RH, Unit, Date_Of_Creation, Expiry_date FROM blooddonationuserdata inner JOIN blooddonationtestingdetails  ON blooddonationuserdata.ID = blooddonationtestingdetails.Donor_ID where abo = \"B\" AND rh = \"+\";");
+        bloodDonorList = mysqlFunction.bloodDonationView("SELECT blooddonationuserdata.Donor_ID, Donor_Name, Phone, ABO, RH, Unit, Date_Of_Creation, Expiry_date FROM blooddonationuserdata inner JOIN blooddonationtestingdetails ON blooddonationuserdata.ID = blooddonationtestingdetails.Donor_ID inner JOIN bloodcomponent on blooddonationuserdata.ID = bloodcomponent.Donor_ID where discard_blood = \"No\" AND abo = \"B\" AND rh = \"+\"  AND Expiry_date > current_date();;");
 
         if(bloodDonorList!=null){
             addDataToTable(bloodDonorList);
@@ -590,9 +588,8 @@ public class dashboardController implements Initializable {
         b_plus_pane.setStyle("-fx-background-color: #C93F3E; -fx-background-radius: 10px");
     }
 
-    //TODO: Change
     public void b_minus_panel_clicked(){
-        bloodDonorList = mysqlFunction.bloodDonationView("SELECT blooddonationuserdata.Donor_ID, Donor_Name, Phone, ABO, RH, Unit, Date_Of_Creation, Expiry_date FROM blooddonationuserdata inner JOIN blooddonationtestingdetails  ON blooddonationuserdata.ID = blooddonationtestingdetails.Donor_ID where abo = \"B\" AND rh = \"-\";");
+        bloodDonorList = mysqlFunction.bloodDonationView("SELECT blooddonationuserdata.Donor_ID, Donor_Name, Phone, ABO, RH, Unit, Date_Of_Creation, Expiry_date FROM blooddonationuserdata inner JOIN blooddonationtestingdetails ON blooddonationuserdata.ID = blooddonationtestingdetails.Donor_ID inner JOIN bloodcomponent on blooddonationuserdata.ID = bloodcomponent.Donor_ID where discard_blood = \"No\" AND abo = \"B\" AND rh = \"-\"  AND Expiry_date > current_date();;");
 
         if(bloodDonorList!=null){
             addDataToTable(bloodDonorList);
@@ -607,9 +604,8 @@ public class dashboardController implements Initializable {
         b_minus_pane.setStyle("-fx-background-color: #C93F3E; -fx-background-radius: 10px");
     }
 
-    //TODO: Change
     public void ab_plus_panel_clicked(){
-        bloodDonorList = mysqlFunction.bloodDonationView("SELECT blooddonationuserdata.Donor_ID, Donor_Name, Phone, ABO, RH, Unit, Date_Of_Creation, Expiry_date FROM blooddonationuserdata inner JOIN blooddonationtestingdetails  ON blooddonationuserdata.ID = blooddonationtestingdetails.Donor_ID where abo = \"AB\" AND rh = \"+\";");
+        bloodDonorList = mysqlFunction.bloodDonationView("SELECT blooddonationuserdata.Donor_ID, Donor_Name, Phone, ABO, RH, Unit, Date_Of_Creation, Expiry_date FROM blooddonationuserdata inner JOIN blooddonationtestingdetails ON blooddonationuserdata.ID = blooddonationtestingdetails.Donor_ID inner JOIN bloodcomponent on blooddonationuserdata.ID = bloodcomponent.Donor_ID where discard_blood = \"No\" AND abo = \"AB\" AND rh = \"+\"  AND Expiry_date > current_date();;");
 
         if(bloodDonorList!=null){
             addDataToTable(bloodDonorList);
@@ -624,9 +620,8 @@ public class dashboardController implements Initializable {
         ab_plus_pane.setStyle("-fx-background-color: #C93F3E; -fx-background-radius: 10px");
     }
 
-    //TODO: Change
     public void ab_minus_panel_clicked(){
-        bloodDonorList = mysqlFunction.bloodDonationView("SELECT blooddonationuserdata.Donor_ID, Donor_Name, Phone, ABO, RH, Unit, Date_Of_Creation, Expiry_date FROM blooddonationuserdata inner JOIN blooddonationtestingdetails  ON blooddonationuserdata.ID = blooddonationtestingdetails.Donor_ID where abo = \"AB\" AND rh = \"-\";");
+        bloodDonorList = mysqlFunction.bloodDonationView("SELECT blooddonationuserdata.Donor_ID, Donor_Name, Phone, ABO, RH, Unit, Date_Of_Creation, Expiry_date FROM blooddonationuserdata inner JOIN blooddonationtestingdetails ON blooddonationuserdata.ID = blooddonationtestingdetails.Donor_ID inner JOIN bloodcomponent on blooddonationuserdata.ID = bloodcomponent.Donor_ID where discard_blood = \"No\" AND abo = \"AB\" AND rh = \"-\"  AND Expiry_date > current_date();;");
 
         if(bloodDonorList!=null){
             addDataToTable(bloodDonorList);
@@ -641,9 +636,8 @@ public class dashboardController implements Initializable {
         ab_minus_pane.setStyle("-fx-background-color: #C93F3E; -fx-background-radius: 10px");
     }
 
-    //TODO: Change
     public void o_plus_panel_clicked(){
-        bloodDonorList = mysqlFunction.bloodDonationView("SELECT blooddonationuserdata.Donor_ID, Donor_Name, Phone, ABO, RH, Unit, Date_Of_Creation, Expiry_date FROM blooddonationuserdata inner JOIN blooddonationtestingdetails  ON blooddonationuserdata.ID = blooddonationtestingdetails.Donor_ID where abo = \"O\" AND rh = \"+\";");
+        bloodDonorList = mysqlFunction.bloodDonationView("SELECT blooddonationuserdata.Donor_ID, Donor_Name, Phone, ABO, RH, Unit, Date_Of_Creation, Expiry_date FROM blooddonationuserdata inner JOIN blooddonationtestingdetails ON blooddonationuserdata.ID = blooddonationtestingdetails.Donor_ID inner JOIN bloodcomponent on blooddonationuserdata.ID = bloodcomponent.Donor_ID where discard_blood = \"No\" AND abo = \"O\" AND rh = \"+\"  AND Expiry_date > current_date();;");
 
         if(bloodDonorList!=null){
             addDataToTable(bloodDonorList);
@@ -658,9 +652,8 @@ public class dashboardController implements Initializable {
         o_plus_pane.setStyle("-fx-background-color: #C93F3E; -fx-background-radius: 10px");
     }
 
-    //TODO: Change
     public void o_minus_panel_clicked(){
-        bloodDonorList = mysqlFunction.bloodDonationView("SELECT blooddonationuserdata.Donor_ID, Donor_Name, Phone, ABO, RH, Unit, Date_Of_Creation, Expiry_date FROM blooddonationuserdata inner JOIN blooddonationtestingdetails  ON blooddonationuserdata.ID = blooddonationtestingdetails.Donor_ID where abo = \"O\" AND rh = \"-\";");
+        bloodDonorList = mysqlFunction.bloodDonationView("SELECT blooddonationuserdata.Donor_ID, Donor_Name, Phone, ABO, RH, Unit, Date_Of_Creation, Expiry_date FROM blooddonationuserdata inner JOIN blooddonationtestingdetails ON blooddonationuserdata.ID = blooddonationtestingdetails.Donor_ID inner JOIN bloodcomponent on blooddonationuserdata.ID = bloodcomponent.Donor_ID where discard_blood = \"No\" AND abo = \"O\" AND rh = \"-\"  AND Expiry_date > current_date();;");
 
         if(bloodDonorList!=null){
             addDataToTable(bloodDonorList);
@@ -675,7 +668,6 @@ public class dashboardController implements Initializable {
         o_minus_pane.setStyle("-fx-background-color: #C93F3E; -fx-background-radius: 10px");
     }
 
-    //TODO: Change
     public void total_donor_panel_clicked(){
         bloodDonorList = mysqlFunction.bloodDonationView("SELECT blooddonationuserdata.Donor_ID, Donor_Name, Phone, ABO, RH, Unit, Date_Of_Creation, Expiry_date FROM blooddonationuserdata inner JOIN blooddonationtestingdetails  ON blooddonationuserdata.ID = blooddonationtestingdetails.Donor_ID;");
 
@@ -692,9 +684,8 @@ public class dashboardController implements Initializable {
         total_donor_pane.setStyle("-fx-background-color:  #1982C4; -fx-background-radius: 10px");
     }
 
-    //TODO: Change
     public void total_active_donor_panel_clicked(){
-        bloodDonorList = mysqlFunction.bloodDonationView("SELECT blooddonationuserdata.Donor_ID, Donor_Name, Phone, ABO, RH, Unit, Date_Of_Creation, Expiry_date FROM blooddonationuserdata inner JOIN blooddonationtestingdetails  ON blooddonationuserdata.ID = blooddonationtestingdetails.Donor_ID where blooddonationtestingdetails.Expiry_date > current_date(); ;");
+        bloodDonorList = mysqlFunction.bloodDonationView("SELECT blooddonationuserdata.Donor_ID, Donor_Name, Phone, ABO, RH, Unit, Date_Of_Creation, Expiry_date FROM blooddonationuserdata inner JOIN blooddonationtestingdetails ON blooddonationuserdata.ID = blooddonationtestingdetails.Donor_ID inner JOIN bloodcomponent on blooddonationuserdata.ID = bloodcomponent.Donor_ID where blooddonationtestingdetails.Expiry_date > current_date() AND discard_blood = \"No\" ;");
 
         if(bloodDonorList!=null){
             addDataToTable(bloodDonorList);
@@ -709,9 +700,8 @@ public class dashboardController implements Initializable {
         active_pane.setStyle("-fx-background-color:  #1982C4; -fx-background-radius: 10px");
     }
 
-    //TODO: Change
     public void total_expired_donor_panel_clicked(){
-        bloodDonorList = mysqlFunction.bloodDonationView("SELECT blooddonationuserdata.Donor_ID, Donor_Name, Phone, ABO, RH, Unit, Date_Of_Creation, Expiry_date FROM blooddonationuserdata inner JOIN blooddonationtestingdetails  ON blooddonationuserdata.ID = blooddonationtestingdetails.Donor_ID where blooddonationtestingdetails.Expiry_date < current_date(); ;");
+        bloodDonorList = mysqlFunction.bloodDonationView("SELECT blooddonationuserdata.Donor_ID, Donor_Name, Phone, ABO, RH, Unit, Date_Of_Creation, Expiry_date FROM blooddonationuserdata inner JOIN blooddonationtestingdetails  ON blooddonationuserdata.ID = blooddonationtestingdetails.Donor_ID where blooddonationtestingdetails.Expiry_date < current_date();");
 
         if(bloodDonorList!=null){
             addDataToTable(bloodDonorList);
@@ -1073,7 +1063,6 @@ public class dashboardController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        //TODO: SEND this to the visible panel function of bloodAdditionPage
         ObservableList<String> genderChoiceBoxValues = FXCollections.observableArrayList("Select","Male","Female", "Other");
         donorGenderField.setItems(genderChoiceBoxValues);
         donorGenderField.setValue("Select");

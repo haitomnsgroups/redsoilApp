@@ -130,126 +130,6 @@
     <center>
         <Pane>
             <children>
-                  <ScrollPane fx:id="userAccountScrollPane" prefHeight="718.0" prefWidth="1166.0">
-                      <content>
-                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="700.0" prefWidth="1166.0" style="-fx-background-color: #bebebe;">
-                              <children>
-                                  <Label layoutX="14.0" layoutY="14.0" text="Company Details" textFill="#c93f3e">
-                                      <font>
-                                          <Font name="System Bold Italic" size="18.0" />
-                                      </font>
-                                  </Label>
-                                  <Line endX="310.0" layoutX="115.0" layoutY="41.0" startX="-100.0" stroke="#c93f3e" />
-                                  <Label layoutX="20.0" layoutY="78.0" text="BloodBank Name" textFill="#c93f3e">
-                                      <font>
-                                          <Font size="13.0" />
-                                      </font>
-                                  </Label>
-                                  <TextField fx:id="companyNameField" layoutX="148.0" layoutY="70.0" prefHeight="35.0" prefWidth="280.0" style="-fx-border-color: #C93F3E; -fx-border-radius: 10; -fx-background-color: #bebebe;" />
-                                  <Label layoutX="20.0" layoutY="128.0" text="BloodBank Address" textFill="#c93f3e">
-                                      <font>
-                                          <Font size="13.0" />
-                                      </font>
-                                  </Label>
-                                  <TextField fx:id="companyAddressField" layoutX="148.0" layoutY="120.0" prefHeight="35.0" prefWidth="280.0" style="-fx-border-color: #C93F3E; -fx-border-radius: 10; -fx-background-color: #bebebe;" />
-                                  <Label layoutX="20.0" layoutY="228.0" text="Username" textFill="#c93f3e">
-                                      <font>
-                                          <Font size="13.0" />
-                                      </font>
-                                  </Label>
-                                  <TextField fx:id="companyUsernameField" layoutX="148.0" layoutY="220.0" prefHeight="35.0" prefWidth="280.0" style="-fx-border-color: #C93F3E; -fx-border-radius: 10; -fx-background-color: #bebebe;" />
-                                  <Label layoutX="20.0" layoutY="278.0" text="Password" textFill="#c93f3e">
-                                      <font>
-                                          <Font size="13.0" />
-                                      </font>
-                                  </Label>
-                                  <PasswordField fx:id="companyPasswordField" layoutX="148.0" layoutY="270.0" prefHeight="35.0" prefWidth="280.0" style="-fx-border-color: #C93F3E; -fx-border-radius: 10; -fx-background-color: #bebebe;" />
-                                  <JFXButton buttonType="RAISED" layoutX="361.0" layoutY="324.0" mnemonicParsing="false" onAction="#companyUpdateButtonAction" style="-fx-background-color: #C93F3E; -fx-background-radius: 10;" text="Update" textFill="WHITE">
-                                      <font>
-                                          <Font name="System Bold" size="14.0" />
-                                      </font>
-                                  </JFXButton>
-                                  <Label layoutX="20.0" layoutY="178.0" text="BloodBank Phone" textFill="#c93f3e">
-                                      <font>
-                                          <Font size="13.0" />
-                                      </font>
-                                  </Label>
-                                  <TextField fx:id="companyPhoneField" layoutX="148.0" layoutY="170.0" prefHeight="35.0" prefWidth="280.0" style="-fx-border-color: #C93F3E; -fx-border-radius: 10; -fx-background-color: #bebebe;" />
-                        <Label layoutX="500.0" layoutY="13.0" text="Developed By," textFill="#c93f3e">
-                           <font>
-                              <Font name="System Bold Italic" size="18.0" />
-                           </font>
-                        </Label>
-                        <Line endX="450.0" layoutX="601.0" layoutY="40.0" startX="-100.0" stroke="#c93f3e" />
-                        <ImageView fitHeight="297.0" fitWidth="294.0" layoutX="500.0" layoutY="63.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../../com.haitomns.images/haiotmnsTaglineRed.png" />
-                           </image>
-                        </ImageView>
-                        <Label layoutX="811.0" layoutY="65.0" text="Haitomns Groups" textFill="#c93f3e">
-                           <font>
-                              <Font name="System Bold" size="24.0" />
-                           </font>
-                        </Label>
-                        <Label layoutX="811.0" layoutY="103.0" textFill="#c93f3e">
-                           <font>
-                              <Font name="System Bold" size="24.0" />
-                           </font>
-                        </Label>
-                        <Label layoutX="853.0" layoutY="147.0" text="+977 980 112 6858" textFill="#c93f3e">
-                           <font>
-                              <Font name="System Bold" size="16.0" />
-                           </font>
-                        </Label>
-                        <Label layoutX="853.0" layoutY="108.0" text="haitomns.com.np" textFill="#c93f3e">
-                           <font>
-                              <Font name="System Bold" size="16.0" />
-                           </font>
-                        </Label>
-                        <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="808.0" layoutY="106.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../../com.haitomns.images/website.png" />
-                           </image>
-                        </ImageView>
-                        <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="811.0" layoutY="140.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../../com.haitomns.images/phone.png" />
-                           </image>
-                        </ImageView>
-                        <Label layoutX="14.0" layoutY="374.0" text="Backup and Restore" textFill="#c93f3e">
-                           <font>
-                              <Font name="System Bold Italic" size="18.0" />
-                           </font>
-                        </Label>
-                        <Line endX="310.0" layoutX="113.0" layoutY="402.0" startX="-100.0" stroke="#c93f3e" />
-                        <JFXButton fx:id="backupButtton" buttonType="RAISED" layoutX="20.0" layoutY="427.0" mnemonicParsing="false" onAction="#backupButtonClick" prefHeight="45.0" prefWidth="155.0" style="-fx-background-color: #1F743E; -fx-background-radius: 100;" text="Backup" textAlignment="CENTER" textFill="WHITE">
-                           <font>
-                              <Font name="System Bold" size="18.0" />
-                           </font>
-                           <graphic>
-                              <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../../../com.haitomns.images/icons8_data_backup_26px.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                        </JFXButton>
-                        <JFXButton fx:id="restoreButton" buttonType="RAISED" layoutX="269.0" layoutY="427.0" mnemonicParsing="false" onAction="#restoreButtonClick" prefHeight="45.0" prefWidth="155.0" style="-fx-background-color: #1F743E; -fx-background-radius: 100;" text="Restore" textAlignment="CENTER" textFill="WHITE">
-                           <font>
-                              <Font name="System Bold" size="18.0" />
-                           </font>
-                           <graphic>
-                              <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../../../com.haitomns.images/icons8_database_restore_32px_1.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                        </JFXButton>
-                              </children>
-                          </AnchorPane>
-                      </content>
-                  </ScrollPane>
             <HBox fx:id="bloodDonationHbox" prefHeight="718.0" prefWidth="1168.0">
                <children>
                         <TabPane prefHeight="718.0" prefWidth="450.0" tabClosingPolicy="UNAVAILABLE">
@@ -618,6 +498,126 @@
                         </TabPane>
                </children>
             </HBox>
+                  <ScrollPane fx:id="userAccountScrollPane" prefHeight="718.0" prefWidth="1166.0">
+                      <content>
+                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="700.0" prefWidth="1166.0" style="-fx-background-color: #bebebe;">
+                              <children>
+                                  <Label layoutX="14.0" layoutY="14.0" text="Company Details" textFill="#c93f3e">
+                                      <font>
+                                          <Font name="System Bold Italic" size="18.0" />
+                                      </font>
+                                  </Label>
+                                  <Line endX="310.0" layoutX="115.0" layoutY="41.0" startX="-100.0" stroke="#c93f3e" />
+                                  <Label layoutX="20.0" layoutY="78.0" text="BloodBank Name" textFill="#c93f3e">
+                                      <font>
+                                          <Font size="13.0" />
+                                      </font>
+                                  </Label>
+                                  <TextField fx:id="companyNameField" layoutX="148.0" layoutY="70.0" prefHeight="35.0" prefWidth="280.0" style="-fx-border-color: #C93F3E; -fx-border-radius: 10; -fx-background-color: #bebebe;" />
+                                  <Label layoutX="20.0" layoutY="128.0" text="BloodBank Address" textFill="#c93f3e">
+                                      <font>
+                                          <Font size="13.0" />
+                                      </font>
+                                  </Label>
+                                  <TextField fx:id="companyAddressField" layoutX="148.0" layoutY="120.0" prefHeight="35.0" prefWidth="280.0" style="-fx-border-color: #C93F3E; -fx-border-radius: 10; -fx-background-color: #bebebe;" />
+                                  <Label layoutX="20.0" layoutY="228.0" text="Username" textFill="#c93f3e">
+                                      <font>
+                                          <Font size="13.0" />
+                                      </font>
+                                  </Label>
+                                  <TextField fx:id="companyUsernameField" layoutX="148.0" layoutY="220.0" prefHeight="35.0" prefWidth="280.0" style="-fx-border-color: #C93F3E; -fx-border-radius: 10; -fx-background-color: #bebebe;" />
+                                  <Label layoutX="20.0" layoutY="278.0" text="Password" textFill="#c93f3e">
+                                      <font>
+                                          <Font size="13.0" />
+                                      </font>
+                                  </Label>
+                                  <PasswordField fx:id="companyPasswordField" layoutX="148.0" layoutY="270.0" prefHeight="35.0" prefWidth="280.0" style="-fx-border-color: #C93F3E; -fx-border-radius: 10; -fx-background-color: #bebebe;" />
+                                  <JFXButton buttonType="RAISED" layoutX="361.0" layoutY="324.0" mnemonicParsing="false" onAction="#companyUpdateButtonAction" style="-fx-background-color: #C93F3E; -fx-background-radius: 10;" text="Update" textFill="WHITE">
+                                      <font>
+                                          <Font name="System Bold" size="14.0" />
+                                      </font>
+                                  </JFXButton>
+                                  <Label layoutX="20.0" layoutY="178.0" text="BloodBank Phone" textFill="#c93f3e">
+                                      <font>
+                                          <Font size="13.0" />
+                                      </font>
+                                  </Label>
+                                  <TextField fx:id="companyPhoneField" layoutX="148.0" layoutY="170.0" prefHeight="35.0" prefWidth="280.0" style="-fx-border-color: #C93F3E; -fx-border-radius: 10; -fx-background-color: #bebebe;" />
+                        <Label layoutX="500.0" layoutY="13.0" text="Developed By," textFill="#c93f3e">
+                           <font>
+                              <Font name="System Bold Italic" size="18.0" />
+                           </font>
+                        </Label>
+                        <Line endX="450.0" layoutX="601.0" layoutY="40.0" startX="-100.0" stroke="#c93f3e" />
+                        <ImageView fitHeight="297.0" fitWidth="294.0" layoutX="500.0" layoutY="63.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../com.haitomns.images/haiotmnsTaglineRed.png" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="811.0" layoutY="65.0" text="Haitomns Groups" textFill="#c93f3e">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="811.0" layoutY="103.0" textFill="#c93f3e">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="853.0" layoutY="143.0" text="+977 980 112 6858" textFill="#c93f3e">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="853.0" layoutY="108.0" text="haitomns.com.np" textFill="#c93f3e">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                        </Label>
+                        <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="808.0" layoutY="106.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../com.haitomns.images/website.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="811.0" layoutY="140.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../com.haitomns.images/phone.png" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="14.0" layoutY="374.0" text="Backup and Restore" textFill="#c93f3e">
+                           <font>
+                              <Font name="System Bold Italic" size="18.0" />
+                           </font>
+                        </Label>
+                        <Line endX="310.0" layoutX="113.0" layoutY="402.0" startX="-100.0" stroke="#c93f3e" />
+                        <JFXButton fx:id="backupButtton" buttonType="RAISED" layoutX="20.0" layoutY="427.0" mnemonicParsing="false" onAction="#backupButtonClick" prefHeight="45.0" prefWidth="155.0" style="-fx-background-color: #1F743E; -fx-background-radius: 100;" text="Backup" textAlignment="CENTER" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../com.haitomns.images/icons8_data_backup_26px.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </JFXButton>
+                        <JFXButton fx:id="restoreButton" buttonType="RAISED" layoutX="269.0" layoutY="427.0" mnemonicParsing="false" onAction="#restoreButtonClick" prefHeight="45.0" prefWidth="155.0" style="-fx-background-color: #1F743E; -fx-background-radius: 100;" text="Restore" textAlignment="CENTER" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../com.haitomns.images/icons8_database_restore_32px_1.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </JFXButton>
+                              </children>
+                          </AnchorPane>
+                      </content>
+                  </ScrollPane>
             <ScrollPane fx:id="findBloodScrollPane" prefHeight="718.0" prefWidth="1166.0">
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="700.0" prefWidth="1166.0" style="-fx-background-color: #bebebe;">

@@ -119,6 +119,17 @@ public class mysqlFunction {
         }
     }
 
+    public static boolean checkDonorID(String donorId){
+        try {
+            stmt = connect.createStatement();
+            result = stmt.executeQuery("select donor_id from blooddonationuserdata where donor_id = '" + donorId + "'");
+            return result.next();
+        } catch (Exception e) {
+            showError("Donor ID Error", "Donor ID Error", "Donor ID Error");
+            return false;
+        }
+    }
+
     public static boolean bloodAddDonorAndBlood(String donationOrganization,String donorName,String donorGender,String donorAge,String donorPhone,String donorOccupation,String donorAddress,String donorEmail,String patientName,String donorId,String diseaseList,String previousBloodDonatedStatus,String previouslyDonatedDate, String weight,String bp,String hb,String respSys,String cvs,String giSystem,String other,String fit,String unit,String abo,String rh,String hiv,String hcb,String hbsag,String vdrl,String bloodExpiryDate){
         try {
             //TODO: If one table is inserted and then other is no inserted then it will cause problem
@@ -161,7 +172,7 @@ public class mysqlFunction {
             return null;
         }
     }
-    //TODO: Change
+
     public static ObservableList<bloodDonationTableModel> bloodDonationAddTable(){
         ObservableList<bloodDonationTableModel > bloodDonationData = FXCollections.observableArrayList();
         try{
@@ -186,7 +197,6 @@ public class mysqlFunction {
         }
     }
 
-    //TODO: Change
     public static List<Integer> bloodDonationViewCount(){
         List<Integer> bloodDonationList = new ArrayList<>();
         try{
@@ -220,7 +230,6 @@ public class mysqlFunction {
         }
     }
 
-    //TODO: Change
     public static List<String> fetchUpdateData(String donorId){
         try{
             List<String> updateData = new ArrayList<>();
@@ -267,13 +276,12 @@ public class mysqlFunction {
         }
     }
 
-    //TODO: Change
     public static ObservableList<bloodFindTableModel> removeDataView(){
         try{
             ObservableList<bloodFindTableModel> removedData = FXCollections.observableArrayList();
 
             stmt = connect.createStatement();
-            result = stmt.executeQuery("SELECT Donor_ID, Donor_Name, Phone, ABO, RH, Unit, Date_Of_Creation, Expiry_date FROM redsoildb.removeblooddetails;");
+            result = stmt.executeQuery("SELECT blooddonationuserdata.Donor_ID, Donor_Name, Phone, ABO, RH, Unit, Date_Of_Creation, Expiry_date FROM blooddonationuserdata inner JOIN blooddonationtestingdetails ON blooddonationuserdata.ID = blooddonationtestingdetails.Donor_ID inner JOIN bloodcomponent on blooddonationuserdata.ID = bloodcomponent.Donor_ID where discard_blood != \"No\";");
             while (result.next()) {
                 String donorId = result.getString("Donor_ID");
                 String donorName = result.getString("Donor_Name");
