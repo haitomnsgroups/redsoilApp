@@ -11,7 +11,8 @@ create table login (
     FOREIGN KEY(company_id) REFERENCES company(id)
     );
     
-INSERT INTO login (id, company_id, username, password) VALUES(null, 1,'haitomns', '12345');
+INSERT INTO login (id, company_id, username, password) 
+VALUES(null, 1,'haitomns', 'aad0ad135729292b9f0fc454ab7e0568820231b8');
 
 create table company(
 	ID int NOT NULL auto_increment,
@@ -96,13 +97,14 @@ select * from bloodtypestotal;
 select * from bloodtypestotal;
 
 CREATE VIEW bloodStautsTotal AS
-SELECT count(Donor_ID) FROM redsoildb.blooddonationuserdata
+SELECT count(blooddonationuserdata.Donor_ID) as donorTotal FROM blooddonationuserdata inner JOIN blooddonationtestingdetails  
+ON blooddonationuserdata.ID = blooddonationtestingdetails.Donor_ID
 union all
-Select count(Donor_ID) FROM redsoildb.blooddonationtestingdetails where Expiry_date > current_date()
+Select count(Donor_ID) as donorTotal FROM redsoildb.blooddonationtestingdetails where Expiry_date > current_date()
 union all
-Select count(Donor_ID) FROM redsoildb.blooddonationtestingdetails where Expiry_date < current_date()
+Select count(Donor_ID) as donorTotal FROM redsoildb.blooddonationtestingdetails where Expiry_date < current_date()
 union all
-Select sum(Unit) FROM redsoildb.blooddonationtestingdetails where Expiry_date > current_date();
+Select sum(Unit) as donorTotal FROM redsoildb.blooddonationtestingdetails where Expiry_date > current_date();
 
 create table removeBloodDetails(
 	ID int unsigned NOT NULL auto_increment,
@@ -152,6 +154,40 @@ BEGIN
     (select ID from blooddonationuserdata where Donor_ID = DonorIdToDelete);
     delete from blooddonationuserdata where Donor_ID = DonorIdToDelete;
 END //
+DELIMITER ;
 
 SET SQL_SAFE_UPDATES = 0;
 
+create table bloodComponent(
+	ID int unsigned NOT NULL auto_increment,
+    Donor_ID int unsigned NOT NULL,
+    prbcs varchar(128),
+    prbc varchar(128),
+    ffp varchar(128),
+    platelets varchar(128),
+    prp varchar(128),
+    cryoppt varchar(128),
+    discard_blood varchar(128),
+    primary key(ID),
+    FOREIGN KEY(Donor_ID) REFERENCES bloodDonationUserData(ID) ON DELETE CASCADE
+);
+
+
+DELIMITER //
+CREATE PROCEDURE bloodcompInit()
+BEGIN
+	SET @donorGet_id =  (select MAX(id) FROM blooddonationuserdata);
+	INSERT INTO `redsoildb`.`bloodcomponent`
+	(`ID`,`Donor_ID`,`prbcs`,`prbc`,`ffp`,`platelets`,`prp`,`cryoppt`,`discard_blood`)
+VALUES(null, @donorGet_id, "No", "No", "No", "No" "No", "No", "No");
+END //
+DELIMITER ;
+
+DELIMITER $$
+create trigger bloodcompInit
+after insert on blooddonationuserdata
+for each row
+begin
+	call bloodcompInit();
+end$$
+DELIMITER ;

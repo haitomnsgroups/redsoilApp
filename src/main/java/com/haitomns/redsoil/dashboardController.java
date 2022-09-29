@@ -1,5 +1,6 @@
 package com.haitomns.redsoil;
 
+import com.jfoenix.controls.JFXToggleButton;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -16,17 +17,21 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.stage.FileChooser;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Callback;
 
+import java.io.File;
 import java.io.IOException;
 import java.math.BigInteger;
 import java.net.URL;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -55,11 +60,13 @@ public class dashboardController implements Initializable {
     @FXML
     private TextField patientNameField, donorIdField;
     @FXML
-    private TextField weight, bp, hb, respSys, cvs, giSystem, other, fit, unit;
+    private TextField weight, bp, hb, other,  unit;
+    @FXML
+    private JFXToggleButton respSys, cvs, giSystem, fit;
     @FXML
     private ChoiceBox<String> aboField, rhField = new ChoiceBox<>();
     @FXML
-    private TextField  hiv, hbsag, hcv, vdrl;
+    private JFXToggleButton hiv, hbsag, hcv, vdrl;
     @FXML
     private CheckBox  malaria, leprosy, highBloodPressure, lotusPitta, diabetes, preSurgery, tuberculosis, pregnancy, drugAbuse, heartDisease, pneumonia, jaundice, kidneyDisease, aids, faintingSpells, cutaneousDisease, std, menstruation, foreignVisit, others;
     @FXML
@@ -230,24 +237,63 @@ public class dashboardController implements Initializable {
         String weight = this.weight.getText();
         String bp = this.bp.getText();
         String hb = this.hb.getText();
-        String respSys = this.respSys.getText();
-        String cvs = this.cvs.getText();
-        String giSystem = this.giSystem.getText();
+        String respSys;
+        if(this.respSys.isSelected()){
+            respSys = "Yes";
+        }else {
+            respSys = "No";
+        }
+        String cvs;
+        if(this.cvs.isSelected()){
+            cvs = "Yes";
+        }else {
+            cvs = "No";
+        }
+        String giSystem;
+        if(this.giSystem.isSelected()){
+            giSystem = "Yes";
+        }else {
+            giSystem = "No";
+        }
+        String fit;
+        if(this.fit.isSelected()){
+            fit = "Yes";
+        }else {
+            fit = "No";
+        }
         String other = this.other.getText();
-        String fit = this.fit.getText();
         String unit = this.unit.getText();
         String abo = this.aboField.getValue();
         String rh = this.rhField.getValue();
-        String hiv = this.hiv.getText();
-        String hcv = this.hcv.getText();
-        String hbsag = this.hbsag.getText();
-        String vdrl = this.vdrl.getText();
-
+        String hiv;
+        if(this.hiv.isSelected()){
+            hiv = "Yes";
+        }else {
+            hiv = "No";
+        }
+        String hcv;
+        if(this.hcv.isSelected()){
+            hcv = "Yes";
+        }else {
+            hcv = "No";
+        }
+        String hbsag;
+        if(this.hbsag.isSelected()){
+            hbsag = "Yes";
+        }else {
+            hbsag = "No";
+        }
+        String vdrl;
+        if(this.vdrl.isSelected()){
+            vdrl = "Yes";
+        }else {
+            vdrl = "No";
+        }
         String bloodExpiryDate = getDateOfBloodExpiry();
 
         mysqlFunction.mysqlDatabaseConnection();
 
-        if(validateDonorAndTesting(donorId, donorName, donorGender, donorAge, donorPhone, donorEmail, patientName, abo, rh)) {
+        if(validateDonorAndTesting(donorId, donorName, donorGender, donorAge, donorPhone, donorEmail, patientName, abo, rh, unit, bloodExpiryDate)) {
             if (mysqlFunction.bloodAddDonorAndBlood(donationOrganization, donorName, donorGender, donorAge, donorPhone, donorOccupation, donorAddress, donorEmail, patientName, donorId, diseaseList, previousBloodDonatedStatus, lastDonatedDate, weight, bp, hb, respSys, cvs, giSystem, other, fit, unit, abo, rh, hiv, hcv, hbsag, vdrl, bloodExpiryDate)) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("RedSoil Dashboard");
@@ -306,12 +352,11 @@ public class dashboardController implements Initializable {
         else if(companyPassword.length() < 5 || companyPassword.length() > 30){
             if(companyPassword.matches(".*\\d.*")){
                 showError("Error", "RedSoil Dashboard", "Provide a Company Password");
-                return false;
             }
             else {
                 showError("Error", "RedSoil Dashboard", "Company Password must be between 5 and 30 characters");
-                return false;
             }
+            return false;
         }
         else if(companyPhone.contains(" ") || companyUsername.contains(" ") || companyPassword.contains(" ")){
             showError("Error", "RedSoil Dashboard", "Company Phone, Username and Password must not contain spaces");
@@ -322,25 +367,37 @@ public class dashboardController implements Initializable {
         }
     }
 
-    public static boolean validateDonorAndTesting(String donorId, String  donorName, String  donorGender, String  donorAge, String  donorPhone, String donorEmail, String patientName, String abo, String rh){
+    public static boolean validateDonorAndTesting(String donorId, String  donorName, String  donorGender, String  donorAge, String  donorPhone, String donorEmail, String patientName, String abo, String rh, String unit, String bloodExpiryDate){
         if(donorId.isEmpty() || donorName.isEmpty() || patientName.isEmpty()){
-            showError("Error", "RedSoil Dashboard", "All fields are required");
+            showError("Error", "RedSoil Dashboard", "Patient Name, Donor Name and Donor ID are required");
             return false;
         } else if (donorGender.equals("Select")) {
             showError("Error", "RedSoil Dashboard", "Select Donor Gender");
             return false;
-        } else if(donorPhone.length() != 10){
-            showError("Error", "RedSoil Dashboard", "Phone number must be 10 digits");
-            return false;
-        } else if(!donorEmail.contains("@") || !donorEmail.contains(".")){
-            showError("Error", "RedSoil Dashboard", "Invalid Email Address");
-            return false;
+        } else if(!donorPhone.equals("")) {
+            if (donorPhone.length() != 10) {
+                showError("Error", "RedSoil Dashboard", "Phone number must be 10 digits");
+                return false;
+            }
+            return true;
+        } else if(!donorEmail.equals("")){
+            if (!donorEmail.contains("@") || !donorEmail.contains(".")) {
+                showError("Error", "RedSoil Dashboard", "Invalid Email Address");
+                return false;
+            }
+            return true;
         } else if (donorAge.isEmpty() || Integer.parseInt(donorAge) < 18 || Integer.parseInt(donorAge) > 55) {
-            showError("Error", "RedSoil Dashboard", "Donor Age is Not Valid");
-            return false;
+                showError("Error", "RedSoil Dashboard", "Donor Age is Not Valid");
+                return false;
         } else if(abo.equals("Select") || rh.equals("Select")){
-            showError("Error", "RedSoil Dashboard", "Select ABO and RH");
-            return false;
+                showError("Error", "RedSoil Dashboard", "Select ABO and RH");
+                return false;
+        } else if (unit.isEmpty() || Integer.parseInt(unit) < 1 || Integer.parseInt(unit) > 5) {
+                showError("Error", "RedSoil Dashboard", "Unit is Not Valid");
+                return false;
+        } else if (bloodExpiryDate == null || bloodExpiryDate.isEmpty()) {
+                showError("Error", "RedSoil Dashboard", "Blood Expiry Date is Not Valid");
+                return false;
         } else {
             return true;
         }
@@ -448,6 +505,7 @@ public class dashboardController implements Initializable {
         }
     }
 
+    //TODO: Change
     public void initializeBloodFindTable(Boolean findCondition){
         mysqlFunction.mysqlDatabaseConnection();
         if(findCondition) {
@@ -470,6 +528,8 @@ public class dashboardController implements Initializable {
             findBloodTable.setItems(bloodDonorList);
         }
     }
+
+    //TODO: Change
     public void initializeDashboardTable(){
         mysqlFunction.mysqlDatabaseConnection();
         dashboardTableData = mysqlFunction.bloodDonationView("SELECT blooddonationuserdata.Donor_ID, Donor_Name, Phone, ABO, RH, Unit, Date_Of_Creation, Expiry_date FROM blooddonationuserdata inner JOIN blooddonationtestingdetails  ON blooddonationuserdata.ID = blooddonationtestingdetails.Donor_ID;");
@@ -479,6 +539,7 @@ public class dashboardController implements Initializable {
         }
     }
 
+    //TODO: Change
     public void a_plus_panel_clicked(){
         bloodDonorList = mysqlFunction.bloodDonationView("SELECT blooddonationuserdata.Donor_ID, Donor_Name, Phone, ABO, RH, Unit, Date_Of_Creation, Expiry_date FROM blooddonationuserdata inner JOIN blooddonationtestingdetails  ON blooddonationuserdata.ID = blooddonationtestingdetails.Donor_ID where abo = \"A\" AND rh = \"+\";");
 
@@ -495,6 +556,7 @@ public class dashboardController implements Initializable {
         a_plus_pane.setStyle("-fx-background-color: #C93F3E; -fx-background-radius: 10px");
     }
 
+    //TODO: Change
     public void a_minus_panel_clicked(){
         bloodDonorList = mysqlFunction.bloodDonationView("SELECT blooddonationuserdata.Donor_ID, Donor_Name, Phone, ABO, RH, Unit, Date_Of_Creation, Expiry_date FROM blooddonationuserdata inner JOIN blooddonationtestingdetails  ON blooddonationuserdata.ID = blooddonationtestingdetails.Donor_ID where abo = \"A\" AND rh = \"-\";");
 
@@ -511,6 +573,7 @@ public class dashboardController implements Initializable {
         a_minus_pane.setStyle("-fx-background-color: #C93F3E; -fx-background-radius: 10px");
     }
 
+    //TODO: Change
     public void b_plus_panel_clicked(){
         bloodDonorList = mysqlFunction.bloodDonationView("SELECT blooddonationuserdata.Donor_ID, Donor_Name, Phone, ABO, RH, Unit, Date_Of_Creation, Expiry_date FROM blooddonationuserdata inner JOIN blooddonationtestingdetails  ON blooddonationuserdata.ID = blooddonationtestingdetails.Donor_ID where abo = \"B\" AND rh = \"+\";");
 
@@ -527,6 +590,7 @@ public class dashboardController implements Initializable {
         b_plus_pane.setStyle("-fx-background-color: #C93F3E; -fx-background-radius: 10px");
     }
 
+    //TODO: Change
     public void b_minus_panel_clicked(){
         bloodDonorList = mysqlFunction.bloodDonationView("SELECT blooddonationuserdata.Donor_ID, Donor_Name, Phone, ABO, RH, Unit, Date_Of_Creation, Expiry_date FROM blooddonationuserdata inner JOIN blooddonationtestingdetails  ON blooddonationuserdata.ID = blooddonationtestingdetails.Donor_ID where abo = \"B\" AND rh = \"-\";");
 
@@ -543,6 +607,7 @@ public class dashboardController implements Initializable {
         b_minus_pane.setStyle("-fx-background-color: #C93F3E; -fx-background-radius: 10px");
     }
 
+    //TODO: Change
     public void ab_plus_panel_clicked(){
         bloodDonorList = mysqlFunction.bloodDonationView("SELECT blooddonationuserdata.Donor_ID, Donor_Name, Phone, ABO, RH, Unit, Date_Of_Creation, Expiry_date FROM blooddonationuserdata inner JOIN blooddonationtestingdetails  ON blooddonationuserdata.ID = blooddonationtestingdetails.Donor_ID where abo = \"AB\" AND rh = \"+\";");
 
@@ -559,6 +624,7 @@ public class dashboardController implements Initializable {
         ab_plus_pane.setStyle("-fx-background-color: #C93F3E; -fx-background-radius: 10px");
     }
 
+    //TODO: Change
     public void ab_minus_panel_clicked(){
         bloodDonorList = mysqlFunction.bloodDonationView("SELECT blooddonationuserdata.Donor_ID, Donor_Name, Phone, ABO, RH, Unit, Date_Of_Creation, Expiry_date FROM blooddonationuserdata inner JOIN blooddonationtestingdetails  ON blooddonationuserdata.ID = blooddonationtestingdetails.Donor_ID where abo = \"AB\" AND rh = \"-\";");
 
@@ -575,6 +641,7 @@ public class dashboardController implements Initializable {
         ab_minus_pane.setStyle("-fx-background-color: #C93F3E; -fx-background-radius: 10px");
     }
 
+    //TODO: Change
     public void o_plus_panel_clicked(){
         bloodDonorList = mysqlFunction.bloodDonationView("SELECT blooddonationuserdata.Donor_ID, Donor_Name, Phone, ABO, RH, Unit, Date_Of_Creation, Expiry_date FROM blooddonationuserdata inner JOIN blooddonationtestingdetails  ON blooddonationuserdata.ID = blooddonationtestingdetails.Donor_ID where abo = \"O\" AND rh = \"+\";");
 
@@ -591,6 +658,7 @@ public class dashboardController implements Initializable {
         o_plus_pane.setStyle("-fx-background-color: #C93F3E; -fx-background-radius: 10px");
     }
 
+    //TODO: Change
     public void o_minus_panel_clicked(){
         bloodDonorList = mysqlFunction.bloodDonationView("SELECT blooddonationuserdata.Donor_ID, Donor_Name, Phone, ABO, RH, Unit, Date_Of_Creation, Expiry_date FROM blooddonationuserdata inner JOIN blooddonationtestingdetails  ON blooddonationuserdata.ID = blooddonationtestingdetails.Donor_ID where abo = \"O\" AND rh = \"-\";");
 
@@ -607,6 +675,7 @@ public class dashboardController implements Initializable {
         o_minus_pane.setStyle("-fx-background-color: #C93F3E; -fx-background-radius: 10px");
     }
 
+    //TODO: Change
     public void total_donor_panel_clicked(){
         bloodDonorList = mysqlFunction.bloodDonationView("SELECT blooddonationuserdata.Donor_ID, Donor_Name, Phone, ABO, RH, Unit, Date_Of_Creation, Expiry_date FROM blooddonationuserdata inner JOIN blooddonationtestingdetails  ON blooddonationuserdata.ID = blooddonationtestingdetails.Donor_ID;");
 
@@ -623,6 +692,7 @@ public class dashboardController implements Initializable {
         total_donor_pane.setStyle("-fx-background-color:  #1982C4; -fx-background-radius: 10px");
     }
 
+    //TODO: Change
     public void total_active_donor_panel_clicked(){
         bloodDonorList = mysqlFunction.bloodDonationView("SELECT blooddonationuserdata.Donor_ID, Donor_Name, Phone, ABO, RH, Unit, Date_Of_Creation, Expiry_date FROM blooddonationuserdata inner JOIN blooddonationtestingdetails  ON blooddonationuserdata.ID = blooddonationtestingdetails.Donor_ID where blooddonationtestingdetails.Expiry_date > current_date(); ;");
 
@@ -639,6 +709,7 @@ public class dashboardController implements Initializable {
         active_pane.setStyle("-fx-background-color:  #1982C4; -fx-background-radius: 10px");
     }
 
+    //TODO: Change
     public void total_expired_donor_panel_clicked(){
         bloodDonorList = mysqlFunction.bloodDonationView("SELECT blooddonationuserdata.Donor_ID, Donor_Name, Phone, ABO, RH, Unit, Date_Of_Creation, Expiry_date FROM blooddonationuserdata inner JOIN blooddonationtestingdetails  ON blooddonationuserdata.ID = blooddonationtestingdetails.Donor_ID where blooddonationtestingdetails.Expiry_date < current_date(); ;");
 
@@ -720,29 +791,25 @@ public class dashboardController implements Initializable {
                             setText(null);
                         } else {
                             btn.setOnAction(event -> {
-                                bloodFindTableModel bloodFindTableModel = getTableView().getItems().get(getIndex());
-                                String idToDelete = bloodFindTableModel.getDonorId();
 
-                                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                                alert.setTitle("RedSoil Dashboard");
-                                alert.setHeaderText("Remove Blood Donation");
-                                alert.setContentText("Are you sure you want to remove this blood donation?");
-                                Optional<ButtonType> result = alert.showAndWait();
-                                if (result.get() == ButtonType.OK){
-                                    boolean removeSuccess = mysqlFunction.removeBloodDonation(idToDelete);
-                                    if(removeSuccess){
-                                        Alert alertSuccess = new Alert(Alert.AlertType.INFORMATION);
-                                        alertSuccess.setTitle("RedSoil Dashboard");
-                                        alertSuccess.setHeaderText("Remove Blood Donation");
-                                        alertSuccess.setContentText("Blood donation removed successfully!");
-                                        alertSuccess.showAndWait();
-                                        initializeDashboardTable();
-                                        initializeBloodFindTable(false);
-                                    }
-                                    else{
-                                        showError("RedSoil Dashboard", "Remove Blood Donation", "Blood donation removal failed!");
-                                    }
+                                FXMLLoader removalLoader = new FXMLLoader();
+                                removalLoader.setLocation(getClass().getResource("bloodComponent-view.fxml"));
+                                try {
+                                    removalLoader.load();
+                                } catch (IOException e) {
+                                    e.printStackTrace();
                                 }
+
+                                bloodComponent bloodComponentController = removalLoader.getController();
+                                bloodComponentController.initializeBloodComponentPage(getTableView().getItems().get(getIndex()).getDonorId(), getTableView().getItems().get(getIndex()).getAbo(), getTableView().getItems().get(getIndex()).getRh(), getTableView().getItems().get(getIndex()).getUnit());
+
+                                Parent parent = removalLoader.getRoot();
+                                Stage removalStage = new Stage();
+                                removalStage.setScene(new Scene(parent));
+                                removalStage.initStyle(StageStyle.UTILITY);
+                                removalStage.setResizable(false);
+                                removalStage.setTitle("Blood Component");
+                                removalStage.show();
                             });
                             setGraphic(btn);
                             setText(null);
@@ -758,7 +825,7 @@ public class dashboardController implements Initializable {
     }
 
     public void removed_view(){
-        ObservableList<bloodFindTableModel> removeTableData = mysqlFunction.removeMedicineView();
+        ObservableList<bloodFindTableModel> removeTableData = mysqlFunction.removeDataView();
         if(removeTableData!=null){
             donorIdColumn.setCellValueFactory(new PropertyValueFactory<>("donorId"));
             donorNameColumn.setCellValueFactory(new PropertyValueFactory<>("donorName"));
@@ -802,6 +869,9 @@ public class dashboardController implements Initializable {
         donorOccupationField.setText("");
         donorAddressField.setText("");
         donorEmailField.setText("");
+        donatedYesRadio.setSelected(false);
+        donatedNoRadio.setSelected(true);
+        previouslyDonatedDate.setValue(null);
         malaria.setSelected(false);
         leprosy.setSelected(false);
         highBloodPressure.setSelected(false);
@@ -827,18 +897,19 @@ public class dashboardController implements Initializable {
         weight.setText("");
         bp.setText("");
         hb.setText("");
-        respSys.setText("");
-        cvs.setText("");
-        giSystem.setText("");
+        respSys.setSelected(false);
+        cvs.setSelected(false);
+        giSystem.setSelected(false);
+        fit.setSelected(false);
         other.setText("");
-        fit.setText("");
         unit.setText("");
         aboField.setValue("Select");
         rhField.setValue("Select");
-        hiv.setText("");
-        hbsag.setText("");
-        hcv.setText("");
-        vdrl.setText("");
+        hiv.setSelected(false);
+        hbsag.setSelected(false);
+        hcv.setSelected(false);
+        vdrl.setSelected(false);
+        bloodExpiryDateField.setValue(null);
     }
 
     public void find_donor_button_click(){
@@ -871,6 +942,76 @@ public class dashboardController implements Initializable {
             active_blood_number.setText(bloodStatusTotal.get(1).toString());
             expired_blood_number.setText(bloodStatusTotal.get(2).toString());
             total_unit_number.setText(bloodStatusTotal.get(3).toString());
+        }
+    }
+
+    public void backupButtonClick(){
+        File backupFolder = new File("redsoilBackup");
+        if(!backupFolder.exists()){
+            backupFolder.mkdir();
+        }
+
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Save Backup");
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("SQL File", "*.sql")
+        );
+
+        DateTimeFormatter tf = DateTimeFormatter.ofPattern("yyyy_MM_dd_HH_mm_ss");
+        LocalDateTime now = LocalDateTime.now();
+
+        fileChooser.setInitialFileName("redsoilBackup_"+tf.format(now)+".sql");
+
+        File file = fileChooser.showSaveDialog(null);
+
+        if(file!=null){
+            String path = file.getAbsolutePath();
+            if(!path.endsWith(".sql")){
+                path = path + ".sql";
+            }
+
+            mysqlFunction.mysqlDatabaseConnection();
+            boolean backupStatus = mysqlFunction.backupDatabase(path);
+            if(backupStatus){
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("RedSoil Dashboard");
+                alert.setHeaderText("Backup");
+                alert.setContentText("Backup Successful!");
+                alert.showAndWait();
+            }
+            else {
+                showError("RedSoil Dashboard", "Backup", "Backup failed!");
+            }
+        }
+    }
+
+    public void restoreButtonClick(){
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Restore Backup");
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("SQL File", "*.sql")
+        );
+        File file = fileChooser.showOpenDialog(null);
+
+        if(file!=null){
+            String path = file.getAbsolutePath();
+            if(!path.endsWith(".sql")){
+                path = path + ".sql";
+            }
+
+            mysqlFunction.mysqlDatabaseConnection();
+            boolean restoreStatus = mysqlFunction.restoredb(path);
+
+            if(restoreStatus){
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("RedSoil Dashboard");
+                alert.setHeaderText("Restore");
+                alert.setContentText("Restore Successful!");
+                alert.showAndWait();
+            }
+            else {
+                showError("RedSoil Dashboard", "Restore", "Restore failed!");
+            }
         }
     }
 

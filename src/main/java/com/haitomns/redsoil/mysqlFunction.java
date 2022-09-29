@@ -10,6 +10,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -94,7 +96,7 @@ public class mysqlFunction {
 
     public static List<Object> companyDetails(){
         try {
-            String companyName = "Haitomn's Group", companyAddress = "Knowhere", companyPhone = "9809204764", companyUsername = "haitomns", companyPassword = "redSoil";
+            String companyName = "Haitomn's Group", companyAddress = "Knowhere", companyPhone = "9801126858", companyUsername = "haitomns", companyPassword = "redSoil";
             stmt = connect.createStatement();
             result = stmt.executeQuery("select Company_Name, Company_Address, Company_Phone from company limit 1;");
             while (result.next()) {
@@ -159,7 +161,7 @@ public class mysqlFunction {
             return null;
         }
     }
-
+    //TODO: Change
     public static ObservableList<bloodDonationTableModel> bloodDonationAddTable(){
         ObservableList<bloodDonationTableModel > bloodDonationData = FXCollections.observableArrayList();
         try{
@@ -184,6 +186,7 @@ public class mysqlFunction {
         }
     }
 
+    //TODO: Change
     public static List<Integer> bloodDonationViewCount(){
         List<Integer> bloodDonationList = new ArrayList<>();
         try{
@@ -200,13 +203,14 @@ public class mysqlFunction {
         }
     }
 
+    //TODO: Change
     public static List<Integer> bloodStatusCount(){
         List<Integer> bloodDonationList = new ArrayList<>();
         try{
             stmt = connect.createStatement();
             result = stmt.executeQuery("SELECT * FROM redsoildb.bloodstautstotal;");
             while (result.next()) {
-                bloodDonationList.add(result.getInt("count(Donor_ID)"));
+                bloodDonationList.add(result.getInt("donorTotal"));
             }
             return bloodDonationList;
         }
@@ -216,18 +220,7 @@ public class mysqlFunction {
         }
     }
 
-    public static boolean removeBloodDonation(String donerToRemove){
-        try{
-            stmt = connect.createStatement();
-            stmt.executeUpdate("call removeBlood('"+donerToRemove+"');");
-            return true;
-        }
-        catch (Exception e){
-            showError("Blood Remove Error", "Blood Remove Error", "Blood Remove Error");
-            return false;
-        }
-    }
-
+    //TODO: Change
     public static List<String> fetchUpdateData(String donorId){
         try{
             List<String> updateData = new ArrayList<>();
@@ -274,7 +267,8 @@ public class mysqlFunction {
         }
     }
 
-    public static ObservableList<bloodFindTableModel> removeMedicineView(){
+    //TODO: Change
+    public static ObservableList<bloodFindTableModel> removeDataView(){
         try{
             ObservableList<bloodFindTableModel> removedData = FXCollections.observableArrayList();
 
@@ -295,7 +289,54 @@ public class mysqlFunction {
             return removedData;
         }
         catch (Exception e){
-            showError("Medicine Remove Error", "Medicine Remove Error", "Medicine Remove Error");
+            showError("Blood Remove Error", "Blood Remove Error", "Blood Remove Error");
+            return null;
+        }
+    }
+
+    public static boolean bloodComponentAdd(String donorId, String prbcs, String prbc, String ffp, String platelets, String prp, String cryoppt){
+        try{
+            stmt = connect.createStatement();
+            stmt.executeUpdate("UPDATE bloodcomponent SET `prbcs` = '"+prbcs+"',`prbc` = '"+prbc+"',`ffp` = '"+ffp+"', `platelets` ='"+platelets+"',`prp` = '"+prp+"',`cryoppt` = '"+cryoppt+"' where Donor_ID = (select ID from blooddonationuserdata where Donor_ID = '"+donorId+"');");
+            return true;
+        }
+        catch (Exception e){
+            showError("Blood Component Add Error", "Blood Component Add Error", "Blood Component Add Error");
+            return false;
+        }
+    }
+
+    public static boolean wholeBloodComponentAdd(String donorId, String wholeBlood){
+        try{
+            stmt = connect.createStatement();
+            stmt.executeUpdate("UPDATE bloodcomponent SET `discard_blood` = '"+wholeBlood+"' where Donor_ID = (select ID from blooddonationuserdata where Donor_ID = '"+donorId+"');");
+            return true;
+        }
+        catch (Exception e){
+            showError("Blood Component Add Error", "Blood Component Add Error", "Blood Component Add Error");
+            return false;
+        }
+    }
+
+    public static List<String> bloodComponentInitialize(String donorID){
+        try{
+            List<String> bloodComponentData = new ArrayList<>();
+
+            stmt = connect.createStatement();
+            result = stmt.executeQuery("select * from bloodcomponent where Donor_ID = (select ID from blooddonationuserdata where Donor_ID = '"+donorID+"');");
+            while (result.next()) {
+                bloodComponentData.add(result.getString("prbcs"));
+                bloodComponentData.add(result.getString("prbc"));
+                bloodComponentData.add(result.getString("ffp"));
+                bloodComponentData.add(result.getString("platelets"));
+                bloodComponentData.add(result.getString("prp"));
+                bloodComponentData.add(result.getString("cryoppt"));
+                bloodComponentData.add(result.getString("discard_blood"));
+            }
+            return bloodComponentData;
+        }
+        catch (Exception e){
+            showError("Blood Component Initialize Error", "Blood Component Initialize Error", "Blood Component Initialize Error");
             return null;
         }
     }
@@ -338,9 +379,11 @@ public class mysqlFunction {
             stmt.executeUpdate("create database redsoilDB;");
             stmt.executeUpdate("use redsoilDB;");
 
+            String restore_file_path;
+
             databaseCredentialsReader();
             File restore_full_path = new File("redsoilDatabase/redSoilMainDB.sql");
-            String restore_file_path = restore_full_path.getAbsolutePath();
+            restore_file_path = restore_full_path.getAbsolutePath();
 
             String[] restoreCmd = new String[]{databasePath+"mysql ", "--user=" +databaseUsername, "--password=" +databasePassword, "--port=" +portNumber, "redsoilDB", "-e", "source "+restore_file_path};
 
@@ -349,6 +392,56 @@ public class mysqlFunction {
 
             return processComplete == 0;
 
+        }
+        catch (Exception e){
+            showError("Database Restore Error", "Database Restore Error", e.toString());
+            return false;
+        }
+    }
+
+    public static boolean backupDatabase(String path){
+        try{
+            databaseCredentialsReader();
+
+            File backup_full_path = new File(path);
+            String backup_file_path = backup_full_path.getAbsolutePath();
+
+            String[] backupCmd = new String[]{databasePath+"mysqldump ", "--user=" +databaseUsername, "--password=" +databasePassword, "--port=" +portNumber, "redsoilDB", "-r", backup_file_path};
+
+            Process runtimeProcess = Runtime.getRuntime().exec(backupCmd);
+            int processComplete = runtimeProcess.waitFor();
+
+            if (processComplete == 0) {
+                DateTimeFormatter tf = DateTimeFormatter.ofPattern("yyyy_MM_dd_HH_mm_ss");
+                LocalDateTime now = LocalDateTime.now();
+
+                String backup_path = "redsoilBackup/backup_" + tf.format(now) + ".sql";
+                Process process_backup;
+                String[] backupCmdredsoil = new String[]{databasePath+"mysqldump ", "--user=" +databaseUsername, "--password=" +databasePassword, "--port=" +portNumber, "redsoilDB", "-r", backup_path};
+                process_backup = Runtime.getRuntime().exec(backupCmdredsoil);
+                process_backup.waitFor();
+
+                return true;
+            } else {
+                return false;
+            }
+        }
+        catch (Exception e){
+            showError("Database Backup Error", "Database Backup Error", e.toString());
+            return false;
+        }
+    }
+
+    public static Boolean restoredb(String path){
+        try{
+            databaseCredentialsReader();
+
+            String[] restoreCmd = new String[]{databasePath+"mysql ", "--user=" +databaseUsername, "--password=" +databasePassword, "--port=" +portNumber, "redsoilDB", "-e", "source "+path};
+
+            Process runtimeProcess = Runtime.getRuntime().exec(restoreCmd);
+            int processComplete = runtimeProcess.waitFor();
+
+            return processComplete == 0;
         }
         catch (Exception e){
             showError("Database Restore Error", "Database Restore Error", e.toString());

@@ -5,7 +5,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
@@ -30,14 +29,6 @@ public class redsoilMainController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         splashProgressBar.setStyle("-fx-accent:  #C93F3E;");
         splashProgressLabel.setText("Connecting to database...");
-    }
-
-    public void showDatabaseConnectivityAlert(){
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("RedSoil");
-        alert.setHeaderText("RedSoil Error");
-        alert.setContentText("Database Connectivity Error :(");
-        alert.showAndWait();
     }
 
     public void startLoginOrSignup(String userStatus) {
@@ -72,8 +63,7 @@ public class redsoilMainController implements Initializable {
         File userFile = new File("redSoilUser.rdfs");
         if(userFile.exists()){
             Scanner scanner = new Scanner(userFile);
-            String userStatus = scanner.nextLine();
-            return userStatus;
+            return scanner.nextLine();
         }
         else{
             return null;

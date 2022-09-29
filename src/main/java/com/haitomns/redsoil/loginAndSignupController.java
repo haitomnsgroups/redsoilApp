@@ -12,7 +12,6 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.math.BigInteger;
@@ -112,7 +111,7 @@ public class loginAndSignupController {
                 alert.setContentText("Registration Successful");
                 alert.showAndWait();
 
-                FileWriter fileWriter = new FileWriter(new File("redSoilUser.rdfs"));
+                FileWriter fileWriter = new FileWriter("redSoilUser.rdfs");
                 fileWriter.write("true");
                 fileWriter.close();
 
@@ -129,11 +128,11 @@ public class loginAndSignupController {
             showError("Error", "RedSoil Registration", "All fields are required");
             return false;
         }
-        else if(companyName.length() < 5 || companyName.length() > 1024){
+        else if(companyName.length() < 2 || companyName.length() > 1024){
             showError("Error", "RedSoil Registration", "Company Name must be between 5 and 20 characters");
             return false;
         }
-        else if(companyAddress.length() < 5 || companyAddress.length() > 2048){
+        else if(companyAddress.length() < 2 || companyAddress.length() > 2048){
             showError("Error", "RedSoil Registration", "Company Address must be between 5 and 50 characters");
             return false;
         }

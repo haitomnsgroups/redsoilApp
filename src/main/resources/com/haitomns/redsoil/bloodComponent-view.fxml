@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="400.0" prefWidth="360.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.haitomns.redsoil.bloodComponent">
+   <children>
+      <Line endX="220.0" layoutX="120.0" layoutY="47.0" startX="-100.0" stroke="#c93f3e" />
+      <Label layoutX="20.0" layoutY="16.0" text="Blood Components Remove" textFill="#c93f3e">
+         <font>
+            <Font name="System Bold Italic" size="18.0" />
+         </font>
+      </Label>
+      <CheckBox fx:id="prbcs" layoutX="20.0" layoutY="143.0" mnemonicParsing="false" prefHeight="19.0" prefWidth="321.0" text="PRBC With SAGM" textFill="#c93f3e">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </CheckBox>
+      <CheckBox fx:id="prbc" layoutX="20.0" layoutY="174.0" mnemonicParsing="false" prefHeight="19.0" prefWidth="321.0" text="PRBC Without SAGM" textFill="#c93f3e">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </CheckBox>
+      <CheckBox fx:id="ffp" layoutX="20.0" layoutY="203.0" mnemonicParsing="false" prefHeight="19.0" prefWidth="321.0" text="FFP" textFill="#c93f3e">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </CheckBox>
+      <CheckBox fx:id="platelets" layoutX="20.0" layoutY="262.0" mnemonicParsing="false" prefHeight="19.0" prefWidth="321.0" text="Platelets" textFill="#c93f3e">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </CheckBox>
+      <CheckBox fx:id="prp" layoutX="20.0" layoutY="231.0" mnemonicParsing="false" prefHeight="19.0" prefWidth="321.0" text="PRP" textFill="#c93f3e">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </CheckBox>
+      <JFXButton fx:id="removeCompButton" buttonType="RAISED" layoutX="189.0" layoutY="356.0" mnemonicParsing="false" onAction="#bloodComponentRemove" style="-fx-background-color: #C93F3E; -fx-background-radius: 10;" text="Remove Component" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </JFXButton>
+      <CheckBox fx:id="cryoppt" layoutX="20.0" layoutY="291.0" mnemonicParsing="false" prefHeight="19.0" prefWidth="321.0" text="Cryoprecipitate" textFill="#c93f3e">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </CheckBox>
+      <JFXButton fx:id="removeWholeBloodButton" buttonType="RAISED" layoutX="19.0" layoutY="356.0" mnemonicParsing="false" onAction="#removeWholeBlood" style="-fx-background-color: #C93F3E; -fx-background-radius: 10;" text="Remove Whole Blood" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </JFXButton>
+      <Label fx:id="componentDonorId" layoutX="20.0" layoutY="56.0" text="Donor ID:" textFill="#c93f3e">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Label fx:id="componentBloodGroup" layoutX="20.0" layoutY="81.0" text="Blood Group:" textFill="#c93f3e">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Label fx:id="componentUnit" layoutX="20.0" layoutY="106.0" text="Unit: " textFill="#c93f3e">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Label fx:id="removeBloodDate" layoutX="20.0" layoutY="324.0" prefHeight="25.0" prefWidth="321.0" textFill="#c93f3e">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
