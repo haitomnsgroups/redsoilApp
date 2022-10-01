@@ -67,6 +67,38 @@ create table bloodDonationTestingDetails(
     FOREIGN KEY(Donor_ID) REFERENCES bloodDonationUserData(ID) ON DELETE CASCADE
 );
 
+create table bloodComponent(
+	ID int unsigned NOT NULL auto_increment,
+    Donor_ID int unsigned NOT NULL,
+    prbcs varchar(128),
+    prbc varchar(128),
+    ffp varchar(128),
+    platelets varchar(128),
+    prp varchar(128),
+    cryoppt varchar(128),
+    discard_blood varchar(128),
+    primary key(ID),
+    FOREIGN KEY(Donor_ID) REFERENCES bloodDonationUserData(ID) ON DELETE CASCADE
+);
+
+DELIMITER //
+CREATE PROCEDURE bloodcompInit()
+BEGIN
+	SET @donorGet_id =  (select id FROM blooddonationuserdata ORDER BY ID DESC LIMIT 1);
+	INSERT INTO `redsoildb`.`bloodcomponent`
+	(`ID`,`Donor_ID`,`prbcs`,`prbc`,`ffp`,`platelets`,`prp`,`cryoppt`,`discard_blood`) 
+    VALUES(null, @donorGet_id, "No", "No", "No", "No", "No", "No", "No");
+END //
+DELIMITER ;
+
+DELIMITER $$
+create trigger bloodcompInitTRG
+after insert on blooddonationuserdata
+for each row
+begin
+	call bloodcompInit();
+end $$
+DELIMITER ;
 
 CREATE VIEW bloodTypesTotal AS
 SELECT count(ABO) FROM blooddonationtestingdetails inner JOIN blooddonationuserdata
@@ -122,39 +154,6 @@ SELECT count(blooddonationuserdata.Donor_ID) FROM blooddonationuserdata
 inner JOIN blooddonationtestingdetails  ON blooddonationuserdata.ID = blooddonationtestingdetails.Donor_ID 
 where blooddonationtestingdetails.Expiry_date < current_date()
 union all
-Select sum(Unit) as donorTotal FROM blooddonationuserdata inner 
-JOIN blooddonationtestingdetails  ON blooddonationuserdata.ID = blooddonationtestingdetails.Donor_ID inner 
-JOIN bloodcomponent on blooddonationuserdata.ID = bloodcomponent.Donor_ID where Expiry_date < current_date() AND discard_blood != "No";
-
-create table bloodComponent(
-	ID int unsigned NOT NULL auto_increment,
-    Donor_ID int unsigned NOT NULL,
-    prbcs varchar(128),
-    prbc varchar(128),
-    ffp varchar(128),
-    platelets varchar(128),
-    prp varchar(128),
-    cryoppt varchar(128),
-    discard_blood varchar(128),
-    primary key(ID),
-    FOREIGN KEY(Donor_ID) REFERENCES bloodDonationUserData(ID) ON DELETE CASCADE
-);
-
-DELIMITER //
-CREATE PROCEDURE bloodcompInit()
-BEGIN
-	SET @donorGet_id =  (select id FROM blooddonationuserdata ORDER BY ID DESC LIMIT 1);
-	INSERT INTO `redsoildb`.`bloodcomponent`
-	(`ID`,`Donor_ID`,`prbcs`,`prbc`,`ffp`,`platelets`,`prp`,`cryoppt`,`discard_blood`) 
-    VALUES(null, @donorGet_id, "No", "No", "No", "No", "No", "No", "No");
-END //
-DELIMITER ;
-
-DELIMITER $$
-create trigger bloodcompInitTRG
-after insert on blooddonationuserdata
-for each row
-begin
-	call bloodcompInit();
-end $$
-DELIMITER ;
+Select sum(Unit) as donorTotal FROM blooddonationtestingdetails inner 
+JOIN blooddonationuserdata  ON blooddonationuserdata.ID = blooddonationtestingdetails.Donor_ID inner 
+JOIN bloodcomponent on blooddonationtestingdetails.ID = bloodcomponent.Donor_ID where Expiry_date > current_date() AND discard_blood = "No";

@@ -39,25 +39,25 @@
             <Font size="15.0" />
          </font>
       </Label>
-      <TextField fx:id="mysqlPort" layoutX="173.0" layoutY="164.0" prefHeight="30.0" prefWidth="250.0" style="-fx-background-radius: 5;" />
-      <JFXButton layoutX="351.0" layoutY="340.0" mnemonicParsing="false" onAction="#dbConfigSubmitClick" style="-fx-background-radius: 5; -fx-background-color: #ffffff;" text="Submit" textFill="#c93f3e">
-         <font>
-            <Font name="System Bold" size="15.0" />
-         </font>
-      </JFXButton>
-      <TextField fx:id="mysqlUsername" layoutX="173.0" layoutY="206.0" prefHeight="30.0" prefWidth="250.0" style="-fx-background-radius: 5;" />
       <Label layoutX="34.0" layoutY="252.0" text="MySQL Password" textFill="#e4e4e4">
          <font>
             <Font size="15.0" />
          </font>
       </Label>
-      <TextField fx:id="mysqlPassword" layoutX="173.0" layoutY="248.0" prefHeight="30.0" prefWidth="250.0" style="-fx-background-radius: 5;" />
       <Label layoutX="33.0" layoutY="294.0" text="MySQL Path" textFill="#e4e4e4">
          <font>
             <Font size="15.0" />
          </font>
       </Label>
+      <TextField fx:id="mysqlPort" layoutX="173.0" layoutY="164.0" prefHeight="30.0" prefWidth="250.0" style="-fx-background-radius: 5;" />
+      <TextField fx:id="mysqlUsername" layoutX="173.0" layoutY="206.0" prefHeight="30.0" prefWidth="250.0" style="-fx-background-radius: 5;" />
+      <TextField fx:id="mysqlPassword" layoutX="173.0" layoutY="248.0" prefHeight="30.0" prefWidth="250.0" style="-fx-background-radius: 5;" />
       <TextField fx:id="mysqlPath" layoutX="172.0" layoutY="290.0" prefHeight="30.0" prefWidth="250.0" style="-fx-background-radius: 5;" />
+      <JFXButton layoutX="351.0" layoutY="340.0" mnemonicParsing="false" onAction="#dbConfigSubmitClick" style="-fx-background-radius: 5; -fx-background-color: #ffffff;" text="Submit" textFill="#c93f3e">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </JFXButton>
       <ProgressBar fx:id="dbConfProgress" layoutX="34.0" layoutY="347.0" prefHeight="18.0" prefWidth="161.0" visible="false" />
    </children>
 </AnchorPane>

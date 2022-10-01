@@ -30,12 +30,17 @@
             <Font size="13.0" />
          </font>
       </CheckBox>
+      <CheckBox fx:id="prp" layoutX="20.0" layoutY="231.0" mnemonicParsing="false" prefHeight="19.0" prefWidth="321.0" text="PRP" textFill="#c93f3e">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </CheckBox>
       <CheckBox fx:id="platelets" layoutX="20.0" layoutY="262.0" mnemonicParsing="false" prefHeight="19.0" prefWidth="321.0" text="Platelets" textFill="#c93f3e">
          <font>
             <Font size="13.0" />
          </font>
       </CheckBox>
-      <CheckBox fx:id="prp" layoutX="20.0" layoutY="231.0" mnemonicParsing="false" prefHeight="19.0" prefWidth="321.0" text="PRP" textFill="#c93f3e">
+      <CheckBox fx:id="cryoppt" layoutX="20.0" layoutY="291.0" mnemonicParsing="false" prefHeight="19.0" prefWidth="321.0" text="Cryoprecipitate" textFill="#c93f3e">
          <font>
             <Font size="13.0" />
          </font>
@@ -45,11 +50,6 @@
             <Font name="System Bold" size="14.0" />
          </font>
       </JFXButton>
-      <CheckBox fx:id="cryoppt" layoutX="20.0" layoutY="291.0" mnemonicParsing="false" prefHeight="19.0" prefWidth="321.0" text="Cryoprecipitate" textFill="#c93f3e">
-         <font>
-            <Font size="13.0" />
-         </font>
-      </CheckBox>
       <JFXButton fx:id="removeWholeBloodButton" buttonType="RAISED" layoutX="19.0" layoutY="356.0" mnemonicParsing="false" onAction="#removeWholeBlood" style="-fx-background-color: #C93F3E; -fx-background-radius: 10;" text="Remove Whole Blood" textFill="WHITE">
          <font>
             <Font name="System Bold" size="14.0" />

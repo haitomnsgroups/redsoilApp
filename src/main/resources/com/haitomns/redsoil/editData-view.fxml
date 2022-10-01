@@ -14,328 +14,328 @@
 <?import javafx.scene.text.Font?>
 
 <ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.haitomns.redsoil.editDataController">
-<AnchorPane prefHeight="1518.0" prefWidth="450.0">
-<children>
-    <Line endX="300.0" layoutX="123.0" layoutY="42.0" startX="-100.0" stroke="#c93f3e" />
-    <Label layoutX="23.0" layoutY="112.0" text="Donor Name" textFill="#c93f3e">
-        <font>
-            <Font size="13.0" />
-        </font>
-    </Label>
-    <TextField fx:id="donorNameField" layoutX="105.0" layoutY="104.0" prefHeight="35.0" prefWidth="320.0" style="-fx-border-color: #C93F3E; -fx-border-radius: 10;" />
-    <Label layoutX="266.0" layoutY="162.0" text="Age" textFill="#c93f3e">
-        <font>
-            <Font size="13.0" />
-        </font>
-    </Label>
-    <Label layoutX="23.0" layoutY="262.0" text="Address" textFill="#c93f3e">
-        <font>
-            <Font size="13.0" />
-        </font>
-    </Label>
-    <TextField fx:id="donorAddressField" layoutX="103.0" layoutY="252.0" prefHeight="35.0" prefWidth="320.0" style="-fx-border-color: #C93F3E; -fx-border-radius: 10;" />
-    <Label layoutX="23.0" layoutY="312.0" text="Phone" textFill="#c93f3e">
-        <font>
-            <Font size="13.0" />
-        </font>
-    </Label>
-    <Label layoutX="23.0" layoutY="362.0" text="Email" textFill="#c93f3e">
-        <font>
-            <Font size="13.0" />
-        </font>
-    </Label>
-    <TextField fx:id="donorEmailField" layoutX="103.0" layoutY="352.0" prefHeight="35.0" prefWidth="320.0" style="-fx-border-color: #C93F3E; -fx-border-radius: 10;" />
-    <Label layoutX="23.0" layoutY="412.0" text="Health Status" textFill="#c93f3e">
-        <font>
-            <Font name="System Bold Italic" size="18.0" />
-        </font>
-    </Label>
-    <Line endX="300.0" layoutX="123.0" layoutY="440.0" startX="-100.0" stroke="#c93f3e" />
-    <RadioButton fx:id="donatedNoRadio" layoutX="24.0" layoutY="482.0" mnemonicParsing="false" onAction="#donatedPreviouslySelection" selected="true" text="NO" textFill="#c93f3e">
-        <font>
-            <Font size="13.0" />
-        </font>
-        <toggleGroup>
-            <ToggleGroup fx:id="previouslyDonatedBlood" />
-        </toggleGroup>
-    </RadioButton>
-    <Label layoutX="23.0" layoutY="449.0" text="Have you donated blood previously?" textFill="#c93f3e">
-        <font>
-            <Font size="14.0" />
-        </font>
-    </Label>
-    <RadioButton fx:id="donatedYesRadio" layoutX="94.0" layoutY="482.0" mnemonicParsing="false" onAction="#donatedPreviouslySelection" text="YES then when" textFill="#c93f3e" toggleGroup="$previouslyDonatedBlood">
-        <font>
-            <Font size="13.0" />
-        </font>
-    </RadioButton>
-    <DatePicker fx:id="previouslyDonatedDate" disable="true" layoutX="221.0" layoutY="474.0" prefHeight="35.0" prefWidth="200.0" style="-fx-border-color: #c93f3e; -fx-border-radius: 10;" />
-    <Label layoutX="23.0" layoutY="517.0" prefHeight="20.0" prefWidth="399.0" text="Do you suffer from or have suffered from any of" textFill="#c93f3e">
-        <font>
-            <Font size="14.0" />
-        </font>
-    </Label>
-    <Label layoutX="23.0" layoutY="538.0" prefHeight="20.0" prefWidth="400.0" text="the following diseases?" textFill="#c93f3e">
-        <font>
-            <Font size="14.0" />
-        </font>
-    </Label>
-    <CheckBox fx:id="malaria" layoutX="23.0" layoutY="569.0" mnemonicParsing="false" text="Malaria" textFill="#c93f3e">
-        <font>
-            <Font size="13.0" />
-        </font>
-    </CheckBox>
-    <CheckBox fx:id="leprosy" layoutX="178.0" layoutY="569.0" mnemonicParsing="false" text="Leprosy" textFill="#c93f3e">
-        <font>
-            <Font size="13.0" />
-        </font>
-    </CheckBox>
-    <CheckBox fx:id="highBloodPressure" layoutX="288.0" layoutY="569.0" mnemonicParsing="false" text="High Blood Pressure" textFill="#c93f3e">
-        <font>
-            <Font size="13.0" />
-        </font>
-    </CheckBox>
-    <CheckBox fx:id="lotusPitta" layoutX="23.0" layoutY="599.0" mnemonicParsing="false" text="Lotus Pitta" textFill="#c93f3e">
-        <font>
-            <Font size="13.0" />
-        </font>
-    </CheckBox>
-    <CheckBox fx:id="diabetes" layoutX="178.0" layoutY="599.0" mnemonicParsing="false" text="Diabetes" textFill="#c93f3e">
-        <font>
-            <Font size="13.0" />
-        </font>
-    </CheckBox>
-    <CheckBox fx:id="preSurgery" layoutX="288.0" layoutY="599.0" mnemonicParsing="false" text="Pre Surgery " textFill="#c93f3e">
-        <font>
-            <Font size="13.0" />
-        </font>
-    </CheckBox>
-    <CheckBox fx:id="tuberculosis" layoutX="23.0" layoutY="630.0" mnemonicParsing="false" text="Tuberculosis" textFill="#c93f3e">
-        <font>
-            <Font size="13.0" />
-        </font>
-    </CheckBox>
-    <CheckBox fx:id="pregnancy" layoutX="178.0" layoutY="630.0" mnemonicParsing="false" text="Pregnancy " textFill="#c93f3e">
-        <font>
-            <Font size="13.0" />
-        </font>
-    </CheckBox>
-    <CheckBox fx:id="drugAbuse" layoutX="288.0" layoutY="630.0" mnemonicParsing="false" text="Drug Abuse" textFill="#c93f3e">
-        <font>
-            <Font size="13.0" />
-        </font>
-    </CheckBox>
-    <CheckBox fx:id="heartDisease" layoutX="23.0" layoutY="660.0" mnemonicParsing="false" text="Heart Disease" textFill="#c93f3e">
-        <font>
-            <Font size="13.0" />
-        </font>
-    </CheckBox>
-    <CheckBox fx:id="cutaneousDisease" layoutX="23.0" layoutY="720.0" mnemonicParsing="false" text="Cutaneous Disease" textFill="#c93f3e">
-        <font>
-            <Font size="13.0" />
-        </font>
-    </CheckBox>
-    <CheckBox fx:id="jaundice" layoutX="288.0" layoutY="660.0" mnemonicParsing="false" text="Jaundice" textFill="#c93f3e">
-        <font>
-            <Font size="13.0" />
-        </font>
-    </CheckBox>
-    <CheckBox fx:id="kidneyDisease" layoutX="23.0" layoutY="688.0" mnemonicParsing="false" text="Kidney Disease" textFill="#c93f3e">
-        <font>
-            <Font size="13.0" />
-        </font>
-    </CheckBox>
-    <CheckBox fx:id="aids" layoutX="178.0" layoutY="688.0" mnemonicParsing="false" text="AIDS" textFill="#c93f3e">
-        <font>
-            <Font size="13.0" />
-        </font>
-    </CheckBox>
-    <CheckBox fx:id="faintingSpells" layoutX="288.0" layoutY="688.0" mnemonicParsing="false" text="Fainting Spells" textFill="#c93f3e">
-        <font>
-            <Font size="13.0" />
-        </font>
-    </CheckBox>
-    <Label layoutX="23.0" layoutY="917.0" text="Vitals Reading" textFill="#c93f3e">
-        <font>
-            <Font name="System Bold Italic" size="18.0" />
-        </font>
-    </Label>
-    <Line endX="300.0" layoutX="124.0" layoutY="944.0" startX="-100.0" stroke="#c93f3e" />
-    <Label layoutX="23.0" layoutY="966.0" text="Weight" textFill="#c93f3e">
-        <font>
-            <Font size="13.0" />
-        </font>
-    </Label>
-    <TextField fx:id="weight" layoutX="98.0" layoutY="958.0" prefHeight="35.0" prefWidth="120.0" style="-fx-border-color: #C93F3E; -fx-border-radius: 10;" />
-    <Label layoutX="238.0" layoutY="966.0" text="B.P" textFill="#c93f3e">
-        <font>
-            <Font size="13.0" />
-        </font>
-    </Label>
-    <TextField fx:id="bp" layoutX="303.0" layoutY="958.0" prefHeight="35.0" prefWidth="120.0" style="-fx-border-color: #C93F3E; -fx-border-radius: 10;" />
-    <Label layoutX="23.0" layoutY="1009.0" text="Hb%" textFill="#c93f3e">
-        <font>
-            <Font size="13.0" />
-        </font>
-    </Label>
-    <TextField fx:id="hb" layoutX="97.0" layoutY="1001.0" prefHeight="35.0" prefWidth="120.0" style="-fx-border-color: #C93F3E; -fx-border-radius: 10;" />
-    <Label layoutX="238.0" layoutY="1009.0" text="Resp. Sys" textFill="#c93f3e">
-        <font>
-            <Font size="13.0" />
-        </font>
-    </Label>
-    <TextField fx:id="respSys" layoutX="303.0" layoutY="1001.0" prefHeight="35.0" prefWidth="120.0" style="-fx-border-color: #C93F3E; -fx-border-radius: 10;" />
-    <Label layoutX="23.0" layoutY="1052.0" text="C.V.S" textFill="#c93f3e">
-        <font>
-            <Font size="13.0" />
-        </font>
-    </Label>
-    <TextField fx:id="cvs" layoutX="96.0" layoutY="1044.0" prefHeight="35.0" prefWidth="120.0" style="-fx-border-color: #C93F3E; -fx-border-radius: 10;" />
-    <Label layoutX="238.0" layoutY="1052.0" text="GI System" textFill="#c93f3e">
-        <font>
-            <Font size="13.0" />
-        </font>
-    </Label>
-    <TextField fx:id="giSystem" layoutX="303.0" layoutY="1044.0" prefHeight="35.0" prefWidth="120.0" style="-fx-border-color: #C93F3E; -fx-border-radius: 10;" />
-    <JFXButton fx:id="updateBloodButton" buttonType="RAISED" layoutX="359.0" layoutY="1435.0" mnemonicParsing="false" onAction="#updateBloodDetails" style="-fx-background-color: #C93F3E; -fx-background-radius: 10;" text="Update" textFill="WHITE">
-        <font>
-            <Font name="System Bold" size="14.0" />
-        </font>
-    </JFXButton>
-    <ChoiceBox fx:id="donorGenderField" layoutX="103.0" layoutY="152.0" prefHeight="35.0" prefWidth="150.0" style="-fx-border-color: #C93F3E; -fx-border-radius: 10;" />
-    <Label layoutX="23.0" layoutY="162.0" text="Gender" textFill="#c93f3e">
-        <font>
-            <Font size="13.0" />
-        </font>
-    </Label>
-    <Label layoutX="23.0" layoutY="212.0" text="Occupation" textFill="#c93f3e">
-        <font>
-            <Font size="13.0" />
-        </font>
-    </Label>
-    <Label layoutX="23.0" layoutY="1097.0" text="Other" textFill="#c93f3e">
-        <font>
-            <Font size="13.0" />
-        </font>
-    </Label>
-    <TextField fx:id="other" layoutX="95.0" layoutY="1090.0" prefHeight="35.0" prefWidth="120.0" style="-fx-border-color: #C93F3E; -fx-border-radius: 10;" />
-    <Label layoutX="238.0" layoutY="1097.0" text="Fit" textFill="#c93f3e">
-        <font>
-            <Font size="13.0" />
-        </font>
-    </Label>
-    <TextField fx:id="fit" layoutX="303.0" layoutY="1090.0" prefHeight="35.0" prefWidth="120.0" style="-fx-border-color: #C93F3E; -fx-border-radius: 10;" />
-    <Label layoutX="23.0" layoutY="1143.0" text="Unit" textFill="#c93f3e">
-        <font>
-            <Font size="13.0" />
-        </font>
-    </Label>
-    <TextField fx:id="unit" layoutX="93.0" layoutY="1135.0" prefHeight="35.0" prefWidth="120.0" style="-fx-border-color: #C93F3E; -fx-border-radius: 10;" />
-    <CheckBox fx:id="pneumonia" layoutX="178.0" layoutY="660.0" mnemonicParsing="false" text="Pneumonia" textFill="#c93f3e">
-        <font>
-            <Font size="13.0" />
-        </font>
-    </CheckBox>
-    <CheckBox fx:id="std" layoutX="178.0" layoutY="720.0" mnemonicParsing="false" text="STD" textFill="#c93f3e">
-        <font>
-            <Font size="13.0" />
-        </font>
-    </CheckBox>
-    <CheckBox fx:id="menstruation" layoutX="288.0" layoutY="720.0" mnemonicParsing="false" text="Menstruation" textFill="#c93f3e">
-        <font>
-            <Font size="13.0" />
-        </font>
-    </CheckBox>
-    <CheckBox fx:id="foreignVisit" layoutX="23.0" layoutY="749.0" mnemonicParsing="false" text="Foreign Visit" textFill="#c93f3e">
-        <font>
-            <Font size="13.0" />
-        </font>
-    </CheckBox>
-    <CheckBox fx:id="others" layoutX="178.0" layoutY="749.0" mnemonicParsing="false" text="Others" textFill="#c93f3e">
-        <font>
-            <Font size="13.0" />
-        </font>
-    </CheckBox>
-    <TextField fx:id="donorAgeField" layoutX="300.0" layoutY="152.0" prefHeight="35.0" prefWidth="120.0" style="-fx-border-color: #C93F3E; -fx-border-radius: 10;" />
-    <Line endX="300.0" layoutX="124.0" layoutY="1231.0" startX="-100.0" stroke="#c93f3e" />
-    <Label layoutX="23.0" layoutY="1256.0" text="ABO" textFill="#c93f3e">
-        <font>
-            <Font size="13.0" />
-        </font>
-    </Label>
-    <Label layoutX="238.0" layoutY="1256.0" text="RH" textFill="#c93f3e">
-        <font>
-            <Font size="13.0" />
-        </font>
-    </Label>
-    <Label layoutX="23.0" layoutY="1299.0" text="HIV" textFill="#c93f3e">
-        <font>
-            <Font size="13.0" />
-        </font>
-    </Label>
-    <TextField fx:id="hiv" layoutX="93.0" layoutY="1291.0" prefHeight="35.0" prefWidth="120.0" style="-fx-border-color: #C93F3E; -fx-border-radius: 10;" />
-    <Label layoutX="238.0" layoutY="1299.0" text="HBsAg" textFill="#c93f3e">
-        <font>
-            <Font size="13.0" />
-        </font>
-    </Label>
-    <TextField fx:id="hbsag" layoutX="303.0" layoutY="1291.0" prefHeight="35.0" prefWidth="120.0" style="-fx-border-color: #C93F3E; -fx-border-radius: 10;" />
-    <Label layoutX="23.0" layoutY="1342.0" text="HCV" textFill="#c93f3e">
-        <font>
-            <Font size="13.0" />
-        </font>
-    </Label>
-    <TextField fx:id="hcv" layoutX="93.0" layoutY="1334.0" prefHeight="35.0" prefWidth="120.0" style="-fx-border-color: #C93F3E; -fx-border-radius: 10;" />
-    <Label layoutX="238.0" layoutY="1342.0" text="VDRL" textFill="#c93f3e">
-        <font>
-            <Font size="13.0" />
-        </font>
-    </Label>
-    <TextField fx:id="vdrl" layoutX="303.0" layoutY="1334.0" prefHeight="35.0" prefWidth="120.0" style="-fx-border-color: #C93F3E; -fx-border-radius: 10;" />
-    <TextField fx:id="donorOccupationField" layoutX="103.0" layoutY="202.0" prefHeight="35.0" prefWidth="320.0" style="-fx-border-color: #C93F3E; -fx-border-radius: 10;" />
-    <TextField fx:id="donorPhoneField" layoutX="103.0" layoutY="302.0" prefHeight="35.0" prefWidth="320.0" style="-fx-border-color: #C93F3E; -fx-border-radius: 10;" />
-    <Label layoutX="23.0" layoutY="62.0" text="Organization" textFill="#c93f3e">
-        <font>
-            <Font size="13.0" />
-        </font>
-    </Label>
-    <TextField fx:id="donationOrganizationField" layoutX="103.0" layoutY="54.0" prefHeight="35.0" prefWidth="320.0" style="-fx-border-color: #C93F3E; -fx-border-radius: 10;" />
-    <Label layoutX="23.0" layoutY="784.0" text="Patient Details" textFill="#c93f3e">
-        <font>
-            <Font name="System Bold Italic" size="18.0" />
-        </font>
-    </Label>
-    <Line endX="300.0" layoutX="124.0" layoutY="813.0" startX="-100.0" stroke="#c93f3e" />
-    <Label layoutX="23.0" layoutY="834.0" text="Patient Name" textFill="#c93f3e">
-        <font>
-            <Font size="13.0" />
-        </font>
-    </Label>
-    <TextField fx:id="patientNameField" layoutX="123.0" layoutY="826.0" prefHeight="35.0" prefWidth="300.0" style="-fx-border-color: #C93F3E; -fx-border-radius: 10;" />
-    <Label layoutX="23.0" layoutY="882.0" text="Donor ID" textFill="#c93f3e">
-        <font>
-            <Font size="13.0" />
-        </font>
-    </Label>
-    <TextField fx:id="donorIdField" layoutX="123.0" layoutY="874.0" prefHeight="35.0" prefWidth="300.0" style="-fx-border-color: #C93F3E; -fx-border-radius: 10;" />
-    <DatePicker fx:id="bloodExpiryDateField" layoutX="94.0" layoutY="1383.0" prefHeight="35.0" prefWidth="124.0" style="-fx-border-color: #c93f3e; -fx-border-radius: 10;" />
-    <Label layoutX="23.0" layoutY="1391.0" text="Expiry Date" textFill="#c93f3e">
-        <font>
-            <Font size="13.0" />
-        </font>
-    </Label>
-    <Label layoutX="24.0" layoutY="1203.0" text="Blood Testing" textFill="#c93f3e">
-        <font>
-            <Font name="System Bold Italic" size="18.0" />
-        </font>
-    </Label>
-    <ChoiceBox fx:id="aboField" layoutX="93.0" layoutY="1248.0" prefHeight="35.0" prefWidth="120.0" style="-fx-border-color: #C93F3E; -fx-border-radius: 10;" />
-    <ChoiceBox fx:id="rhField" layoutX="303.0" layoutY="1248.0" prefHeight="35.0" prefWidth="120.0" style="-fx-border-color: #C93F3E; -fx-border-radius: 10;" />
+   <AnchorPane prefHeight="1518.0" prefWidth="450.0">
+      <children>
+         <Line endX="300.0" layoutX="123.0" layoutY="42.0" startX="-100.0" stroke="#c93f3e" />
+         <Label layoutX="23.0" layoutY="112.0" text="Donor Name" textFill="#c93f3e">
+            <font>
+               <Font size="13.0" />
+            </font>
+         </Label>
+         <TextField fx:id="donorNameField" layoutX="105.0" layoutY="104.0" prefHeight="35.0" prefWidth="320.0" style="-fx-border-color: #C93F3E; -fx-border-radius: 10;" />
+         <Label layoutX="266.0" layoutY="162.0" text="Age" textFill="#c93f3e">
+            <font>
+               <Font size="13.0" />
+            </font>
+         </Label>
+         <Label layoutX="23.0" layoutY="262.0" text="Address" textFill="#c93f3e">
+            <font>
+               <Font size="13.0" />
+            </font>
+         </Label>
+         <TextField fx:id="donorAddressField" layoutX="103.0" layoutY="252.0" prefHeight="35.0" prefWidth="320.0" style="-fx-border-color: #C93F3E; -fx-border-radius: 10;" />
+         <Label layoutX="23.0" layoutY="312.0" text="Phone" textFill="#c93f3e">
+            <font>
+               <Font size="13.0" />
+            </font>
+         </Label>
+         <Label layoutX="23.0" layoutY="362.0" text="Email" textFill="#c93f3e">
+            <font>
+               <Font size="13.0" />
+            </font>
+         </Label>
+         <TextField fx:id="donorEmailField" layoutX="103.0" layoutY="352.0" prefHeight="35.0" prefWidth="320.0" style="-fx-border-color: #C93F3E; -fx-border-radius: 10;" />
+         <Label layoutX="23.0" layoutY="412.0" text="Health Status" textFill="#c93f3e">
+            <font>
+               <Font name="System Bold Italic" size="18.0" />
+            </font>
+         </Label>
+         <Line endX="300.0" layoutX="123.0" layoutY="440.0" startX="-100.0" stroke="#c93f3e" />
+         <RadioButton fx:id="donatedNoRadio" layoutX="24.0" layoutY="482.0" mnemonicParsing="false" onAction="#donatedPreviouslySelection" selected="true" text="NO" textFill="#c93f3e">
+            <font>
+               <Font size="13.0" />
+            </font>
+            <toggleGroup>
+               <ToggleGroup fx:id="previouslyDonatedBlood" />
+            </toggleGroup>
+         </RadioButton>
+         <Label layoutX="23.0" layoutY="449.0" text="Have you donated blood previously?" textFill="#c93f3e">
+            <font>
+               <Font size="14.0" />
+            </font>
+         </Label>
+         <RadioButton fx:id="donatedYesRadio" layoutX="94.0" layoutY="482.0" mnemonicParsing="false" onAction="#donatedPreviouslySelection" text="YES then when" textFill="#c93f3e" toggleGroup="$previouslyDonatedBlood">
+            <font>
+               <Font size="13.0" />
+            </font>
+         </RadioButton>
+         <DatePicker fx:id="previouslyDonatedDate" disable="true" layoutX="221.0" layoutY="474.0" prefHeight="35.0" prefWidth="200.0" style="-fx-border-color: #c93f3e; -fx-border-radius: 10;" />
+         <Label layoutX="23.0" layoutY="517.0" prefHeight="20.0" prefWidth="399.0" text="Do you suffer from or have suffered from any of" textFill="#c93f3e">
+            <font>
+               <Font size="14.0" />
+            </font>
+         </Label>
+         <Label layoutX="23.0" layoutY="538.0" prefHeight="20.0" prefWidth="400.0" text="the following diseases?" textFill="#c93f3e">
+            <font>
+               <Font size="14.0" />
+            </font>
+         </Label>
+         <CheckBox fx:id="malaria" layoutX="23.0" layoutY="569.0" mnemonicParsing="false" text="Malaria" textFill="#c93f3e">
+            <font>
+               <Font size="13.0" />
+            </font>
+         </CheckBox>
+         <CheckBox fx:id="leprosy" layoutX="178.0" layoutY="569.0" mnemonicParsing="false" text="Leprosy" textFill="#c93f3e">
+            <font>
+               <Font size="13.0" />
+            </font>
+         </CheckBox>
+         <CheckBox fx:id="highBloodPressure" layoutX="288.0" layoutY="569.0" mnemonicParsing="false" text="High Blood Pressure" textFill="#c93f3e">
+            <font>
+               <Font size="13.0" />
+            </font>
+         </CheckBox>
+         <CheckBox fx:id="lotusPitta" layoutX="23.0" layoutY="599.0" mnemonicParsing="false" text="Lotus Pitta" textFill="#c93f3e">
+            <font>
+               <Font size="13.0" />
+            </font>
+         </CheckBox>
+         <CheckBox fx:id="diabetes" layoutX="178.0" layoutY="599.0" mnemonicParsing="false" text="Diabetes" textFill="#c93f3e">
+            <font>
+               <Font size="13.0" />
+            </font>
+         </CheckBox>
+         <CheckBox fx:id="preSurgery" layoutX="288.0" layoutY="599.0" mnemonicParsing="false" text="Pre Surgery " textFill="#c93f3e">
+            <font>
+               <Font size="13.0" />
+            </font>
+         </CheckBox>
+         <CheckBox fx:id="tuberculosis" layoutX="23.0" layoutY="630.0" mnemonicParsing="false" text="Tuberculosis" textFill="#c93f3e">
+            <font>
+               <Font size="13.0" />
+            </font>
+         </CheckBox>
+         <CheckBox fx:id="pregnancy" layoutX="178.0" layoutY="630.0" mnemonicParsing="false" text="Pregnancy " textFill="#c93f3e">
+            <font>
+               <Font size="13.0" />
+            </font>
+         </CheckBox>
+         <CheckBox fx:id="drugAbuse" layoutX="288.0" layoutY="630.0" mnemonicParsing="false" text="Drug Abuse" textFill="#c93f3e">
+            <font>
+               <Font size="13.0" />
+            </font>
+         </CheckBox>
+         <CheckBox fx:id="heartDisease" layoutX="23.0" layoutY="660.0" mnemonicParsing="false" text="Heart Disease" textFill="#c93f3e">
+            <font>
+               <Font size="13.0" />
+            </font>
+         </CheckBox>
+         <CheckBox fx:id="cutaneousDisease" layoutX="23.0" layoutY="720.0" mnemonicParsing="false" text="Cutaneous Disease" textFill="#c93f3e">
+            <font>
+               <Font size="13.0" />
+            </font>
+         </CheckBox>
+         <CheckBox fx:id="jaundice" layoutX="288.0" layoutY="660.0" mnemonicParsing="false" text="Jaundice" textFill="#c93f3e">
+            <font>
+               <Font size="13.0" />
+            </font>
+         </CheckBox>
+         <CheckBox fx:id="kidneyDisease" layoutX="23.0" layoutY="688.0" mnemonicParsing="false" text="Kidney Disease" textFill="#c93f3e">
+            <font>
+               <Font size="13.0" />
+            </font>
+         </CheckBox>
+         <CheckBox fx:id="aids" layoutX="178.0" layoutY="688.0" mnemonicParsing="false" text="AIDS" textFill="#c93f3e">
+            <font>
+               <Font size="13.0" />
+            </font>
+         </CheckBox>
+         <CheckBox fx:id="faintingSpells" layoutX="288.0" layoutY="688.0" mnemonicParsing="false" text="Fainting Spells" textFill="#c93f3e">
+            <font>
+               <Font size="13.0" />
+            </font>
+         </CheckBox>
+         <Label layoutX="23.0" layoutY="917.0" text="Vitals Reading" textFill="#c93f3e">
+            <font>
+               <Font name="System Bold Italic" size="18.0" />
+            </font>
+         </Label>
+         <Line endX="300.0" layoutX="124.0" layoutY="944.0" startX="-100.0" stroke="#c93f3e" />
+         <Label layoutX="23.0" layoutY="966.0" text="Weight" textFill="#c93f3e">
+            <font>
+               <Font size="13.0" />
+            </font>
+         </Label>
+         <TextField fx:id="weight" layoutX="98.0" layoutY="958.0" prefHeight="35.0" prefWidth="120.0" style="-fx-border-color: #C93F3E; -fx-border-radius: 10;" />
+         <Label layoutX="238.0" layoutY="966.0" text="B.P" textFill="#c93f3e">
+            <font>
+               <Font size="13.0" />
+            </font>
+         </Label>
+         <TextField fx:id="bp" layoutX="303.0" layoutY="958.0" prefHeight="35.0" prefWidth="120.0" style="-fx-border-color: #C93F3E; -fx-border-radius: 10;" />
+         <Label layoutX="23.0" layoutY="1009.0" text="Hb%" textFill="#c93f3e">
+            <font>
+               <Font size="13.0" />
+            </font>
+         </Label>
+         <TextField fx:id="hb" layoutX="97.0" layoutY="1001.0" prefHeight="35.0" prefWidth="120.0" style="-fx-border-color: #C93F3E; -fx-border-radius: 10;" />
+         <Label layoutX="238.0" layoutY="1009.0" text="Resp. Sys" textFill="#c93f3e">
+            <font>
+               <Font size="13.0" />
+            </font>
+         </Label>
+         <TextField fx:id="respSys" layoutX="303.0" layoutY="1001.0" prefHeight="35.0" prefWidth="120.0" style="-fx-border-color: #C93F3E; -fx-border-radius: 10;" />
+         <Label layoutX="23.0" layoutY="1052.0" text="C.V.S" textFill="#c93f3e">
+            <font>
+               <Font size="13.0" />
+            </font>
+         </Label>
+         <TextField fx:id="cvs" layoutX="96.0" layoutY="1044.0" prefHeight="35.0" prefWidth="120.0" style="-fx-border-color: #C93F3E; -fx-border-radius: 10;" />
+         <Label layoutX="238.0" layoutY="1052.0" text="GI System" textFill="#c93f3e">
+            <font>
+               <Font size="13.0" />
+            </font>
+         </Label>
+         <TextField fx:id="giSystem" layoutX="303.0" layoutY="1044.0" prefHeight="35.0" prefWidth="120.0" style="-fx-border-color: #C93F3E; -fx-border-radius: 10;" />
+         <JFXButton fx:id="updateBloodButton" buttonType="RAISED" layoutX="359.0" layoutY="1435.0" mnemonicParsing="false" onAction="#updateBloodDetails" style="-fx-background-color: #C93F3E; -fx-background-radius: 10;" text="Update" textFill="WHITE">
+            <font>
+               <Font name="System Bold" size="14.0" />
+            </font>
+         </JFXButton>
+         <ChoiceBox fx:id="donorGenderField" layoutX="103.0" layoutY="152.0" prefHeight="35.0" prefWidth="150.0" style="-fx-border-color: #C93F3E; -fx-border-radius: 10;" />
+         <Label layoutX="23.0" layoutY="162.0" text="Gender" textFill="#c93f3e">
+            <font>
+               <Font size="13.0" />
+            </font>
+         </Label>
+         <Label layoutX="23.0" layoutY="212.0" text="Occupation" textFill="#c93f3e">
+            <font>
+               <Font size="13.0" />
+            </font>
+         </Label>
+         <Label layoutX="23.0" layoutY="1097.0" text="Other" textFill="#c93f3e">
+            <font>
+               <Font size="13.0" />
+            </font>
+         </Label>
+         <TextField fx:id="other" layoutX="95.0" layoutY="1090.0" prefHeight="35.0" prefWidth="120.0" style="-fx-border-color: #C93F3E; -fx-border-radius: 10;" />
+         <Label layoutX="238.0" layoutY="1097.0" text="Fit" textFill="#c93f3e">
+            <font>
+               <Font size="13.0" />
+            </font>
+         </Label>
+         <TextField fx:id="fit" layoutX="303.0" layoutY="1090.0" prefHeight="35.0" prefWidth="120.0" style="-fx-border-color: #C93F3E; -fx-border-radius: 10;" />
+         <Label layoutX="23.0" layoutY="1143.0" text="Unit" textFill="#c93f3e">
+            <font>
+               <Font size="13.0" />
+            </font>
+         </Label>
+         <TextField fx:id="unit" layoutX="93.0" layoutY="1135.0" prefHeight="35.0" prefWidth="120.0" style="-fx-border-color: #C93F3E; -fx-border-radius: 10;" />
+         <CheckBox fx:id="pneumonia" layoutX="178.0" layoutY="660.0" mnemonicParsing="false" text="Pneumonia" textFill="#c93f3e">
+            <font>
+               <Font size="13.0" />
+            </font>
+         </CheckBox>
+         <CheckBox fx:id="std" layoutX="178.0" layoutY="720.0" mnemonicParsing="false" text="STD" textFill="#c93f3e">
+            <font>
+               <Font size="13.0" />
+            </font>
+         </CheckBox>
+         <CheckBox fx:id="menstruation" layoutX="288.0" layoutY="720.0" mnemonicParsing="false" text="Menstruation" textFill="#c93f3e">
+            <font>
+               <Font size="13.0" />
+            </font>
+         </CheckBox>
+         <CheckBox fx:id="foreignVisit" layoutX="23.0" layoutY="749.0" mnemonicParsing="false" text="Foreign Visit" textFill="#c93f3e">
+            <font>
+               <Font size="13.0" />
+            </font>
+         </CheckBox>
+         <CheckBox fx:id="others" layoutX="178.0" layoutY="749.0" mnemonicParsing="false" text="Others" textFill="#c93f3e">
+            <font>
+               <Font size="13.0" />
+            </font>
+         </CheckBox>
+         <TextField fx:id="donorAgeField" layoutX="300.0" layoutY="152.0" prefHeight="35.0" prefWidth="120.0" style="-fx-border-color: #C93F3E; -fx-border-radius: 10;" />
+         <Line endX="300.0" layoutX="124.0" layoutY="1231.0" startX="-100.0" stroke="#c93f3e" />
+         <Label layoutX="23.0" layoutY="1256.0" text="ABO" textFill="#c93f3e">
+            <font>
+               <Font size="13.0" />
+            </font>
+         </Label>
+         <Label layoutX="238.0" layoutY="1256.0" text="RH" textFill="#c93f3e">
+            <font>
+               <Font size="13.0" />
+            </font>
+         </Label>
+         <Label layoutX="23.0" layoutY="1299.0" text="HIV" textFill="#c93f3e">
+            <font>
+               <Font size="13.0" />
+            </font>
+         </Label>
+         <TextField fx:id="hiv" layoutX="93.0" layoutY="1291.0" prefHeight="35.0" prefWidth="120.0" style="-fx-border-color: #C93F3E; -fx-border-radius: 10;" />
+         <Label layoutX="238.0" layoutY="1299.0" text="HBsAg" textFill="#c93f3e">
+            <font>
+               <Font size="13.0" />
+            </font>
+         </Label>
+         <TextField fx:id="hbsag" layoutX="303.0" layoutY="1291.0" prefHeight="35.0" prefWidth="120.0" style="-fx-border-color: #C93F3E; -fx-border-radius: 10;" />
+         <Label layoutX="23.0" layoutY="1342.0" text="HCV" textFill="#c93f3e">
+            <font>
+               <Font size="13.0" />
+            </font>
+         </Label>
+         <TextField fx:id="hcv" layoutX="93.0" layoutY="1334.0" prefHeight="35.0" prefWidth="120.0" style="-fx-border-color: #C93F3E; -fx-border-radius: 10;" />
+         <Label layoutX="238.0" layoutY="1342.0" text="VDRL" textFill="#c93f3e">
+            <font>
+               <Font size="13.0" />
+            </font>
+         </Label>
+         <TextField fx:id="vdrl" layoutX="303.0" layoutY="1334.0" prefHeight="35.0" prefWidth="120.0" style="-fx-border-color: #C93F3E; -fx-border-radius: 10;" />
+         <TextField fx:id="donorOccupationField" layoutX="103.0" layoutY="202.0" prefHeight="35.0" prefWidth="320.0" style="-fx-border-color: #C93F3E; -fx-border-radius: 10;" />
+         <TextField fx:id="donorPhoneField" layoutX="103.0" layoutY="302.0" prefHeight="35.0" prefWidth="320.0" style="-fx-border-color: #C93F3E; -fx-border-radius: 10;" />
+         <Label layoutX="23.0" layoutY="62.0" text="Organization" textFill="#c93f3e">
+            <font>
+               <Font size="13.0" />
+            </font>
+         </Label>
+         <TextField fx:id="donationOrganizationField" layoutX="103.0" layoutY="54.0" prefHeight="35.0" prefWidth="320.0" style="-fx-border-color: #C93F3E; -fx-border-radius: 10;" />
+         <Label layoutX="23.0" layoutY="784.0" text="Patient Details" textFill="#c93f3e">
+            <font>
+               <Font name="System Bold Italic" size="18.0" />
+            </font>
+         </Label>
+         <Line endX="300.0" layoutX="124.0" layoutY="813.0" startX="-100.0" stroke="#c93f3e" />
+         <Label layoutX="23.0" layoutY="834.0" text="Patient Name" textFill="#c93f3e">
+            <font>
+               <Font size="13.0" />
+            </font>
+         </Label>
+         <TextField fx:id="patientNameField" layoutX="123.0" layoutY="826.0" prefHeight="35.0" prefWidth="300.0" style="-fx-border-color: #C93F3E; -fx-border-radius: 10;" />
+         <Label layoutX="23.0" layoutY="882.0" text="Donor ID" textFill="#c93f3e">
+            <font>
+               <Font size="13.0" />
+            </font>
+         </Label>
+         <TextField fx:id="donorIdField" layoutX="123.0" layoutY="874.0" prefHeight="35.0" prefWidth="300.0" style="-fx-border-color: #C93F3E; -fx-border-radius: 10;" />
+         <DatePicker fx:id="bloodExpiryDateField" layoutX="94.0" layoutY="1383.0" prefHeight="35.0" prefWidth="124.0" style="-fx-border-color: #c93f3e; -fx-border-radius: 10;" />
+         <Label layoutX="23.0" layoutY="1391.0" text="Expiry Date" textFill="#c93f3e">
+            <font>
+               <Font size="13.0" />
+            </font>
+         </Label>
+         <Label layoutX="24.0" layoutY="1203.0" text="Blood Testing" textFill="#c93f3e">
+            <font>
+               <Font name="System Bold Italic" size="18.0" />
+            </font>
+         </Label>
+         <ChoiceBox fx:id="aboField" layoutX="93.0" layoutY="1248.0" prefHeight="35.0" prefWidth="120.0" style="-fx-border-color: #C93F3E; -fx-border-radius: 10;" />
+         <ChoiceBox fx:id="rhField" layoutX="303.0" layoutY="1248.0" prefHeight="35.0" prefWidth="120.0" style="-fx-border-color: #C93F3E; -fx-border-radius: 10;" />
          <Label layoutX="24.0" layoutY="14.0" text="Personal Details" textFill="#c93f3e">
             <font>
                <Font name="System Bold Italic" size="18.0" />
             </font>
          </Label>
-</children>
-</AnchorPane>
+      </children>
+   </AnchorPane>
 </ScrollPane>
