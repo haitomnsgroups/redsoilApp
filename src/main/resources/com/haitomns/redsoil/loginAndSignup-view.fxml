@@ -13,76 +13,6 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.haitomns.redsoil.loginAndSignupController">
    <children>
-      <HBox fx:id="loginHbox" prefHeight="400.0" prefWidth="640.0">
-         <children>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="400.0" prefWidth="180.0">
-               <children>
-                  <ImageView fitHeight="150.0" fitWidth="180.0" layoutY="152.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../com.haitomns.images/sideImage.png" />
-                     </image>
-                  </ImageView>
-                  <Label layoutX="27.0" layoutY="38.0" text="Blood Donation" textFill="#c93f3e">
-                     <font>
-                        <Font name="System Bold" size="18.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="35.0" layoutY="290.0" text="People Live &#10;When People &#10;Give" textAlignment="CENTER" textFill="#c93f3e">
-                     <font>
-                        <Font name="System Bold" size="18.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="37.0" layoutY="86.0" text="14th June &#10;World Donor Day" textAlignment="CENTER" textFill="#c93f3e">
-                     <font>
-                        <Font name="System Bold" size="13.0" />
-                     </font>
-                  </Label>
-               </children></AnchorPane>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="400.0" prefWidth="460.0" style="-fx-background-color: #C93F3E;">
-               <children>
-                  <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="25.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../com.haitomns.images/redSoilLogoRed.png" />
-                     </image>
-                  </ImageView>
-                  <Label layoutX="31.0" layoutY="78.0" text="RedSoil" textFill="#e4e4e4">
-                     <font>
-                        <Font name="System Bold" size="30.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="31.0" layoutY="123.0" text="Version 1.0" textFill="#e4e4e4" />
-                  <Label layoutX="31.0" layoutY="154.0" text="Login" textFill="#e4e4e4">
-                     <font>
-                        <Font size="25.0" />
-                     </font>
-                  </Label>
-                  <Line endX="230.0" layoutX="132.0" layoutY="200.0" startX="-100.0" stroke="#e4e4e4" />
-                  <Label layoutX="33.0" layoutY="215.0" text="Username" textFill="#e4e4e4">
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="35.0" layoutY="261.0" text="Password" textFill="#e4e4e4">
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                  </Label>
-                  <TextField fx:id="usernameField" layoutX="111.0" layoutY="210.0" prefHeight="30.0" prefWidth="250.0" style="-fx-background-radius: 5;" />
-                  <PasswordField fx:id="passwordField" layoutX="111.0" layoutY="257.0" prefHeight="30.0" prefWidth="250.0" style="-fx-background-radius: 5;" />
-                  <JFXButton fx:id="loginButton" layoutX="302.0" layoutY="303.0" mnemonicParsing="false" onAction="#loginButtonClicked" style="-fx-background-radius: 5; -fx-background-color: #ffffff;" text="Login" textFill="#c93f3e">
-                     <font>
-                        <Font name="System Bold" size="15.0" />
-                     </font>
-                  </JFXButton>
-                  <JFXButton fx:id="loginButton1" layoutX="29.0" layoutY="340.0" mnemonicParsing="false" onAction="#resetPageOpen" style="-fx-background-radius: 5; -fx-background-color: #C93F3E;" text="Reset Login" textFill="WHITE">
-                     <font>
-                        <Font name="System Bold" size="15.0" />
-                     </font>
-                  </JFXButton>
-               </children>
-            </AnchorPane>
-         </children>
-      </HBox>
       <HBox fx:id="resetPasswordHbox" prefHeight="400.0" prefWidth="640.0">
          <children>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="400.0" prefWidth="185.0" />
@@ -189,6 +119,76 @@
                         <Font size="15.0" />
                      </font>
                   </Label>
+               </children>
+            </AnchorPane>
+         </children>
+      </HBox>
+      <HBox fx:id="loginHbox" prefHeight="400.0" prefWidth="640.0">
+         <children>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="400.0" prefWidth="180.0">
+               <children>
+                  <ImageView fitHeight="256.0" fitWidth="189.0" layoutY="104.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../com.haitomns.images/sideImage.png" />
+                     </image>
+                  </ImageView>
+                  <Label layoutX="27.0" layoutY="38.0" text="Blood Donation" textFill="#c93f3e">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="35.0" layoutY="290.0" text="People Live &#10;When People &#10;Give" textAlignment="CENTER" textFill="#c93f3e">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="37.0" layoutY="86.0" text="14th June &#10;World Donor Day" textAlignment="CENTER" textFill="#c93f3e">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                  </Label>
+               </children></AnchorPane>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="400.0" prefWidth="460.0" style="-fx-background-color: #C93F3E;">
+               <children>
+                  <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="25.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../com.haitomns.images/redSoilLogoRed.png" />
+                     </image>
+                  </ImageView>
+                  <Label layoutX="31.0" layoutY="78.0" text="RedSoil" textFill="#e4e4e4">
+                     <font>
+                        <Font name="System Bold" size="30.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="31.0" layoutY="123.0" text="Version 1.0" textFill="#e4e4e4" />
+                  <Label layoutX="31.0" layoutY="154.0" text="Login" textFill="#e4e4e4">
+                     <font>
+                        <Font size="25.0" />
+                     </font>
+                  </Label>
+                  <Line endX="230.0" layoutX="132.0" layoutY="200.0" startX="-100.0" stroke="#e4e4e4" />
+                  <Label layoutX="33.0" layoutY="215.0" text="Username" textFill="#e4e4e4">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="35.0" layoutY="261.0" text="Password" textFill="#e4e4e4">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="usernameField" layoutX="111.0" layoutY="210.0" prefHeight="30.0" prefWidth="250.0" style="-fx-background-radius: 5;" />
+                  <PasswordField fx:id="passwordField" layoutX="111.0" layoutY="257.0" prefHeight="30.0" prefWidth="250.0" style="-fx-background-radius: 5;" />
+                  <JFXButton fx:id="loginButton" layoutX="302.0" layoutY="303.0" mnemonicParsing="false" onAction="#loginButtonClicked" style="-fx-background-radius: 5; -fx-background-color: #ffffff;" text="Login" textFill="#c93f3e">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton fx:id="loginButton1" layoutX="29.0" layoutY="340.0" mnemonicParsing="false" onAction="#resetPageOpen" style="-fx-background-radius: 5; -fx-background-color: #C93F3E;" text="Reset Login" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                  </JFXButton>
                </children>
             </AnchorPane>
          </children>

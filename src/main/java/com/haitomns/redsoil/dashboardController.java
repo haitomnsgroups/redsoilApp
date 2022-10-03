@@ -731,6 +731,9 @@ public class dashboardController implements Initializable {
             public TableCell call(final TableColumn<bloodFindTableModel, String> param) {
                 return new TableCell<bloodFindTableModel, String>() {
                     final Button btn = new Button("View");
+                    {
+                        btn.setStyle("-fx-background-color: #C93F3E; -fx-text-fill: white; -fx-background-radius: 10px;");
+                    }
 
                     @Override
                     public void updateItem(String item, boolean empty) {
@@ -772,6 +775,9 @@ public class dashboardController implements Initializable {
             public TableCell call(final TableColumn<bloodFindTableModel, String> param) {
                 return new TableCell<bloodFindTableModel, String>() {
                     final Button btn = new Button("Remove");
+                    {
+                        btn.setStyle("-fx-background-color: #C93F3E; -fx-text-fill: white; -fx-background-radius: 10px;");
+                    }
 
                     @Override
                     public void updateItem(String item, boolean empty) {
