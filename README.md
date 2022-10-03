@@ -1,20 +1,20 @@
-<a href="https://github.com/haitomnsgroups/redsoilApp"><img src="https://github.com/haitomnsgroups/redsoilApp/blob/master/src/main/resources/com.haitomns.images/redSoilLogoRed.png" align="left" height="80" width="80" ></a>
+<a href="https://github.com/haitomnsgroups/redsoilApp"><img src="https://github.com/haitomnsgroups/redsoilApp/blob/master/src/main/resources/com.haitomns.images/redSoilLogoRed.png" align="left" height="100" width="100" ></a>
 # RedSoil
-RedSoil is a application designed to store the results of the blood banks and analyze them.
+RedSoil is an application designed to store the results of the blood banks and analyze them.
 
 ![redsoilSplash Screen](https://user-images.githubusercontent.com/114091259/193548700-acdb2c6e-879c-4700-b9aa-4d341389c314.png)
 
 # Features
 
   - Interactive Dashboard to view the status of blood bank.
-  - Real life form inserstion for easiness.
+  - Real life form insertion for easiness.
   - Get all your record in a single page.
   - Backup and restore wherever you want.
 
 # ScreenShots
 
 1. Dashboard :
-A single point to get the status of you blood bank with the count of ever blood group. Down below a table to view the filtred the data.
+A single point to get the status of you blood bank with the count of ever blood group. Down below a table to view the filtered the data.
 
 ![dashboard](https://user-images.githubusercontent.com/114091259/193549206-a2303652-5b10-4078-9fda-5e4d61d1c1cf.png)
 
@@ -41,12 +41,16 @@ RedSoil uses MySQL in the backend, so download and install MySQL Server, save th
 	4. MySQL Installation Path
 
 # Installation
-Download the lateset installer of RedSoil from GitHub and install it. Configure and Register the application and  you are ready to use it.
+Download the latest installer of RedSoil from GitHub and install it. Configure and Register the application and you are ready to use it.
 
 # License
 This program is free software: you can redistribute it and/or modify it under the terms of the Apache-2.0 License.
 
+
+<a href="https://github.com/haitomnsgroupsp"><img src="https://github.com/haitomnsgroups/redsoilApp/blob/master/src/main/resources/com.haitomns.images/haitomnsLogoRed.png" align="right" height="100" width="100" ></a>
 # Developers
-RedSoil is develped and maintained under Haitomns Groups Private Limited, developers of the application,
+RedSoil is developed and maintained under Haitomns Groups Private Limited, developers of the application,
 
 1. [Haitomns G](https://github.com/haitomns4173)
+
+We welcome developers wishing to contribute in this project improve it and fix the bug.
