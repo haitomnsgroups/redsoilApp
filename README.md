@@ -13,19 +13,23 @@ RedSoil is a application designed to store the results of the blood banks and an
 
 # ScreenShots
 
-1. Dashboard
+1. Dashboard :
+A single point to get the status of you blood bank with the count of ever blood group. Down below a table to view the filtred the data.
 
 ![dashboard](https://user-images.githubusercontent.com/114091259/193549206-a2303652-5b10-4078-9fda-5e4d61d1c1cf.png)
 
-2. Blood Donation 
+2. Blood Donation :
+Blood Donation form designed to easily insert the records and table to show all the donor details in real time.
 
 ![add](https://user-images.githubusercontent.com/114091259/193549311-53d6e702-76ee-422a-b6ec-b4895f903060.png)
 
-3. Find Blood
+3. Find Blood :
+A single point to find your donor and blood donation data.
 
 ![find](https://user-images.githubusercontent.com/114091259/193549360-44f346db-53bb-4431-b9b7-1532a19ab580.png)
 
-4. User Account 
+4. User Account :
+Update details of your blood bank, also backup and restore the database anywhere anytime you want.
 
 ![about](https://user-images.githubusercontent.com/114091259/193549416-c5794f0a-325f-44e8-a3f5-43f4be6a6506.png)
 
