@@ -1,6 +1,7 @@
 package com.haitomns.redsoil;
 
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextField;
@@ -8,8 +9,10 @@ import javafx.stage.Stage;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class databaseConfigurator {
+public class databaseConfigurator implements Initializable {
     @FXML
     private TextField mysqlPort, mysqlUsername, mysqlPassword, mysqlPath;
     @FXML
@@ -96,5 +99,10 @@ public class databaseConfigurator {
 
     public static boolean validateDatabaseConfig(String mysqlPort, String mysqlUsername, String mysqlPassword, String mysqlPath){
         return !mysqlPort.isEmpty() && !mysqlUsername.isEmpty() && !mysqlPassword.isEmpty() && !mysqlPath.isEmpty();
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        dbConfProgress.setStyle("-fx-accent:  #C93F3E;");
     }
 }

@@ -1,30 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXToggleButton?>
-<?import javafx.scene.control.CheckBox?>
-<?import javafx.scene.control.ChoiceBox?>
-<?import javafx.scene.control.DatePicker?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.PasswordField?>
-<?import javafx.scene.control.RadioButton?>
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.Tab?>
-<?import javafx.scene.control.TabPane?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.ToggleGroup?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.shape.Line?>
-<?import javafx.scene.text.Font?>
+<?import com.jfoenix.controls.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
 
-<BorderPane fx:id="dashboard_borderpane" prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.haitomns.redsoil.dashboardController">
+<BorderPane fx:id="dashboard_borderpane" prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.haitomns.redsoil.dashboardController">
     <left>
         <Pane prefHeight="718.0" prefWidth="200.0" style="-fx-background-color: #BEBEBE;">
             <children>
@@ -132,7 +115,7 @@
             <children>
             <HBox fx:id="bloodDonationHbox" prefHeight="718.0" prefWidth="1168.0">
                <children>
-                        <TabPane prefHeight="718.0" prefWidth="450.0" tabClosingPolicy="UNAVAILABLE">
+                        <TabPane prefHeight="718.0" prefWidth="450.0" stylesheets="@../../../com.haitomns.css/tabbedPane.css" tabClosingPolicy="UNAVAILABLE">
                             <tabs>
                                 <Tab text="New Donor">
                                     <content>
@@ -473,21 +456,21 @@
                                 </Tab>
                             </tabs>
                         </TabPane>
-                        <TabPane prefHeight="718.0" prefWidth="715.0" tabClosingPolicy="UNAVAILABLE">
+                        <TabPane prefHeight="718.0" prefWidth="715.0" stylesheets="@../../../com.haitomns.css/tabbedPane.css" tabClosingPolicy="UNAVAILABLE">
                             <tabs>
                                 <Tab text="Donor Data Display">
                                     <content>
-                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #f4f4f4;">
+                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #ffffff;">
                                  <children>
-                                    <TableView fx:id="donorDataTable" layoutX="23.0" layoutY="31.0" prefHeight="560.0" prefWidth="650.0" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0">
+                                    <TableView fx:id="donorDataTable" layoutX="23.0" layoutY="31.0" prefHeight="555.0" prefWidth="650.0" stylesheets="@../../../com.haitomns.css/tablestyle.css" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0">
                                        <columns>
-                                          <TableColumn fx:id="donorIdColumnAdd" prefWidth="70.0" text="Donor ID" />
+                                          <TableColumn fx:id="donorIdColumnAdd" prefWidth="70.0" sortType="DESCENDING" text="Donor ID" />
                                           <TableColumn fx:id="donorNameColumnAdd" prefWidth="200.0" text="Donor Name" />
                                           <TableColumn fx:id="donorGenderColumnAdd" prefWidth="75.0" text="Gender" />
-                                          <TableColumn fx:id="donorPhoneColumnAdd" prefWidth="90.0" text="Phone" />
-                                          <TableColumn fx:id="aboColumnAdd" prefWidth="42.0" text="ABO" />
-                                          <TableColumn fx:id="rhColumnAdd" prefWidth="41.0" text="RH" />
-                                          <TableColumn fx:id="unitColumnAdd" prefWidth="75.0" text="Unit" />
+                                          <TableColumn fx:id="donorPhoneColumnAdd" minWidth="20.0" prefWidth="125.0" text="Phone" />
+                                          <TableColumn fx:id="aboColumnAdd" prefWidth="47.0" text="ABO" />
+                                          <TableColumn fx:id="rhColumnAdd" prefWidth="42.0" text="RH" />
+                                          <TableColumn fx:id="unitColumnAdd" prefWidth="89.0" text="Unit" />
                                        </columns>
                                     </TableView>
                                  </children>
@@ -498,6 +481,55 @@
                         </TabPane>
                </children>
             </HBox>
+            <ScrollPane fx:id="findBloodScrollPane" prefHeight="718.0" prefWidth="1166.0">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="700.0" prefWidth="1166.0" style="-fx-background-color: #bebebe;">
+                     <children>
+                        <TableView fx:id="findBloodTable" layoutX="67.0" layoutY="187.0" prefHeight="420.0" prefWidth="1000.0" style="-fx-alignment: CENTER;" stylesheets="@../../../com.haitomns.css/tablestyle.css" AnchorPane.bottomAnchor="93.0" AnchorPane.leftAnchor="67.0" AnchorPane.rightAnchor="99.0" AnchorPane.topAnchor="187.0">
+                          <columns>
+                            <TableColumn fx:id="donorIdColumn" prefWidth="70.0" text="Donor ID" />
+                            <TableColumn fx:id="donorNameColumn" prefWidth="200.0" text="Donor Name" />
+                              <TableColumn fx:id="donorPhoneColumn" prefWidth="123.0" text="Phone" />
+                              <TableColumn fx:id="aboColumn" prefWidth="47.0" text="ABO" />
+                              <TableColumn fx:id="rhColumn" prefWidth="42.0" text="RH" />
+                              <TableColumn fx:id="unitColumn" prefWidth="65.0" text="Unit" />
+                              <TableColumn fx:id="creationDateColumn" prefWidth="183.0" text="Creation Date " />
+                              <TableColumn fx:id="expiryDateColumn" prefWidth="123.0" text="Expiry Date" />
+                              <TableColumn fx:id="viewButtonColumn" minWidth="0.0" prefWidth="61.0" text="View" />
+                              <TableColumn fx:id="removeButtonColumn" minWidth="0.0" prefWidth="84.0" text="Remove" />
+                          </columns>
+                        </TableView>
+                        <Line endX="900.0" layoutX="167.0" layoutY="101.0" startX="-100.0" stroke="#c93f3e" />
+                        <Label layoutX="66.0" layoutY="65.0" text="Find Blood" textFill="#c93f3e">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="67.0" layoutY="125.0" text="Donor ID" textFill="#c93f3e">
+                           <font>
+                              <Font size="13.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="findDonorIdInput" layoutX="137.0" layoutY="117.0" prefHeight="35.0" prefWidth="320.0" style="-fx-border-color: #C93F3E; -fx-border-radius: 10; -fx-background-color: #bebebe;" />
+                        <JFXButton buttonType="RAISED" layoutX="474.0" layoutY="119.0" mnemonicParsing="false" onAction="#find_donor_button_click" style="-fx-background-color: #C93F3E; -fx-background-radius: 10;" text="Find" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </JFXButton>
+                        <JFXButton buttonType="RAISED" layoutX="909.0" layoutY="120.0" mnemonicParsing="false" onAction="#removed_view" style="-fx-background-color: #1F743E; -fx-background-radius: 10;" text="View Removed Blood" textFill="WHITE" AnchorPane.rightAnchor="98.0">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </JFXButton>
+                        <JFXButton buttonType="RAISED" layoutX="770.0" layoutY="120.0" mnemonicParsing="false" onAction="#view_all_blood" style="-fx-background-color: #1F743E; -fx-background-radius: 10;" text="View All Blood" textFill="WHITE" AnchorPane.rightAnchor="281.0">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </JFXButton>
+                     </children>
+                  </AnchorPane>
+              </content>
+            </ScrollPane>
                   <ScrollPane fx:id="userAccountScrollPane" prefHeight="718.0" prefWidth="1166.0">
                       <content>
                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="700.0" prefWidth="1166.0" style="-fx-background-color: #bebebe;">
@@ -549,12 +581,12 @@
                            </font>
                         </Label>
                         <Line endX="450.0" layoutX="601.0" layoutY="40.0" startX="-100.0" stroke="#c93f3e" />
-                        <ImageView fitHeight="297.0" fitWidth="294.0" layoutX="500.0" layoutY="63.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="185.0" fitWidth="213.0" layoutX="500.0" layoutY="63.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../../../com.haitomns.images/haiotmnsTaglineRed.png" />
                            </image>
                         </ImageView>
-                        <Label layoutX="811.0" layoutY="65.0" text="Haitomns Groups" textFill="#c93f3e">
+                        <Label layoutX="722.0" layoutY="66.0" text="Haitomns Groups" textFill="#c93f3e">
                            <font>
                               <Font name="System Bold" size="24.0" />
                            </font>
@@ -564,22 +596,22 @@
                               <Font name="System Bold" size="24.0" />
                            </font>
                         </Label>
-                        <Label layoutX="853.0" layoutY="143.0" text="+977 980 112 6858" textFill="#c93f3e">
+                        <Label layoutX="764.0" layoutY="144.0" text="+977 980 112 6858" textFill="#c93f3e">
                            <font>
                               <Font name="System Bold" size="16.0" />
                            </font>
                         </Label>
-                        <Label layoutX="853.0" layoutY="108.0" text="haitomns.com.np" textFill="#c93f3e">
+                        <Label layoutX="764.0" layoutY="109.0" text="haitomns.com" textFill="#c93f3e">
                            <font>
                               <Font name="System Bold" size="16.0" />
                            </font>
                         </Label>
-                        <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="808.0" layoutY="106.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="719.0" layoutY="107.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../../../com.haitomns.images/website.png" />
                            </image>
                         </ImageView>
-                        <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="811.0" layoutY="140.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="722.0" layoutY="141.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../../../com.haitomns.images/phone.png" />
                            </image>
@@ -614,59 +646,66 @@
                               </ImageView>
                            </graphic>
                         </JFXButton>
+                        <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="722.0" layoutY="178.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../com.haitomns.images/facebook.png" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="764.0" layoutY="180.0" text="/haitomnsgroups" textFill="#c93f3e">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                        </Label>
+                        <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="722.0" layoutY="214.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../com.haitomns.images/twitter.png" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="764.0" layoutY="216.0" text="\@haitomnsgroups" textFill="#c93f3e">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                        </Label>
+                        <ImageView fitHeight="185.0" fitWidth="213.0" layoutX="500.0" layoutY="282.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../com.haitomns.images/redSoilLogoRed.png" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="723.0" layoutY="277.0" text="RedSoil" textFill="#c93f3e">
+                           <font>
+                              <Font name="System Bold" size="30.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="721.0" layoutY="323.0" text="Get all you blood work done" textFill="#c93f3e">
+                           <font>
+                              <Font name="System Italic" size="18.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="723.0" layoutY="358.0" text="Version 1.0" textFill="#c93f3e" />
+                        <Label layoutX="764.0" layoutY="400.0" text="redsoil.haitomns.com" textFill="#c93f3e">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                        </Label>
+                        <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="723.0" layoutY="397.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../com.haitomns.images/website.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="723.0" layoutY="432.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../com.haitomns.images/github.png" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="764.0" layoutY="435.0" text="/haitomnsgroups/redsoilApp" textFill="#c93f3e">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                        </Label>
                               </children>
                           </AnchorPane>
                       </content>
                   </ScrollPane>
-            <ScrollPane fx:id="findBloodScrollPane" prefHeight="718.0" prefWidth="1166.0">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="700.0" prefWidth="1166.0" style="-fx-background-color: #bebebe;">
-                     <children>
-                        <TableView fx:id="findBloodTable" layoutX="67.0" layoutY="187.0" prefHeight="445.0" prefWidth="1000.0" AnchorPane.bottomAnchor="86.0" AnchorPane.leftAnchor="67.0" AnchorPane.rightAnchor="99.0" AnchorPane.topAnchor="187.0">
-                          <columns>
-                            <TableColumn fx:id="donorIdColumn" prefWidth="70.0" text="Donor ID" />
-                            <TableColumn fx:id="donorNameColumn" prefWidth="200.0" text="Donor Name" />
-                              <TableColumn fx:id="donorPhoneColumn" prefWidth="90.0" text="Phone" />
-                              <TableColumn fx:id="aboColumn" prefWidth="42.0" text="ABO" />
-                              <TableColumn fx:id="rhColumn" prefWidth="41.0" text="RH" />
-                              <TableColumn fx:id="unitColumn" prefWidth="75.0" text="Unit" />
-                              <TableColumn fx:id="creationDateColumn" prefWidth="120.0" text="Creation Date " />
-                              <TableColumn fx:id="expiryDateColumn" prefWidth="100.0" text="Expiry Date" />
-                              <TableColumn fx:id="viewButtonColumn" prefWidth="50.0" text="View" />
-                              <TableColumn fx:id="removeButtonColumn" minWidth="0.0" prefWidth="65.0" text="Remove" />
-                          </columns>
-                        </TableView>
-                        <Line endX="900.0" layoutX="167.0" layoutY="101.0" startX="-100.0" stroke="#c93f3e" />
-                        <Label layoutX="66.0" layoutY="65.0" text="Find Blood" textFill="#c93f3e">
-                           <font>
-                              <Font name="System Bold" size="18.0" />
-                           </font>
-                        </Label>
-                        <Label layoutX="67.0" layoutY="125.0" text="Donor ID" textFill="#c93f3e">
-                           <font>
-                              <Font size="13.0" />
-                           </font>
-                        </Label>
-                        <TextField fx:id="findDonorIdInput" layoutX="137.0" layoutY="117.0" prefHeight="35.0" prefWidth="320.0" style="-fx-border-color: #C93F3E; -fx-border-radius: 10; -fx-background-color: #bebebe;" />
-                        <JFXButton buttonType="RAISED" layoutX="474.0" layoutY="119.0" mnemonicParsing="false" onAction="#find_donor_button_click" style="-fx-background-color: #C93F3E; -fx-background-radius: 10;" text="Find" textFill="WHITE">
-                           <font>
-                              <Font name="System Bold" size="14.0" />
-                           </font>
-                        </JFXButton>
-                        <JFXButton buttonType="RAISED" layoutX="909.0" layoutY="120.0" mnemonicParsing="false" onAction="#removed_view" style="-fx-background-color: #1F743E; -fx-background-radius: 10;" text="View Removed Blood" textFill="WHITE" AnchorPane.rightAnchor="98.0">
-                           <font>
-                              <Font name="System Bold" size="14.0" />
-                           </font>
-                        </JFXButton>
-                        <JFXButton buttonType="RAISED" layoutX="741.0" layoutY="119.0" mnemonicParsing="false" onAction="#view_all_blood" style="-fx-background-color: #1F743E; -fx-background-radius: 10;" text="View All Blood" textFill="WHITE" AnchorPane.rightAnchor="280.0">
-                           <font>
-                              <Font name="System Bold" size="14.0" />
-                           </font>
-                        </JFXButton>
-                     </children>
-                  </AnchorPane>
-              </content>
-            </ScrollPane>
                 <ScrollPane fx:id="dashboardScrollPane" prefHeight="718.0" prefWidth="1166.0">
                     <content>
                         <AnchorPane prefHeight="700.0" prefWidth="1166.0" style="-fx-background-color: #bebebe;">
@@ -852,18 +891,18 @@
                               </Label>
                            </children>
                         </Pane>
-                        <TableView fx:id="dashboardBloodTable" layoutX="51.0" layoutY="387.0" prefHeight="240.0" prefWidth="1060.0">
+                        <TableView fx:id="dashboardBloodTable" layoutX="51.0" layoutY="387.0" prefHeight="233.0" prefWidth="1060.0" stylesheets="@../../../com.haitomns.css/tablestyle.css">
                            <columns>
                               <TableColumn fx:id="donorIdColumnDB" prefWidth="70.0" text="Donor ID" />
-                              <TableColumn fx:id="donorNameColumnDB" prefWidth="200.0" text="Donor Name" />
-                              <TableColumn fx:id="donorPhoneColumnDB" prefWidth="90.0" text="Phone" />
-                              <TableColumn fx:id="aboColumnDB" prefWidth="42.0" text="ABO" />
-                              <TableColumn fx:id="rhColumnDB" prefWidth="41.0" text="RH" />
-                              <TableColumn fx:id="unitColumnDB" prefWidth="75.0" text="Unit" />
-                              <TableColumn fx:id="creationDateColumnDB" prefWidth="120.0" text="Creation Date " />
-                              <TableColumn fx:id="expiryDateColumnDB" prefWidth="100.0" text="Expiry Date" />
-                              <TableColumn fx:id="viewButtonDBColumn" prefWidth="50.0" text="View" />
-                              <TableColumn fx:id="removeButtonDBColumn" minWidth="0.0" prefWidth="65.0" text="Remove" />
+                              <TableColumn fx:id="donorNameColumnDB" prefWidth="191.0" text="Donor Name" />
+                              <TableColumn fx:id="donorPhoneColumnDB" prefWidth="128.0" text="Phone" />
+                              <TableColumn fx:id="aboColumnDB" prefWidth="46.0" text="ABO" />
+                              <TableColumn fx:id="rhColumnDB" prefWidth="62.0" text="RH" />
+                              <TableColumn fx:id="unitColumnDB" prefWidth="69.0" text="Unit" />
+                              <TableColumn fx:id="creationDateColumnDB" prefWidth="186.0" text="Creation Date " />
+                              <TableColumn fx:id="expiryDateColumnDB" prefWidth="164.0" text="Expiry Date" />
+                              <TableColumn fx:id="viewButtonDBColumn" prefWidth="65.0" text="View" />
+                              <TableColumn fx:id="removeButtonDBColumn" minWidth="0.0" prefWidth="77.0" text="Remove" />
                            </columns>
                         </TableView>
                             </children>

@@ -18,6 +18,38 @@ USE `redsoildb`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `bloodcomponent`
+--
+
+DROP TABLE IF EXISTS `bloodcomponent`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `bloodcomponent` (
+  `ID` int unsigned NOT NULL AUTO_INCREMENT,
+  `Donor_ID` int unsigned NOT NULL,
+  `prbcs` varchar(128) DEFAULT NULL,
+  `prbc` varchar(128) DEFAULT NULL,
+  `ffp` varchar(128) DEFAULT NULL,
+  `platelets` varchar(128) DEFAULT NULL,
+  `prp` varchar(128) DEFAULT NULL,
+  `cryoppt` varchar(128) DEFAULT NULL,
+  `discard_blood` varchar(128) DEFAULT NULL,
+  PRIMARY KEY (`ID`),
+  KEY `Donor_ID` (`Donor_ID`),
+  CONSTRAINT `bloodcomponent_ibfk_1` FOREIGN KEY (`Donor_ID`) REFERENCES `blooddonationuserdata` (`ID`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `bloodcomponent`
+--
+
+LOCK TABLES `bloodcomponent` WRITE;
+/*!40000 ALTER TABLE `bloodcomponent` DISABLE KEYS */;
+/*!40000 ALTER TABLE `bloodcomponent` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `blooddonationtestingdetails`
 --
 
@@ -94,6 +126,23 @@ LOCK TABLES `blooddonationuserdata` WRITE;
 /*!40000 ALTER TABLE `blooddonationuserdata` DISABLE KEYS */;
 /*!40000 ALTER TABLE `blooddonationuserdata` ENABLE KEYS */;
 UNLOCK TABLES;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `bloodcompInitTRG` AFTER INSERT ON `blooddonationuserdata` FOR EACH ROW begin
+	call bloodcompInit();
+end */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 
 --
 -- Temporary view structure for view `bloodstautstotal`
@@ -104,7 +153,7 @@ DROP TABLE IF EXISTS `bloodstautstotal`;
 SET @saved_cs_client     = @@character_set_client;
 /*!50503 SET character_set_client = utf8mb4 */;
 /*!50001 CREATE VIEW `bloodstautstotal` AS SELECT 
- 1 AS `count(Donor_ID)`*/;
+ 1 AS `donorTotal`*/;
 SET character_set_client = @saved_cs_client;
 
 --
@@ -169,60 +218,8 @@ CREATE TABLE `login` (
 
 LOCK TABLES `login` WRITE;
 /*!40000 ALTER TABLE `login` DISABLE KEYS */;
-INSERT INTO `login` VALUES (1,1,'haitomns','12345');
+INSERT INTO `login` VALUES (1,1,'haitomns','aad0ad135729292b9f0fc454ab7e0568820231b8');
 /*!40000 ALTER TABLE `login` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `removeblooddetails`
---
-
-DROP TABLE IF EXISTS `removeblooddetails`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `removeblooddetails` (
-  `ID` int unsigned NOT NULL AUTO_INCREMENT,
-  `Blood_Donation_Orgnization` varchar(200) DEFAULT NULL,
-  `Donor_Name` varchar(50) NOT NULL,
-  `Gender` varchar(8) DEFAULT NULL,
-  `Age` tinyint unsigned DEFAULT NULL,
-  `Occupation` varchar(100) DEFAULT NULL,
-  `Address` varchar(128) DEFAULT NULL,
-  `Phone` varchar(10) DEFAULT NULL,
-  `Email` varchar(320) DEFAULT NULL,
-  `Patient_Name` varchar(50) DEFAULT NULL,
-  `Donor_ID` varchar(100) DEFAULT NULL,
-  `Date_Of_Creation` date DEFAULT NULL,
-  `Previously_Donated` tinyint(1) DEFAULT NULL,
-  `Previously_Donated_Date` date DEFAULT NULL,
-  `Diseases` varchar(512) DEFAULT NULL,
-  `Weight` varchar(128) DEFAULT NULL,
-  `BP` varchar(128) DEFAULT NULL,
-  `HB` varchar(128) DEFAULT NULL,
-  `Resp_Sys` varchar(128) DEFAULT NULL,
-  `Cvs` varchar(128) DEFAULT NULL,
-  `Gi_System` varchar(128) DEFAULT NULL,
-  `Other` varchar(128) DEFAULT NULL,
-  `Fit` varchar(128) DEFAULT NULL,
-  `Unit` varchar(128) DEFAULT NULL,
-  `ABO` varchar(128) DEFAULT NULL,
-  `RH` varchar(128) DEFAULT NULL,
-  `HIV` varchar(128) DEFAULT NULL,
-  `HBsAg` varchar(128) DEFAULT NULL,
-  `HCV` varchar(128) DEFAULT NULL,
-  `VDRL` varchar(128) DEFAULT NULL,
-  `Expiry_date` date DEFAULT NULL,
-  PRIMARY KEY (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `removeblooddetails`
---
-
-LOCK TABLES `removeblooddetails` WRITE;
-/*!40000 ALTER TABLE `removeblooddetails` DISABLE KEYS */;
-/*!40000 ALTER TABLE `removeblooddetails` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -232,7 +229,7 @@ UNLOCK TABLES;
 --
 -- Dumping routines for database 'redsoildb'
 --
-/*!50003 DROP PROCEDURE IF EXISTS `removeBlood` */;
+/*!50003 DROP PROCEDURE IF EXISTS `bloodcompInit` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
@@ -242,17 +239,12 @@ UNLOCK TABLES;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `removeBlood`(DonorIdToDelete varchar(100))
+CREATE DEFINER=`root`@`localhost` PROCEDURE `bloodcompInit`()
 BEGIN
-	INSERT INTO removeblooddetails (`ID`,`Blood_Donation_Orgnization`,`Donor_Name`,`Gender`,`Age`,`Occupation`,`Address`,`Phone`,`Email`,`Patient_Name`,`Donor_ID`,`Date_Of_Creation`,`Previously_Donated`,`Previously_Donated_Date`,`Diseases`,`Weight`,`BP`,`HB`,`Resp_Sys`,`Cvs`,`Gi_System`,`Other`,`Fit`,`Unit`,`ABO`,`RH`,`HIV`,`HBsAg`,`HCV`,`VDRL`,`Expiry_date`)
-	SELECT blooddonationuserdata.Donor_ID,`Blood_Donation_Orgnization`,`Donor_Name`,`Gender`,`Age`,`Occupation`,`Address`,`Phone`,`Email`,`Patient_Name`,blooddonationuserdata.Donor_ID,`Date_Of_Creation`,`Previously_Donated`,`Previously_Donated_Date`,`Diseases`,`Weight`,`BP`,`HB`,`Resp_Sys`,`Cvs`,`Gi_System`,`Other`,`Fit`,`Unit`,`ABO`,`RH`,`HIV`,`HBsAg`,`HCV`,`VDRL`,`Expiry_date`
-	FROM blooddonationuserdata inner JOIN blooddonationtestingdetails  
-	ON blooddonationuserdata.ID = blooddonationtestingdetails.Donor_ID
-	where blooddonationuserdata.Donor_ID = DonorIdToDelete;
-    
-    delete from blooddonationtestingdetails where Donor_ID = 
-    (select ID from blooddonationuserdata where Donor_ID = DonorIdToDelete);
-    delete from blooddonationuserdata where Donor_ID = DonorIdToDelete;
+	SET @donorGet_id =  (select id FROM blooddonationuserdata ORDER BY ID DESC LIMIT 1);
+	INSERT INTO `redsoildb`.`bloodcomponent`
+	(`ID`,`Donor_ID`,`prbcs`,`prbc`,`ffp`,`platelets`,`prp`,`cryoppt`,`discard_blood`) 
+    VALUES(null, @donorGet_id, "No", "No", "No", "No", "No", "No", "No");
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -273,7 +265,7 @@ DELIMITER ;
 /*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `bloodstautstotal` AS select count(`blooddonationuserdata`.`Donor_ID`) AS `count(Donor_ID)` from `blooddonationuserdata` union all select count(`blooddonationtestingdetails`.`Donor_ID`) AS `count(Donor_ID)` from `blooddonationtestingdetails` where (`blooddonationtestingdetails`.`Expiry_date` > curdate()) union all select count(`blooddonationtestingdetails`.`Donor_ID`) AS `count(Donor_ID)` from `blooddonationtestingdetails` where (`blooddonationtestingdetails`.`Expiry_date` < curdate()) union all select sum(`blooddonationtestingdetails`.`Unit`) AS `sum(Unit)` from `blooddonationtestingdetails` where (`blooddonationtestingdetails`.`Expiry_date` > curdate()) */;
+/*!50001 VIEW `bloodstautstotal` AS select count(`blooddonationuserdata`.`Donor_ID`) AS `donorTotal` from (`blooddonationuserdata` join `blooddonationtestingdetails` on((`blooddonationuserdata`.`ID` = `blooddonationtestingdetails`.`Donor_ID`))) union all select count(`blooddonationuserdata`.`Donor_ID`) AS `donorTotal` from ((`blooddonationuserdata` join `blooddonationtestingdetails` on((`blooddonationuserdata`.`ID` = `blooddonationtestingdetails`.`Donor_ID`))) join `bloodcomponent` on((`blooddonationuserdata`.`ID` = `bloodcomponent`.`Donor_ID`))) where ((`bloodcomponent`.`discard_blood` = 'No') and (`blooddonationtestingdetails`.`Expiry_date` > curdate())) union all select count(`blooddonationuserdata`.`Donor_ID`) AS `count(blooddonationuserdata.Donor_ID)` from (`blooddonationuserdata` join `blooddonationtestingdetails` on((`blooddonationuserdata`.`ID` = `blooddonationtestingdetails`.`Donor_ID`))) where (`blooddonationtestingdetails`.`Expiry_date` < curdate()) union all select sum(`blooddonationtestingdetails`.`Unit`) AS `donorTotal` from ((`blooddonationtestingdetails` join `blooddonationuserdata` on((`blooddonationuserdata`.`ID` = `blooddonationtestingdetails`.`Donor_ID`))) join `bloodcomponent` on((`blooddonationtestingdetails`.`ID` = `bloodcomponent`.`Donor_ID`))) where ((`blooddonationtestingdetails`.`Expiry_date` > curdate()) and (`bloodcomponent`.`discard_blood` = 'No')) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -291,7 +283,7 @@ DELIMITER ;
 /*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `bloodtypestotal` AS select count(`blooddonationtestingdetails`.`ABO`) AS `count(ABO)` from `blooddonationtestingdetails` where ((`blooddonationtestingdetails`.`ABO` = 'A') and (`blooddonationtestingdetails`.`RH` = '+')) union all select count(`blooddonationtestingdetails`.`ABO`) AS `count(ABO)` from `blooddonationtestingdetails` where ((`blooddonationtestingdetails`.`ABO` = 'A') and (`blooddonationtestingdetails`.`RH` = '-')) union all select count(`blooddonationtestingdetails`.`ABO`) AS `count(ABO)` from `blooddonationtestingdetails` where ((`blooddonationtestingdetails`.`ABO` = 'B') and (`blooddonationtestingdetails`.`RH` = '+')) union all select count(`blooddonationtestingdetails`.`ABO`) AS `count(ABO)` from `blooddonationtestingdetails` where ((`blooddonationtestingdetails`.`ABO` = 'B') and (`blooddonationtestingdetails`.`RH` = '-')) union all select count(`blooddonationtestingdetails`.`ABO`) AS `count(ABO)` from `blooddonationtestingdetails` where ((`blooddonationtestingdetails`.`ABO` = 'AB') and (`blooddonationtestingdetails`.`RH` = '+')) union all select count(`blooddonationtestingdetails`.`ABO`) AS `count(ABO)` from `blooddonationtestingdetails` where ((`blooddonationtestingdetails`.`ABO` = 'AB') and (`blooddonationtestingdetails`.`RH` = '-')) union all select count(`blooddonationtestingdetails`.`ABO`) AS `count(ABO)` from `blooddonationtestingdetails` where ((`blooddonationtestingdetails`.`ABO` = 'O') and (`blooddonationtestingdetails`.`RH` = '+')) union all select count(`blooddonationtestingdetails`.`ABO`) AS `count(ABO)` from `blooddonationtestingdetails` where ((`blooddonationtestingdetails`.`ABO` = 'O') and (`blooddonationtestingdetails`.`RH` = '-')) */;
+/*!50001 VIEW `bloodtypestotal` AS select count(`blooddonationtestingdetails`.`ABO`) AS `count(ABO)` from ((`blooddonationtestingdetails` join `blooddonationuserdata` on((`blooddonationuserdata`.`ID` = `blooddonationtestingdetails`.`Donor_ID`))) join `bloodcomponent` on((`blooddonationuserdata`.`ID` = `bloodcomponent`.`Donor_ID`))) where ((`blooddonationtestingdetails`.`ABO` = 'A') and (`blooddonationtestingdetails`.`RH` = '+') and (`bloodcomponent`.`discard_blood` = 'No') and (`blooddonationtestingdetails`.`Expiry_date` > curdate())) union all select count(`blooddonationtestingdetails`.`ABO`) AS `count(ABO)` from ((`blooddonationtestingdetails` join `blooddonationuserdata` on((`blooddonationuserdata`.`ID` = `blooddonationtestingdetails`.`Donor_ID`))) join `bloodcomponent` on((`blooddonationuserdata`.`ID` = `bloodcomponent`.`Donor_ID`))) where ((`blooddonationtestingdetails`.`ABO` = 'A') and (`blooddonationtestingdetails`.`RH` = '-') and (`bloodcomponent`.`discard_blood` = 'No') and (`blooddonationtestingdetails`.`Expiry_date` > curdate())) union all select count(`blooddonationtestingdetails`.`ABO`) AS `count(ABO)` from ((`blooddonationtestingdetails` join `blooddonationuserdata` on((`blooddonationuserdata`.`ID` = `blooddonationtestingdetails`.`Donor_ID`))) join `bloodcomponent` on((`blooddonationuserdata`.`ID` = `bloodcomponent`.`Donor_ID`))) where ((`blooddonationtestingdetails`.`ABO` = 'B') and (`blooddonationtestingdetails`.`RH` = '+') and (`bloodcomponent`.`discard_blood` = 'No') and (`blooddonationtestingdetails`.`Expiry_date` > curdate())) union all select count(`blooddonationtestingdetails`.`ABO`) AS `count(ABO)` from ((`blooddonationtestingdetails` join `blooddonationuserdata` on((`blooddonationuserdata`.`ID` = `blooddonationtestingdetails`.`Donor_ID`))) join `bloodcomponent` on((`blooddonationuserdata`.`ID` = `bloodcomponent`.`Donor_ID`))) where ((`blooddonationtestingdetails`.`ABO` = 'B') and (`blooddonationtestingdetails`.`RH` = '-') and (`bloodcomponent`.`discard_blood` = 'No') and (`blooddonationtestingdetails`.`Expiry_date` > curdate())) union all select count(`blooddonationtestingdetails`.`ABO`) AS `count(ABO)` from ((`blooddonationtestingdetails` join `blooddonationuserdata` on((`blooddonationuserdata`.`ID` = `blooddonationtestingdetails`.`Donor_ID`))) join `bloodcomponent` on((`blooddonationuserdata`.`ID` = `bloodcomponent`.`Donor_ID`))) where ((`blooddonationtestingdetails`.`ABO` = 'AB') and (`blooddonationtestingdetails`.`RH` = '+') and (`bloodcomponent`.`discard_blood` = 'No') and (`blooddonationtestingdetails`.`Expiry_date` > curdate())) union all select count(`blooddonationtestingdetails`.`ABO`) AS `count(ABO)` from ((`blooddonationtestingdetails` join `blooddonationuserdata` on((`blooddonationuserdata`.`ID` = `blooddonationtestingdetails`.`Donor_ID`))) join `bloodcomponent` on((`blooddonationuserdata`.`ID` = `bloodcomponent`.`Donor_ID`))) where ((`blooddonationtestingdetails`.`ABO` = 'AB') and (`blooddonationtestingdetails`.`RH` = '-') and (`bloodcomponent`.`discard_blood` = 'No') and (`blooddonationtestingdetails`.`Expiry_date` > curdate())) union all select count(`blooddonationtestingdetails`.`ABO`) AS `count(ABO)` from ((`blooddonationtestingdetails` join `blooddonationuserdata` on((`blooddonationuserdata`.`ID` = `blooddonationtestingdetails`.`Donor_ID`))) join `bloodcomponent` on((`blooddonationuserdata`.`ID` = `bloodcomponent`.`Donor_ID`))) where ((`blooddonationtestingdetails`.`ABO` = 'O') and (`blooddonationtestingdetails`.`RH` = '+') and (`bloodcomponent`.`discard_blood` = 'No') and (`blooddonationtestingdetails`.`Expiry_date` > curdate())) union all select count(`blooddonationtestingdetails`.`ABO`) AS `count(ABO)` from ((`blooddonationtestingdetails` join `blooddonationuserdata` on((`blooddonationuserdata`.`ID` = `blooddonationtestingdetails`.`Donor_ID`))) join `bloodcomponent` on((`blooddonationuserdata`.`ID` = `bloodcomponent`.`Donor_ID`))) where ((`blooddonationtestingdetails`.`ABO` = 'O') and (`blooddonationtestingdetails`.`RH` = '-') and (`bloodcomponent`.`discard_blood` = 'No') and (`blooddonationtestingdetails`.`Expiry_date` > curdate())) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -305,4 +297,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-09-25  8:10:39
+-- Dump completed on 2022-10-02 22:50:09
