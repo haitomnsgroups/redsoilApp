@@ -2,7 +2,8 @@
 # RedSoil
 RedSoil is an application designed to store the results of the blood banks and analyze them.
 
-![redsoilSplash Screen](https://user-images.githubusercontent.com/114091259/193548700-acdb2c6e-879c-4700-b9aa-4d341389c314.png)
+![RedSoil Splash](https://user-images.githubusercontent.com/114091259/194717618-0320cb45-01a1-48ba-9bbb-b78eebdbfd00.png)
+
 
 # Features
 
@@ -16,22 +17,23 @@ RedSoil is an application designed to store the results of the blood banks and a
 **Dashboard :**
 A single point to get the status of you blood bank with the count of ever blood group. Down below a table to view the filtered the data.
 
-![dashboard](https://user-images.githubusercontent.com/114091259/193549206-a2303652-5b10-4078-9fda-5e4d61d1c1cf.png)
+![RedSoil Dashboard](https://user-images.githubusercontent.com/114091259/193549206-a2303652-5b10-4078-9fda-5e4d61d1c1cf.png)
 
 **Blood Donation :**
 Blood Donation form designed to easily insert the records and table to show all the donor details in real time.
 
-![add](https://user-images.githubusercontent.com/114091259/193549311-53d6e702-76ee-422a-b6ec-b4895f903060.png)
+![RedSoil Add](https://user-images.githubusercontent.com/114091259/193549311-53d6e702-76ee-422a-b6ec-b4895f903060.png)
 
 **Find Blood :**
 A single point to find your donor and blood donation data.
 
-![find](https://user-images.githubusercontent.com/114091259/193549360-44f346db-53bb-4431-b9b7-1532a19ab580.png)
+![RedSoil Find](https://user-images.githubusercontent.com/114091259/193549360-44f346db-53bb-4431-b9b7-1532a19ab580.png)
 
 **User Account :**
 Update details of your blood bank, also backup and restore the database anywhere anytime you want.
 
-![about](https://user-images.githubusercontent.com/114091259/193549416-c5794f0a-325f-44e8-a3f5-43f4be6a6506.png)
+![Redsoil About](https://user-images.githubusercontent.com/114091259/194717625-73e5d370-c5b2-4034-8a66-60fbe17665ca.png)
+
 
 # Requirement
 RedSoil uses MySQL in the backend, so download and install [MySQL Server](https://dev.mysql.com/downloads/installer/), save the following configuration details:
