@@ -14,7 +14,7 @@
             <Font name="System Bold" size="30.0" />
          </font>
       </Label>
-      <Label layoutX="173.0" layoutY="88.0" text="Get all you blood work done" textFill="#e4e4e4">
+      <Label layoutX="173.0" layoutY="88.0" text="Make your blood work easy" textFill="#e4e4e4">
          <font>
             <Font name="System Italic" size="18.0" />
          </font>
